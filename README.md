@@ -1,6 +1,6 @@
-# LEARNING
+# Learning Documentation
 
-- [LEARNING](#learning)
+- [Learning Documentation](#learning-documentation)
   - [General Setups](#general-setups)
     - [SSH](#ssh)
     - [Installing ASDF](#installing-asdf)
@@ -458,8 +458,8 @@ sudo apt install potrace
 potrace example.bmp -s -o example.svg
 ```
 
-![original BMP](images/example.bmp)
-![Converted](images/example.svg)
+![original BMP](assets/images/example.bmp)
+![Converted](assets/images/example.svg)
 
 ## Concepts
 
