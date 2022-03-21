@@ -21,23 +21,25 @@
         - [For older Rails versions](#for-older-rails-versions)
         - [Configured as API app](#configured-as-api-app)
         - [Configured with React lilbs (Rails 6 or above)](#configured-with-react-lilbs-rails-6-or-above)
-      - [Rails generators](#rails-generators)
-        - [Rails models generators](#rails-models-generators)
-      - [PUMA](#puma)
+      - [Rails PUMA](#rails-puma)
         - [Check PUMA PORTS](#check-puma-ports)
         - [Kill PUMA](#kill-puma)
-      - [Redis](#redis)
+      - [Rails Redis](#rails-redis)
         - [Installing Redis](#installing-redis)
         - [Check Redis status](#check-redis-status)
         - [Restarting Redis](#restarting-redis)
-      - [Webpack](#webpack)
-      - [Rubocop](#rubocop)
-      - [Brakeman](#brakeman)
-      - [Foreman](#foreman)
+      - [Rails Webpack](#rails-webpack)
+      - [Rails Rubocop](#rails-rubocop)
+      - [Rails Brakeman](#rails-brakeman)
+      - [Rails Foreman](#rails-foreman)
       - [Rails GraphQL](#rails-graphql)
         - [Adding gem `graphiql-rails`](#adding-gem-graphiql-rails)
-        - [`graphiql-rails` generator](#graphiql-rails-generator)
+        - [`graphiql-rails` initial configuration](#graphiql-rails-initial-configuration)
         - [Mounting GraphQl engine to routes](#mounting-graphql-engine-to-routes)
+        - [Generating ObjectTypes](#generating-objecttypes)
+      - [Rails Rspec](#rails-rspec)
+        - [Installing Rspec](#installing-rspec)
+      - [Rails Mailcatcher](#rails-mailcatcher)
       - [Ruby on Rails Appends](#ruby-on-rails-appends)
         - [Checking Computer Hostname](#checking-computer-hostname)
         - [Fixing PG Error for new rails apps](#fixing-pg-error-for-new-rails-apps)
@@ -158,11 +160,13 @@ CREATE USER user_name SUPERUSER
 
 ### Git commands table
 
-| Command|Description|
+| Command|Description |
 | :--- |:---- |
 |`git rm -r --cached .`| Clear git cache for all files |
 |`git branch -M main`| Renaming branch and origin
-|`git branch -m newname`| Renaming branch locally
+|`git branch -m newname`| Renaming branch locally |
+|`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
+|`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
 
 ## LANGUANGES
 
@@ -194,27 +198,7 @@ rails new my_api -d=postgresql -T --api
 rails new my-app --webpack=react --database=postgresql
 ```
 
-#### Rails generators
-
-To check available generators native and from dependecies
-
-```shell
-rails generate
-```
-
-##### Rails models generators
-
-```shell
-rails g model Airline name:string image_url:string slug:string
-```
-
-Model with reference:
-
-```shell
-rails g model Review title:string description:string score:integer airline:belongs_to
-```
-
-#### PUMA
+#### Rails PUMA
 
 ##### Check PUMA PORTS
 
@@ -228,7 +212,7 @@ sudo netstat -ntlp | grep LISTEN
 lsof -wni tcp:3000
 ```
 
-#### Redis
+#### Rails Redis
 
 ##### Installing Redis
 
@@ -258,7 +242,7 @@ systemctl status redis
 /etc/init.d/redis-server restart
 ```
 
-#### Webpack
+#### Rails Webpack
 
 with application directory
 
@@ -266,13 +250,17 @@ with application directory
 ./bin/webpack-dev-server
 ```
 
-#### Rubocop
+#### Rails Rubocop
 
-```lock
+```Gemfile
+group :development do
+  ...
+
   gem 'rubocop', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+end
 ```
 
 ```shell
@@ -285,19 +273,23 @@ To enforce corrections
 bundle exec rubocop -A
 ```
 
-#### Brakeman
+#### Rails Brakeman
 
 Brakeman: Is a free vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development
 
-```lock
+```Gemfile
+group :development do
+  ...
+
   gem 'brakeman', '>= 4.0', require: false
+end
 ```
 
 ```shell
 bundle exec brakeman
 ```
 
-#### Foreman
+#### Rails Foreman
 
 Foreman is a tool that run all required services needed to run a project
 
@@ -327,7 +319,7 @@ foreman start
 
 To add graphQL gem go to the Gemfile and add:
 
-```lock
+```Gemfile
 group :development do
   ...
 
@@ -345,7 +337,7 @@ then run the bundler
 bundle install
 ```
 
-##### `graphiql-rails` generator
+##### `graphiql-rails` initial configuration
 
 As long as the gem is installed `graphiql-rails` will provide specfic generators configure your project to graphql
 
@@ -368,6 +360,49 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
+```
+
+##### Generating ObjectTypes
+
+```shell
+rails generate graphql:object Note id:ID! title:String! body:String!
+```
+
+*Note that `!` means that field os required to the query*
+
+#### Rails Rspec
+
+##### Installing Rspec
+
+```shell
+gem install rspec
+```
+
+Adding to the project
+
+Add on gem file and run bundle
+
+```Gemfile
+group :test do
+  ...
+
+  gem "rspec"
+  gem "rspec-rails"
+end
+```
+
+Generate Rspect required files
+
+```shell
+rails g rspec:install
+```
+
+#### Rails Mailcatcher
+
+MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out <http://127.0.0.1:1080> to see the mail.
+
+```shell
+gem install mailcatcher
 ```
 
 #### Ruby on Rails Appends
@@ -473,7 +508,7 @@ Basically serialize is the process to convert data to a byte stream that will re
 
 ### General references
 
-||
+| General |
 | :---- |
 | [S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
 | [GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
@@ -482,7 +517,7 @@ Basically serialize is the process to convert data to a byte stream that will re
 
 ### Ruby on Rails references
 
-||
+| Ruby on Rails |
 | :---- |
 |[Foreman](https://www.theforeman.org/introduction.html)|
 |[Rubocop](https://docs.rubocop.org/rubocop/installation.html)|
