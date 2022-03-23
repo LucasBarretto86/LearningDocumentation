@@ -14,6 +14,8 @@
       - [Creating postgres role](#creating-postgres-role)
   - [Git and Github](#git-and-github)
     - [Git commands table](#git-commands-table)
+    - [Markdown](#markdown)
+      - [Diagrams](#diagrams)
   - [LANGUANGES](#languanges)
     - [Python](#python)
     - [Ruby on Rails](#ruby-on-rails)
@@ -167,6 +169,25 @@ CREATE USER user_name SUPERUSER
 |`git branch -m newname`| Renaming branch locally |
 |`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
 |`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
+
+### Markdown
+
+#### Diagrams
+
+```mermaid
+graph LR
+Mermaid --> Worked
+```
+
+```mermaid
+graph RL
+Mermaid --> Worked
+```
+
+```mermaid
+graph
+Mermaid --> Worked
+```
 
 ## LANGUANGES
 
