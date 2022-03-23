@@ -2,12 +2,13 @@
 
 - [Ruby Language Learning](#ruby-language-learning)
   - [GraphQL](#graphql)
+    - [Basic project GraphQL directory tree](#basic-project-graphql-directory-tree)
   - [Rspec](#rspec)
   - [React](#react)
   - [Apollo](#apollo)
   - [MailCatcher](#mailcatcher)
   - [Current class and ActiveSupport::CurrentAttributes](#current-class-and-activesupportcurrentattributes)
-    - [Basic mplementation](#basic-mplementation)
+    - [Basic Implementation](#basic-implementation)
       - [Create `current.rb` class](#create-currentrb-class)
       - [Create controller concern `set_current_attributes.rb` to load attributes](#create-controller-concern-set_current_attributesrb-to-load-attributes)
       - [Include concern to the `application_controller.rb`](#include-concern-to-the-application_controllerrb)
@@ -21,6 +22,8 @@
 
 ## GraphQL
 
+### Basic project GraphQL directory tree
+
 ## Rspec
 
 ## React
@@ -33,7 +36,7 @@
 
 CurrentAttributes came out on Rails 5.2 allow us to control session variables, bellow follow steps
 
-### Basic mplementation
+### Basic Implementation
 
 #### Create `current.rb` class
 
