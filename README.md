@@ -16,6 +16,8 @@
     - [Git commands table](#git-commands-table)
     - [Markdown](#markdown)
       - [Diagrams](#diagrams)
+    - [Heroku](#heroku)
+      - [Staging Deployment](#staging-deployment)
   - [LANGUANGES](#languanges)
     - [Python](#python)
     - [Ruby on Rails](#ruby-on-rails)
@@ -57,6 +59,7 @@
       - [BMP to SVG](#bmp-to-svg)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
+  - [Specifics](#specifics)
   - [References](#references)
     - [General references](#general-references)
     - [Ruby on Rails references](#ruby-on-rails-references)
@@ -165,10 +168,19 @@ CREATE USER user_name SUPERUSER
 | Command|Description |
 | :--- |:---- |
 |`git rm -r --cached .`| Clear git cache for all files |
-|`git branch -M main`| Renaming branch and origin
-|`git branch -m newname`| Renaming branch locally |
+|`git branch | grep -v "main" | xargs git branch -D`| Clean git branches |
+|`git branch -M NEW_NAME`| Renaming branch and origin
+|`git branch -m NEW_NAME`| Renaming branch locally |
 |`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
+|`git reset --hard`| Undo every change not commited, also allow you to undo commits with flag `HEAD~1` |
 |`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
+|`git fetch --prune`| Updates existing branches|
+|`git branch -vv`| Branch status|
+|`git config --global user.name USER_NAME`| Set global user name|
+|`git config --global user.email USER_EMAIL`| Set global user email|
+|`git config --global user.password PASSWORD`| Set global user password|
+|`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
+|`git rebase BRANCH`| Sync loca branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
 
 ### Markdown
 
@@ -188,6 +200,10 @@ Mermaid --> Worked
 graph
 Mermaid --> Worked
 ```
+
+### Heroku
+
+#### Staging Deployment
 
 ## LANGUANGES
 
@@ -293,6 +309,15 @@ To enforce corrections
 ```shell
 bundle exec rubocop -A
 ```
+
+Custom configs for rubocop
+
+You can add custom rules for cops, for that be sure to create a `.rubocop.yml` file inside the project
+
+Check the default configs bellow
+[RuboCop’s default configuration](https://github.com/rubocop/rubocop/blob/master/config/default.yml)
+
+Simple referece:
 
 #### Rails Brakeman
 
@@ -524,6 +549,15 @@ potrace example.bmp -s -o example.svg
 Basically serialize is the process to convert data to a byte stream that will represent an object to another end
 
 [What is serialization](https://www.freecodecamp.org/news/what-is-serialization/)
+
+## Specifics
+
+|Language| File|
+|:---|:---|
+|Ruby|[Ruby Speficis](specifics/rb.md)|
+|CSS|[CSS Speficis](specifics/css.md)|
+|JS|[JS Speficis](specifics/js.md)|
+|Random|[Random Stuff](specifics/random.md)|
 
 ## References
 
