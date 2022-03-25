@@ -255,16 +255,16 @@ Mermaid --> Worked
 
 ## Languanges Learning
 
-[Learning CSS](https://github.com/LucasBarretto86/LearningCSS)|
-[Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))|
-[Learning Lua](https://github.com/LucasBarretto86/LearningLua)|
-[Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)|
-[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)|
-[Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)|
-[Learning Python](https://github.com/LucasBarretto86/LearningPython)|
+[Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
+[Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
+[Learning Lua](https://github.com/LucasBarretto86/LearningLua)
+[Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
+[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
+[Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
+[Learning Python](https://github.com/LucasBarretto86/LearningPython)
 [Learning Random](specifics/random.md)|
-[Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)|
-[Learning SQL](https://github.com/LucasBarretto86/LearningSQL)|
+[Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
+[Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
 ## Handling Images
 
