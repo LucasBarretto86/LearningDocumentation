@@ -10,8 +10,10 @@
         - [Installing ASDF Plugins](#installing-asdf-plugins)
         - [Updating ASDF Plugins](#updating-asdf-plugins)
         - [Setting version for ASDF Plugins](#setting-version-for-asdf-plugins)
-    - [Installing POSTGRES](#installing-postgres)
       - [Creating postgres role](#creating-postgres-role)
+  - [Local Web Servers](#local-web-servers)
+    - [Building Server with python3](#building-server-with-python3)
+    - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Git and Github](#git-and-github)
     - [Git commands table](#git-commands-table)
     - [Markdown](#markdown)
@@ -109,16 +111,6 @@ asdf global nodejs 16.5.0
 asdf local nodejs 12.23.0
 ```
 
-### Installing POSTGRES
-
-```shell
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt install postgresql-13 postgresql-client-13
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add 
-echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
-```
-
 #### Creating postgres role
 
 ```shell
@@ -127,6 +119,34 @@ sudo su - postgres
 
 ```sql
 CREATE USER user_name SUPERUSER
+```
+
+## Local Web Servers
+
+### Building Server with python3
+
+```shell
+python3 -m http.server 5505
+```
+
+### Killing Server from a specific port
+
+To list any process listening to the port 8080
+
+```shell
+lsof -i:8080
+```
+
+To kill any process listening to the port 8080
+
+```shell
+kill $(lsof -t -i:8080)
+```
+
+or more violently
+
+```shell
+kill -9 $(lsof -t -i:8080)
 ```
 
 ## Git and Github
@@ -181,6 +201,8 @@ Mermaid --> Worked
 |CSS|[CSS Learning](specifics/css.md)|
 |Javascript|[JS Learning](specifics/js.md)|
 |Python|[Python Learning](specifics/py.md)|
+|Postgress|[Postgres Learning](specifics/postgres.md)|
+|SQL|[SQL Learning](specifics/sql.md)|
 |Random|[Random Learning](specifics/random.md)|
 
 ## Handling Images
