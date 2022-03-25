@@ -18,6 +18,8 @@
     - [Building Server with python3](#building-server-with-python3)
     - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Git and Github](#git-and-github)
+    - [Submodules](#submodules)
+      - [Adding submodule](#adding-submodule)
     - [Git commands table](#git-commands-table)
     - [Markdown Diagrams](#markdown-diagrams)
       - [Mermaid Diagrams](#mermaid-diagrams)
@@ -36,7 +38,6 @@
   - [Concepts](#concepts)
     - [Serialization](#serialization)
   - [References](#references)
-    - [General references](#general-references)
   - [Snippets](#snippets)
     - [Checking Computer Hostname](#checking-computer-hostname)
 
@@ -151,6 +152,29 @@ kill -9 $(lsof -t -i:8080)
 
 ## Git and Github
 
+### Submodules
+
+Git also allow you to link dependencies as submodules does you can manage  your repos with a project structure
+
+To add a submodule first you need to have a remote repo to be attached as submodule
+
+#### Adding submodule
+
+```shell
+git submodule add https://github.com/LucasBarretto86/LearningLOVE.git
+```
+
+As added a submodule you can control it's versions withint the specific module directory
+
+```shell
+cd LearningLove
+
+touch test.txt
+git add test.txt
+git commit -m"Commiting directly with a submodule"
+git push
+```
+
 ### Git commands table
 
 | Command|Description |
@@ -162,6 +186,7 @@ kill -9 $(lsof -t -i:8080)
 |`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
 |`git reset --hard`| Undo every change not commited, also allow you to undo commits with flag `HEAD~1` |
 |`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
+|`git push --set-upstream origin BRANCH_NAME`| Push and set upstream |
 |`git fetch --prune`| Updates existing branches|
 |`git branch -vv`| Branch status|
 |`git config --global user.name USER_NAME`| Set global user name|
@@ -169,6 +194,8 @@ kill -9 $(lsof -t -i:8080)
 |`git config --global user.password PASSWORD`| Set global user password|
 |`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
 |`git rebase BRANCH`| Sync loca branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
+|`git remote add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as remote|
+|`git submodule add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as submodule|
 
 ### Markdown Diagrams
 
@@ -228,16 +255,16 @@ Mermaid --> Worked
 
 ## Languanges Learning
 
-|Language| Markdown|
-|:---|:---|
-|CSS|[CSS Learning](specifics/css.md)|
-|Javascript|[JS Learning](specifics/js.md)|
-|Markdown|[Markdown Learning](https://github.com/LucasBarretto86/LearningMarkdown)|
-|Postgress|[Postgres Learning](specifics/postgres.md)|
-|Python|[Python Learning](specifics/py.md)|
-|Random|[Random Learning](specifics/random.md)|
-|Ruby|[Ruby Learning](specifics/rb.md)|
-|SQL|[SQL Learning](specifics/sql.md)|
+[Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
+[Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
+[Learning Lua](https://github.com/LucasBarretto86/LearningLua)
+[Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
+[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
+[Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
+[Learning Python](https://github.com/LucasBarretto86/LearningPython)
+[Learning Random](specifics/random.md)|
+[Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
+[Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
 ## Handling Images
 
@@ -287,14 +314,11 @@ Basically serialize is the process to convert data to a byte stream that will re
 
 ## References
 
-### General references
-
-| General |
+| Reference |
 | :---- |
-| [S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
-| [GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
-| [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown#readme) |
-| [Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
+|[S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
+|[GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
+|[Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
 
 ## Snippets
 
