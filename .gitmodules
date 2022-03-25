@@ -1,6 +1,3 @@
-[submodule "specifics/md/LearningMarkdown"]
-	path = specifics/md/LearningMarkdown
-	url = https://github.com/LucasBarretto86/LearningMarkdown.git
 [submodule "specifics/LearningMarkdown"]
 	path = specifics/LearningMarkdown
 	url = https://github.com/LucasBarretto86/LearningMarkdown.git

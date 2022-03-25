@@ -227,16 +227,14 @@ Mermaid --> Worked
 
 ## Languanges Learning
 
-|Language| Markdown|
-|:---|:---|
-|CSS|[CSS Learning](specifics/css.md)|
-|Javascript|[JS Learning](specifics/js.md)|
-|Markdown|[Markdown Learning](https://github.com/LucasBarretto86/LearningMarkdown)|
-|Postgress|[Postgres Learning](specifics/postgres.md)|
-|Python|[Python Learning](specifics/py.md)|
-|Random|[Random Learning](specifics/random.md)|
-|Ruby|[Ruby Learning](specifics/rb.md)|
-|SQL|[SQL Learning](specifics/sql.md)|
+[Learning CSS](specifics/css.md)|
+[Learning JS](specifics/js.md)|
+[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)|
+[Learning Postgres](specifics/postgres.md)|
+[Learning Python](specifics/py.md)|
+[Learning Random](specifics/random.md)|
+[Learning Ruby](specifics/rb.md)|
+[Learning SQL](specifics/sql.md)|
 
 ## Handling Images
 
@@ -290,7 +288,6 @@ Basically serialize is the process to convert data to a byte stream that will re
 | :---- |
 |[S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
 |[GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
-|[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown#readme) |
 |[Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
 
 ## Snippets

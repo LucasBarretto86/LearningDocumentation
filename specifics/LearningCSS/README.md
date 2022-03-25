@@ -1,6 +1,6 @@
-# Javascrit CSS
+# Learning CSS
 
-- [Javascrit CSS](#javascrit-css)
+- [Learning CSS](#learning-css)
   - [Snippets](#snippets)
     - [SVG Dropdown shadow](#svg-dropdown-shadow)
     - [Hiding scroll](#hiding-scroll)
