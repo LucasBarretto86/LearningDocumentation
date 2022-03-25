@@ -230,13 +230,14 @@ Mermaid --> Worked
 
 |Language| Markdown|
 |:---|:---|
-|Ruby|[Ruby Learning](specifics/rb.md)|
 |CSS|[CSS Learning](specifics/css.md)|
 |Javascript|[JS Learning](specifics/js.md)|
-|Python|[Python Learning](specifics/py.md)|
+|Markdown|[Markdown Learning](https://github.com/LucasBarretto86/LearningMarkdown)|
 |Postgress|[Postgres Learning](specifics/postgres.md)|
-|SQL|[SQL Learning](specifics/sql.md)|
+|Python|[Python Learning](specifics/py.md)|
 |Random|[Random Learning](specifics/random.md)|
+|Ruby|[Ruby Learning](specifics/rb.md)|
+|SQL|[SQL Learning](specifics/sql.md)|
 
 ## Handling Images
 
