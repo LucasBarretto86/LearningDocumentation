@@ -7,6 +7,3 @@
 [submodule "specifics/LearningLua"]
 	path = specifics/LearningLua
 	url = https://github.com/LucasBarretto86/LearningLua.git
-[submodule "specifics/LearningLOVE"]
-	path = specifics/LearningLOVE
-	url = https://github.com/LucasBarretto86/LearningLOVE.git
