@@ -1,16 +1,19 @@
 # Learning Documentation
 
 - [Learning Documentation](#learning-documentation)
-  - [General Setups](#general-setups)
-    - [SSH](#ssh)
-    - [Installing ASDF](#installing-asdf)
-      - [ASDF Plugins](#asdf-plugins)
-        - [Adding ASDF Plugins](#adding-asdf-plugins)
-        - [Listing ASDF Plugins](#listing-asdf-plugins)
-        - [Installing ASDF Plugins](#installing-asdf-plugins)
-        - [Updating ASDF Plugins](#updating-asdf-plugins)
-        - [Setting version for ASDF Plugins](#setting-version-for-asdf-plugins)
-      - [Creating postgres role](#creating-postgres-role)
+  - [SSH](#ssh)
+    - [Create SSH](#create-ssh)
+    - [Validate SSH](#validate-ssh)
+    - [Check SSH public key](#check-ssh-public-key)
+  - [ASDF](#asdf)
+    - [ASDF Install](#asdf-install)
+    - [ASDF Plugins](#asdf-plugins)
+      - [Adding plugin dependencies](#adding-plugin-dependencies)
+      - [Listing ASDF Plugins](#listing-asdf-plugins)
+      - [Adding ASDF Plugins](#adding-asdf-plugins)
+    - [Installing through ASDF Plugins](#installing-through-asdf-plugins)
+    - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
+    - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Local Web Servers](#local-web-servers)
     - [Building Server with python3](#building-server-with-python3)
     - [Killing Server from a specific port](#killing-server-from-a-specific-port)
@@ -34,29 +37,29 @@
   - [Snippets](#snippets)
     - [Checking Computer Hostname](#checking-computer-hostname)
 
-## General Setups
+## SSH
 
-### SSH
+### Create SSH
 
-Create SSH
-
-```bash
+```shell
 ssh-keygen -t rsa -b 4096 -C "joe@example.com"
 ```
 
-Validate SSH
+### Validate SSH
 
-```bash
+```shell
 eval "$(ssh-agent -s)"
 ```
 
-Check SSH public key
+### Check SSH public key
 
-```bash
+```shell
 cat ~/.ssh/id_rsa.pub
 ```
 
-### Installing ASDF
+## ASDF
+
+### ASDF Install
 
 ```shell
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.0
@@ -64,9 +67,9 @@ echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
 echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
 ```
 
-#### ASDF Plugins
+### ASDF Plugins
 
-Adding plugin dependencies
+#### Adding plugin dependencies
 
 Each plugin has dependencies so we need to check the plugin repo where they should be listed. For asdf-nodejs they are:
 
@@ -74,7 +77,13 @@ Each plugin has dependencies so we need to check the plugin repo where they shou
 apt-get install dirmngr gpg curl gawk
 ```
 
-##### Adding ASDF Plugins
+#### Listing ASDF Plugins
+
+```shell
+asdf list-all ruby
+```
+
+#### Adding ASDF Plugins
 
 ```shell
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
@@ -83,42 +92,30 @@ asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
 ```
 
-##### Listing ASDF Plugins
-
-```shell
-asdf list-all ruby
-```
-
-##### Installing ASDF Plugins
+### Installing through ASDF Plugins
 
 ```shell
 asdf  install ruby 3.1.0
 ```
 
-##### Updating ASDF Plugins
+### Updating through ASDF Plugins
 
 ```shell
 asdf plugin-update --all
 ```
 
-##### Setting version for ASDF Plugins
+### Set version with ASDF Plugins
+
+Global
 
 ```shell
 asdf global nodejs 16.5.0
 ```
 
+Local
+
 ```shell
 asdf local nodejs 12.23.0
-```
-
-#### Creating postgres role
-
-```shell
-sudo su - postgres
-```
-
-```sql
-CREATE USER user_name SUPERUSER
 ```
 
 ## Local Web Servers
