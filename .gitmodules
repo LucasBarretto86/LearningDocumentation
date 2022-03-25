@@ -1,9 +1,0 @@
-[submodule "specifics/LearningMarkdown"]
-	path = specifics/LearningMarkdown
-	url = https://github.com/LucasBarretto86/LearningMarkdown.git
-[submodule "specifics/LearningPython"]
-	path = specifics/LearningPython
-	url = https://github.com/LucasBarretto86/LearningPython.git
-[submodule "specifics/LearningLua"]
-	path = specifics/LearningLua
-	url = https://github.com/LucasBarretto86/LearningLua.git
