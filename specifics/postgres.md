@@ -2,7 +2,7 @@
 
 - [POSTGRES Learning](#postgres-learning)
   - [Installation and Setup](#installation-and-setup)
-    - [Installing on Linux](#installing-on-linux)
+    - [On Linux](#on-linux)
     - [Enabling](#enabling)
     - [Starting](#starting)
     - [Stopping](#stopping)
@@ -14,14 +14,17 @@
     - [Grating access to User](#grating-access-to-user)
     - [Listing databases](#listing-databases)
     - [Using a database](#using-a-database)
-  - [SQL](#sql)
 
 ## Installation and Setup
 
-### Installing on Linux
+### On Linux
 
 ```shell
-sudo apt install postgresql postgresql-client
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt install postgresql-13 postgresql-client-13
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add 
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
 ```
 
 ### Enabling
@@ -94,5 +97,3 @@ GRANT USAGE ON SCHEMA public TO mohamed28;
 ```shell
 /C database_name;
 ```
-
-## SQL
