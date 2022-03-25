@@ -36,7 +36,6 @@
   - [Concepts](#concepts)
     - [Serialization](#serialization)
   - [References](#references)
-    - [General references](#general-references)
   - [Snippets](#snippets)
     - [Checking Computer Hostname](#checking-computer-hostname)
 
@@ -287,14 +286,12 @@ Basically serialize is the process to convert data to a byte stream that will re
 
 ## References
 
-### General references
-
-| General |
+| Reference |
 | :---- |
-| [S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
-| [GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
-| [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown#readme) |
-| [Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
+|[S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
+|[GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
+|[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown#readme) |
+|[Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
 
 ## Snippets
 

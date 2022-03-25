@@ -68,8 +68,8 @@ psql
 
 ```shell
 CREATEUSER user_name
-$ CREATEDB database_name -O user_name
-$ psql database_name
+CREATEDB database_name -O user_name
+psql database_name
 ```
 
 ### Update Owner
@@ -81,9 +81,9 @@ ALTER DATABASE database_name OWNER TO user_name;
 ### Grating access to User
 
 ```shell
-GRANT CONNECT ON DATABASE socratica TO mohamed28;
+GRANT CONNECT ON DATABASE database_name TO user_name;
 
-GRANT USAGE ON SCHEMA public TO mohamed28;
+GRANT USAGE ON SCHEMA public TO user_name;
 ```
 
 ### Listing databases

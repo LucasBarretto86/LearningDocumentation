@@ -2,14 +2,14 @@
 
 - [Javascrit CSS](#javascrit-css)
   - [Snippets](#snippets)
-    - [SVG Drop down shadow](#svg-drop-down-shadow)
+    - [SVG Dropdown shadow](#svg-dropdown-shadow)
     - [Hiding scroll](#hiding-scroll)
     - [Hiding input spinner](#hiding-input-spinner)
     - [Highlight every element from view](#highlight-every-element-from-view)
 
 ## Snippets
 
-### SVG Drop down shadow
+### SVG Dropdown shadow
 
 ```css
 svg {
