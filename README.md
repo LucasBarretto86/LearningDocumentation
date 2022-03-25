@@ -19,8 +19,11 @@
     - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Git and Github](#git-and-github)
     - [Git commands table](#git-commands-table)
-    - [Markdown](#markdown)
-      - [Diagrams](#diagrams)
+    - [Markdown Diagrams](#markdown-diagrams)
+      - [Mermaid Diagrams](#mermaid-diagrams)
+        - [Fluxogram Left to Right](#fluxogram-left-to-right)
+        - [Fluxogram Right to Left](#fluxogram-right-to-left)
+        - [Fluxogram Top Down](#fluxogram-top-down)
     - [Heroku](#heroku)
       - [Staging Deployment](#staging-deployment)
   - [Languanges Learning](#languanges-learning)
@@ -167,19 +170,52 @@ kill -9 $(lsof -t -i:8080)
 |`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
 |`git rebase BRANCH`| Sync loca branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
 
-### Markdown
+### Markdown Diagrams
 
-#### Diagrams
+#### Mermaid Diagrams
+
+##### Fluxogram Left to Right
+
+~~~txt
+  ```mermaid
+  graph LR
+  Mermaid --> Worked
+  ```
+~~~
+
+Output:
 
 ```mermaid
 graph LR
 Mermaid --> Worked
 ```
 
+##### Fluxogram Right to Left
+
+~~~txt
+  ```mermaid
+  graph RL
+  Mermaid --> Worked
+  ```
+~~~
+
+Output:
+
 ```mermaid
 graph RL
 Mermaid --> Worked
 ```
+
+##### Fluxogram Top Down
+
+~~~txt
+  ```mermaid
+  graph
+  Mermaid --> Worked
+  ```
+~~~
+
+Output:
 
 ```mermaid
 graph
