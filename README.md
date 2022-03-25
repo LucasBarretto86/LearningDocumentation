@@ -12,6 +12,9 @@
         - [Setting version for ASDF Plugins](#setting-version-for-asdf-plugins)
     - [Installing POSTGRES](#installing-postgres)
       - [Creating postgres role](#creating-postgres-role)
+  - [Local Web Servers](#local-web-servers)
+    - [Building Server with python3](#building-server-with-python3)
+    - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Git and Github](#git-and-github)
     - [Git commands table](#git-commands-table)
     - [Markdown](#markdown)
@@ -127,6 +130,34 @@ sudo su - postgres
 
 ```sql
 CREATE USER user_name SUPERUSER
+```
+
+## Local Web Servers
+
+### Building Server with python3
+
+```shell
+python3 -m http.server 5505
+```
+
+### Killing Server from a specific port
+
+To list any process listening to the port 8080
+
+```shell
+lsof -i:8080
+```
+
+To kill any process listening to the port 8080
+
+```shell
+kill $(lsof -t -i:8080)
+```
+
+or more violently
+
+```shell
+kill -9 $(lsof -t -i:8080)
 ```
 
 ## Git and Github
