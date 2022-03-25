@@ -18,39 +18,7 @@
       - [Diagrams](#diagrams)
     - [Heroku](#heroku)
       - [Staging Deployment](#staging-deployment)
-  - [LANGUANGES](#languanges)
-    - [Python](#python)
-    - [Ruby on Rails](#ruby-on-rails)
-      - [Creating new Rails App](#creating-new-rails-app)
-        - [For older Rails versions](#for-older-rails-versions)
-        - [Configured as API app](#configured-as-api-app)
-        - [Configured with React lilbs (Rails 6 or above)](#configured-with-react-lilbs-rails-6-or-above)
-      - [Rails PUMA](#rails-puma)
-        - [Check PUMA PORTS](#check-puma-ports)
-        - [Kill PUMA](#kill-puma)
-      - [Rails Redis](#rails-redis)
-        - [Installing Redis](#installing-redis)
-        - [Check Redis status](#check-redis-status)
-        - [Restarting Redis](#restarting-redis)
-      - [Rails Webpack](#rails-webpack)
-      - [Rails Rubocop](#rails-rubocop)
-      - [Rails Brakeman](#rails-brakeman)
-      - [Rails Foreman](#rails-foreman)
-      - [Rails GraphQL](#rails-graphql)
-        - [Adding gem `graphiql-rails`](#adding-gem-graphiql-rails)
-        - [`graphiql-rails` initial configuration](#graphiql-rails-initial-configuration)
-        - [Mounting GraphQl engine to routes](#mounting-graphql-engine-to-routes)
-        - [Generating ObjectTypes](#generating-objecttypes)
-      - [Rails Rspec](#rails-rspec)
-        - [Installing Rspec](#installing-rspec)
-      - [Rails Mailcatcher](#rails-mailcatcher)
-      - [Ruby on Rails Appends](#ruby-on-rails-appends)
-        - [Checking Computer Hostname](#checking-computer-hostname)
-        - [Fixing PG Error for new rails apps](#fixing-pg-error-for-new-rails-apps)
-        - [Digest Images](#digest-images)
-        - [Generate unique BLOB Token](#generate-unique-blob-token)
-        - [Testing REST API](#testing-rest-api)
-      - [Dependecies setup](#dependecies-setup)
+  - [Languanges Learning](#languanges-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
       - [SVG TO PNG](#svg-to-png)
@@ -59,10 +27,10 @@
       - [BMP to SVG](#bmp-to-svg)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
-  - [Specifics](#specifics)
   - [References](#references)
     - [General references](#general-references)
-    - [Ruby on Rails references](#ruby-on-rails-references)
+  - [Snippets](#snippets)
+    - [Checking Computer Hostname](#checking-computer-hostname)
 
 ## General Setups
 
@@ -205,304 +173,15 @@ Mermaid --> Worked
 
 #### Staging Deployment
 
-## LANGUANGES
-
-### Python
-
-### Ruby on Rails
-
-#### Creating new Rails App
-
-```shell
-rails new my-app --database=postgresql
-```
-
-##### For older Rails versions
-
-```shell
-rails _5.2.7_ new my-flights-app --webpack=react --database=postgresql
-```
-
-##### Configured as API app
-
-```shell
-rails new my_api -d=postgresql -T --api
-```
-
-##### Configured with React lilbs (Rails 6 or above)
-
-```shell
-rails new my-app --webpack=react --database=postgresql
-```
-
-#### Rails PUMA
-
-##### Check PUMA PORTS
-
-```shell
-sudo netstat -ntlp | grep LISTEN
-```
-
-##### Kill PUMA
-
-```shell
-lsof -wni tcp:3000
-```
-
-#### Rails Redis
-
-##### Installing Redis
-
-```shell
-sudo add-apt-repository ppa:redislabs/redis
-sudo apt-get update
-sudo apt-get install redis
-```
-
-OR
-
-```shell
-sudo snap install redis
-redis-server --port 6380 --daemonize yes
-```
-
-##### Check Redis status
-
-```shell
-redis-cli ping
-systemctl status redis
-```
-
-##### Restarting Redis
-
-```shell
-/etc/init.d/redis-server restart
-```
-
-#### Rails Webpack
-
-with application directory
-
-```shell
-./bin/webpack-dev-server
-```
-
-#### Rails Rubocop
-
-```Gemfile
-group :development do
-  ...
-
-  gem 'rubocop', require: false
-  gem 'rubocop-minitest', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-end
-```
-
-```shell
-bundle exec rubocop -a
-```
-
-To enforce corrections
-
-```shell
-bundle exec rubocop -A
-```
-
-Custom configs for rubocop
-
-You can add custom rules for cops, for that be sure to create a `.rubocop.yml` file inside the project
-
-Check the default configs bellow
-[RuboCop’s default configuration](https://github.com/rubocop/rubocop/blob/master/config/default.yml)
-
-Simple referece:
-
-#### Rails Brakeman
-
-Brakeman: Is a free vulnerability scanner specifically designed for Ruby on Rails applications. It statically analyzes Rails application code to find security issues at any stage of development
-
-```Gemfile
-group :development do
-  ...
-
-  gem 'brakeman', '>= 4.0', require: false
-end
-```
-
-```shell
-bundle exec brakeman
-```
-
-#### Rails Foreman
-
-Foreman is a tool that run all required services needed to run a project
-
-Installing Foreman gem
-
-```shell
-gem install foreman
-```
-
-Create a manifest file called `Procfile` within the root of the project and define the required services you need to run as Foreman starts
-
-```txt
-web: bin/rails server -p 3000
-js: yarn build --watch
-css: bin/rails dartsass:watch
-```
-
-To start Foreman simple run the command
-
-```shell
-foreman start
-```
-
-#### Rails GraphQL
-
-##### Adding gem `graphiql-rails`
-
-To add graphQL gem go to the Gemfile and add:
-
-```Gemfile
-group :development do
-  ...
-
-  gem 'graphiql-rails'
-end
-
-...
-
-gem 'graphql', ' ~> 1.9.18'
-```
-
-then run the bundler
-
-```shell
-bundle install
-```
-
-##### `graphiql-rails` initial configuration
-
-As long as the gem is installed `graphiql-rails` will provide specfic generators configure your project to graphql
-
-Run the generator unless you want to config your project manually
-
-```shell
-rails g graphql:install
-```
-
-##### Mounting GraphQl engine to routes
-
-Before you can test the GraphQL endpoint, you need to mount the GraphiQL engine to the routes file so you can access the GraphiQL in-browser IDE. To do this open the routes file located at `config/routes.rb`:
-
-```rb
-Rails.application.routes.draw do
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql#execute"
-  end
-
-  post "/graphql", to: "graphql#execute"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-end
-```
-
-##### Generating ObjectTypes
-
-```shell
-rails generate graphql:object Note id:ID! title:String! body:String!
-```
-
-*Note that `!` means that field os required to the query*
-
-#### Rails Rspec
-
-##### Installing Rspec
-
-```shell
-gem install rspec
-```
-
-Adding to the project
-
-Add on gem file and run bundle
-
-```Gemfile
-group :test do
-  ...
-
-  gem "rspec"
-  gem "rspec-rails"
-end
-```
-
-Generate Rspect required files
-
-```shell
-rails g rspec:install
-```
-
-#### Rails Mailcatcher
-
-MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface. Run mailcatcher, set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out <http://127.0.0.1:1080> to see the mail.
-
-```shell
-gem install mailcatcher
-```
-
-#### Ruby on Rails Appends
-
-##### Checking Computer Hostname
-
-```shell
-hostname --fqdn
-```
-
-##### Fixing PG Error for new rails apps
-
-An error occurred while installing pg (1.2.3), and Bundler cannot continue.
-
-```shell
-sudo apt install postgresql-contrib libpq-dev
-```
-
-##### Digest Images
-
-```rb
-Digest::MD5.file('test/fixtures/files/groomsman.jpg').base64digest
-```
-
-##### Generate unique BLOB Token
-
-```rb
-ActiveStorage::Blob.generate_unique_secure_token
-```
-
-##### Testing REST API
-
-```shell
-curl -u marcondesv:a24d4e50c2c4298e34789fa84b0296f330ab7bdd 'https://api.name.com/v4/domains:checkAvailability' -X POST -H 'Content-Type: application/json' --data '{"domainNames":["marcosemariaw.us"]},'
-{"results":[{"domainName":"marcosemariaw.us","sld":"marcosemariaw","tld":"us","purchasable":true,"purchasePrice":8.99,"purchaseType":"registration","renewalPrice":10.99},]},
-
-]
-```
-
-#### Dependecies setup
-
-With the new app folder
-
-Add Webpacker (DEPRECATED USED ONLY FOR Rails 5 or bellow)
-
-```shell
-rails  webpacker:install
-```
-
-Adding Stimulus
-
-```shell
-rails  webpacker:install:stimulus
-```
+## Languanges Learning
+
+|Language| Markdown|
+|:---|:---|
+|Ruby|[Ruby Learning](specifics/rb.md)|
+|CSS|[CSS Learning](specifics/css.md)|
+|Javascript|[JS Learning](specifics/js.md)|
+|Python|[Python Learning](specifics/py.md)|
+|Random|[Random Learning](specifics/random.md)|
 
 ## Handling Images
 
@@ -550,15 +229,6 @@ Basically serialize is the process to convert data to a byte stream that will re
 
 [What is serialization](https://www.freecodecamp.org/news/what-is-serialization/)
 
-## Specifics
-
-|Language| File|
-|:---|:---|
-|Ruby|[Ruby Speficis](specifics/rb.md)|
-|CSS|[CSS Speficis](specifics/css.md)|
-|JS|[JS Speficis](specifics/js.md)|
-|Random|[Random Stuff](specifics/random.md)|
-
 ## References
 
 ### General references
@@ -570,11 +240,10 @@ Basically serialize is the process to convert data to a byte stream that will re
 | [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown#readme) |
 | [Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
 
-### Ruby on Rails references
+## Snippets
 
-| Ruby on Rails |
-| :---- |
-|[Foreman](https://www.theforeman.org/introduction.html)|
-|[Rubocop](https://docs.rubocop.org/rubocop/installation.html)|
-|[brakeman.org](https://brakemanscanner.org/)|
-| [Create Rails App with GraphQL](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-graphql-ap>) |
+### Checking Computer Hostname
+
+```shell
+hostname --fqdn
+```
