@@ -14,6 +14,8 @@
     - [Installing through ASDF Plugins](#installing-through-asdf-plugins)
     - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
+  - [Tableplus](#tableplus)
+    - [Tableplus Linux installation](#tableplus-linux-installation)
   - [Local Web Servers](#local-web-servers)
     - [Building Server with python3](#building-server-with-python3)
     - [Killing Server from a specific port](#killing-server-from-a-specific-port)
@@ -122,6 +124,17 @@ Local
 asdf local nodejs 12.23.0
 ```
 
+## Tableplus
+
+### Tableplus Linux installation
+
+```shell
+wget -qO - http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/20 tableplus main"
+sudo apt update
+sudo apt install tableplus
+```
+
 ## Local Web Servers
 
 ### Building Server with python3
@@ -196,6 +209,8 @@ git push
 |`git rebase BRANCH`| Sync loca branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
 |`git remote add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as remote|
 |`git submodule add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as submodule|
+|`git submodule update`| To make pull in every submodule |
+|`git submodule update MODULE_PATH`| To make pull in specific submodule |
 
 ### Markdown Diagrams
 
@@ -256,13 +271,13 @@ Mermaid --> Worked
 ## Languanges Learning
 
 - [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
-- [Learning JS](https://github.com/LucasBarretto86/LearningJS)
+- [Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
 - [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
 - [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
 - [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
 - [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
 - [Learning Python](https://github.com/LucasBarretto86/LearningPython)
-- [Learning Random](specifics/random.md)
+- [Learning Random](specifics/random.md)|
 - [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
 - [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
