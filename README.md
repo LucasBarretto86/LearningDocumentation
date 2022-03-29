@@ -22,6 +22,10 @@
   - [Git and Github](#git-and-github)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
+      - [Adding subtree](#adding-subtree)
+      - [Updating subtree](#updating-subtree)
+        - [Pulling changes](#pulling-changes)
+        - [Pushing changes](#pushing-changes)
     - [Git commands table](#git-commands-table)
     - [Markdown Diagrams](#markdown-diagrams)
       - [Mermaid Diagrams](#mermaid-diagrams)
@@ -188,6 +192,30 @@ git commit -m"Commiting directly with a submodule"
 git push
 ```
 
+#### Adding subtree
+
+Subtree is very similar to submodules, however subtree allow you to bring in external repos by merging it and squashing
+
+```shell
+git subtree add --prefix {local directory being pulled into} {remote repo URL} {remote branch} --squash
+```
+
+#### Updating subtree
+
+To update subtress you have to use pull and push refering the prefix and the remote repos path
+
+##### Pulling changes
+
+```shell
+git subtree pull --prefix {local directory being pulled into} {remote repo URL} {remote branch} --squash
+```
+
+##### Pushing changes
+
+```shell
+git subtree push --prefix {local directory being pulled into} {remote repo URL} {remote branch}
+```
+
 ### Git commands table
 
 | Command|Description |
@@ -211,6 +239,9 @@ git push
 |`git submodule add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as submodule|
 |`git submodule update`| To make pull in every submodule |
 |`git submodule update MODULE_PATH`| To make pull in specific submodule |
+|`git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To add a subtree to the project |
+|`git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To pull changes from original repo |
+|`git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To push changes to a specific repo |
 
 ### Markdown Diagrams
 
@@ -270,16 +301,16 @@ Mermaid --> Worked
 
 ## Languanges Learning
 
-[Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
-[Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
-[Learning Lua](https://github.com/LucasBarretto86/LearningLua)
-[Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
-[Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
-[Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
-[Learning Python](https://github.com/LucasBarretto86/LearningPython)
-[Learning Random](specifics/random.md)|
-[Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
-[Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
+- [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
+- [Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
+- [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
+- [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
+- [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
+- [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
+- [Learning Python](https://github.com/LucasBarretto86/LearningPython)
+- [Learning Random](specifics/random.md)|
+- [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
+- [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
 ## Handling Images
 
