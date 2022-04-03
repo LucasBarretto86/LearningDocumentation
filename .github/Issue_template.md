@@ -1,9 +1,9 @@
 ---
-name: Imprecision report
-about: Create a report to help us improve
+name: 'Imprecision report'
+about: 'Create a report to help us improve'
 title: 'Imprecision report'
-labels: bug, documentation
-assignees: LucasBarretto86
+labels: 'bug', 'documentation'
+assignees: 'LucasBarretto86'
 ---
 
 ## Describe the issue

@@ -1,20 +1,36 @@
-## *Pull request title*
+# *Pull request title*
 
-'Pull request description'
+<!--- Pull request general context --->
 
 ## Changelist
 
-- ...
-- ...
+<!--- Describe changes made ordered by commit --->
+
+- *Move file from folder `/x` to folder `/y`*
+- *Fix typo in file `xyx.rb`*
 
 ## Prints
 
-### *Describe print context*
+<!--- Optional - remove if not necessary --->
 
-'Paste Print here'
+### *Mobile*
+
+paste_print_here
+
+### *Desktop*
+
+paste_print_here
 
 ## Links
 
-|Destination|Link|
-|:----------|:---|
-|Staging|stating.whatever.com|
+<!--- Optional - remove if not necessary --->
+
+| Destination  | Link              |
+|--------------|-------------------|
+| Staging      | *paste_link_here* |
+
+## DISCLAIMER
+
+<!--- Optional - remove if not necessary --->
+
+*Move files in folder `\x` but files paths will be changed in another PR*

@@ -32,8 +32,8 @@
         - [Fluxogram Left to Right](#fluxogram-left-to-right)
         - [Fluxogram Right to Left](#fluxogram-right-to-left)
         - [Fluxogram Top Down](#fluxogram-top-down)
-    - [Heroku](#heroku)
-      - [Staging Deployment](#staging-deployment)
+  - [Heroku](#heroku)
+    - [Staging Deployment](#staging-deployment)
   - [Languanges Learning](#languanges-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
@@ -44,8 +44,7 @@
   - [Concepts](#concepts)
     - [Serialization](#serialization)
   - [References](#references)
-  - [Snippets](#snippets)
-    - [Checking Computer Hostname](#checking-computer-hostname)
+  - [Gists](#gists)
 
 ## SSH
 
@@ -295,9 +294,9 @@ graph
 Mermaid --> Worked
 ```
 
-### Heroku
+## Heroku
 
-#### Staging Deployment
+### Staging Deployment
 
 ## Languanges Learning
 
@@ -366,10 +365,6 @@ Basically serialize is the process to convert data to a byte stream that will re
 |[GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
 |[Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
 
-## Snippets
+## Gists
 
-### Checking Computer Hostname
-
-```shell
-hostname --fqdn
-```
+[Random Stuff](https://gist.github.com/LucasBarretto86/2cc6e13a894d29b811d66604389edf3c)
