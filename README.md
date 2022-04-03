@@ -16,9 +16,6 @@
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Tableplus](#tableplus)
     - [Tableplus Linux installation](#tableplus-linux-installation)
-  - [Local Web Servers](#local-web-servers)
-    - [Building Server with python3](#building-server-with-python3)
-    - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Git and Github](#git-and-github)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
@@ -136,34 +133,6 @@ wget -qO - http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/20 tableplus main"
 sudo apt update
 sudo apt install tableplus
-```
-
-## Local Web Servers
-
-### Building Server with python3
-
-```shell
-python3 -m http.server 5505
-```
-
-### Killing Server from a specific port
-
-To list any process listening to the port 8080
-
-```shell
-lsof -i:8080
-```
-
-To kill any process listening to the port 8080
-
-```shell
-kill $(lsof -t -i:8080)
-```
-
-or more violently
-
-```shell
-kill -9 $(lsof -t -i:8080)
 ```
 
 ## Git and Github

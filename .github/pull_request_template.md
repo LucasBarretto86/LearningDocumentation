@@ -1,17 +1,17 @@
-# *Pull request title*
+# Pull_request_title
 
-<!--- Pull request general context --->
+[//]: # (Summarize pull request general context bellow )
 
 ## Changelist
 
-<!--- Describe changes made ordered by commit --->
+[//]: # (List changes made ordered by commit bellow )
 
 - *Move file from folder `/x` to folder `/y`*
 - *Fix typo in file `xyx.rb`*
 
 ## Prints
 
-<!--- Optional - remove if not necessary --->
+[//]: # (Optional - Remove section if not necessary)
 
 ### *Mobile*
 
@@ -23,7 +23,7 @@ paste_print_here
 
 ## Links
 
-<!--- Optional - remove if not necessary --->
+[//]: # (Optional - Remove section if not necessary)
 
 | Destination  | Link              |
 |--------------|-------------------|
@@ -31,6 +31,6 @@ paste_print_here
 
 ## DISCLAIMER
 
-<!--- Optional - remove if not necessary --->
+[//]: # (Optional - Remove section if not necessary)
 
 *Move files in folder `\x` but files paths will be changed in another PR*
