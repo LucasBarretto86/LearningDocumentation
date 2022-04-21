@@ -23,6 +23,10 @@
       - [Updating subtree](#updating-subtree)
         - [Pulling changes](#pulling-changes)
         - [Pushing changes](#pushing-changes)
+    - [Tags](#tags)
+      - [Listing tags](#listing-tags)
+      - [Creating tags](#creating-tags)
+      - [Search tags](#search-tags)
     - [Git commands table](#git-commands-table)
     - [Markdown Diagrams](#markdown-diagrams)
       - [Mermaid Diagrams](#mermaid-diagrams)
@@ -38,6 +42,8 @@
       - [PSD TO PNG](#psd-to-png)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
+  - [CURL](#curl)
+    - [Downloading files](#downloading-files)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
   - [References](#references)
@@ -184,6 +190,24 @@ git subtree pull --prefix {local directory being pulled into} {remote repo URL} 
 git subtree push --prefix {local directory being pulled into} {remote repo URL} {remote branch}
 ```
 
+### Tags
+
+#### Listing tags
+
+```shell
+git tag
+```
+
+#### Creating tags
+
+```shell
+git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
+```
+
+#### Search tags
+
+
+
 ### Git commands table
 
 | Command|Description |
@@ -317,6 +341,14 @@ potrace example.bmp -s -o example.svg
 
 ![original BMP](assets/images/example.bmp)
 ![Converted](assets/images/example.svg)
+
+## CURL
+
+### Downloading files
+
+```shell
+curl https://emoji.slack-edge.com/T58JKBZJS/merged/adb3ef9def323d9a.png --output  ~/Downloads/images/merged.png
+```
 
 ## Concepts
 
