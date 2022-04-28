@@ -25,3 +25,6 @@
 [submodule "specifics/LearningHTML"]
 	path = specifics/LearningHTML
 	url = https://github.com/LucasBarretto86/LearningHTML.git
+[submodule "specifics/LearningReactJS"]
+	path = specifics/LearningReactJS
+	url = https://github.com/LucasBarretto86/LearningReactJS.git
