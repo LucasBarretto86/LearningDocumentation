@@ -35,7 +35,7 @@
         - [Fluxogram Top Down](#fluxogram-top-down)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
-  - [Languanges Learning](#languanges-learning)
+  - [Languages Learning](#languages-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
       - [SVG TO PNG](#svg-to-png)
@@ -43,6 +43,10 @@
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
   - [CURL](#curl)
+  - [YARN](#yarn)
+    - [Add new dependency](#add-new-dependency)
+      - [add only in dev](#add-only-in-dev)
+    - [Reinstall all dependencies](#reinstall-all-dependencies)
     - [Downloading files](#downloading-files)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
@@ -206,8 +210,6 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 
 #### Search tags
 
-
-
 ### Git commands table
 
 | Command|Description |
@@ -291,7 +293,7 @@ Mermaid --> Worked
 
 ### Staging Deployment
 
-## Languanges Learning
+## Languages Learning
 
 - [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
 - [Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
@@ -301,6 +303,7 @@ Mermaid --> Worked
 - [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
 - [Learning Python](https://github.com/LucasBarretto86/LearningPython)
 - [Learning Random](specifics/random.md)|
+- [Learning ReactJS](https://github.com/LucasBarretto86/LearningReactJS)|
 - [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
 - [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
@@ -343,6 +346,26 @@ potrace example.bmp -s -o example.svg
 ![Converted](assets/images/example.svg)
 
 ## CURL
+
+## YARN
+
+### Add new dependency
+
+```shell
+yarn add dependency_name
+```
+
+#### add only in dev
+
+```shell
+yarn add dependency_name -D
+```
+
+### Reinstall all dependencies
+
+```shell
+yarn install --check-files
+```
 
 ### Downloading files
 
