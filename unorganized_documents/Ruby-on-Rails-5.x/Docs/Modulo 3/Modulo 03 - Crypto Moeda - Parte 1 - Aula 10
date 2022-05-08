@@ -1,0 +1,94 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 10 - Outros Geradores do Rails e destroyer
+
+-----------------------------------------------------------------
+Usando apenas o comando rails g ou rails generator é possível verificar uma lista de generator que podem ser usados, por padrão temos:
+
+Rails:
+  application_record
+  assets
+  channel
+  controller
+  generator
+  helper
+  integration_test
+  jbuilder
+  job
+  mailer
+  migration
+  model
+  resource
+  scaffold
+  scaffold_controller
+  system_test
+  task
+
+ActiveRecord:
+  active_record:application_record
+
+Coffee:
+  coffee:assets
+
+Js:
+  js:assets
+
+TestUnit:
+  test_unit:generator
+  test_unit:plugin
+
+
+Para usarmos um generator:
+	rails g controller nome_do_controller
+	ou
+	rails generate controller nome_do_controller
+
+	Exemplo: 
+		rails g controller teste 
+			Running via Spring preloader in process 20848
+	      		create  app/controllers/teste_controller.rb
+	      		invoke  erb
+	      		create    app/views/teste
+	      		invoke  test_unit
+	      		create    test/controllers/teste_controller_test.rb
+	      		invoke  helper
+	      		create    app/helpers/teste_helper.rb
+	      		invoke    test_unit
+	      		invoke  assets
+	      		invoke    coffee
+	      		create      app/assets/javascripts/teste.coffee
+	      		invoke    scss
+	      		create      app/assets/stylesheets/teste.scss
+
+Para destruir o controller criado:
+	rails d controller nome_do_controller
+	ou
+	rails destroy controller nome_do_controller 
+
+Exemplo:
+	rails d controller teste
+		Running via Spring preloader in process 21048
+		      remove  app/controllers/teste_controller.rb
+		      invoke  erb
+		      remove    app/views/teste
+		      invoke  test_unit
+		      remove    test/controllers/teste_controller_test.rb
+		      invoke  helper
+		      remove    app/helpers/teste_helper.rb
+		      invoke    test_unit
+		      invoke  assets
+		      invoke    coffee
+		      remove      app/assets/javascripts/teste.coffee
+		      invoke    scss
+		      remove      app/assets/stylesheets/teste.scss
+
+
+Em relação as views é importate observar que o controller apenas cria a pasta views para o controller, porém, a pasta fica vazia e o controller sem nenhum action, para que possamos criar as views e action é necessário informa no momento de criação do controller, para isso o comando a ser usado deve ser:
+
+rails g controller nome_do_controller [action action] [options]
+
+Exemplo do projeto:
+	rails g controller welcome index
+
+Com essa task sera criado o controller welcome com uma action index e uma view correspondente chamada index.html.erb

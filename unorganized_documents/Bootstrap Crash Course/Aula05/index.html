@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Este elemento meta é obrigatório para que o Bootstrap seja responsivo-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS  Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+    <!--jQuery-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <!--Popper-->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!--JS  Bootstrap-->
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    
+    <title>Bootstrap - Aula 05 - Images</title>
+</head>
+
+<body>
+    <h1>Bootstrap - Aula 05 - Images</h1>
+    <p>O Bootstrap possui algumas classes para trabalhar com o elemento img, essas classes podem ser aplicadas ao
+        elemento figure, mas, tenha em mente que o figure já um elemento em block.</p>
+
+    <h3>Classe .rounded</h3>
+    <div class="container">
+        <img class="rounded" src="../aula05/img/imagem-de-exemplo-1.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h3>Classe .rounded-circle</h3>
+    <div class="container">
+        <img class="rounded-circle" src="../aula05/img/imagem-de-exemplo-2.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h3>Classe .img-thumbnail</h3>
+    <div class="container" style="background-color: #8AF">
+        <img class="img-thumbnail" src="../aula05/img/imagem-de-exemplo-3.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h3>Classe .img-thumbnail e .rounded-circle</h3>
+    <div class="container" style="background-color: #8AF">
+        <img class="img-thumbnail rounded-circle" src="../aula05/img/imagem-de-exemplo-2.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+    <h2>Alinhamento de imagem</h2>
+    <p>Essas são classes que funcionam de modo geral, mas, neste caso estão aplicadas a uma image, no entanto, mx-auto
+        representa ("margin: 0 auto;") e d-block representa ("display:block;"), float-left representa("float: left") e
+        float-right segue a mesma lógica.</p>
+    <h3 style="clear:both;">Classe .float-left</h3>
+    <div class="container">
+        <img class="float-left" src="../aula05/img/imagem-de-exemplo-1.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h3 style="clear:both;">Classe .float-right</h3>
+    <div class="container">
+        <img class="float-right" src="../aula05/img/imagem-de-exemplo-2.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h3 style="clear:both;">Classe .mx-auto e d-block</h3>
+    <div class="container">
+        <img class="mx-auto d-block" src="../aula05/img/imagem-de-exemplo-3.png" alt="Imagem que demonstra a aplicação da classe">
+    </div>
+
+    <h2>Responsividade de imagem</h2>
+    <h3>Imagem não responsiva</h3>
+    <p>Realize a comparação modificando o zoom ou o tamanho da tela de visualização.</p>
+    <img src="../aula05/img/imagem-de-exemplo-4.png" alt="Imagem que demonstra a aplicação da classe">
+
+    <h3>Classe .img-fluid</h3>
+    <img class="img-fluid" src="../aula05/img/imagem-de-exemplo-4.png" alt="Imagem que demonstra a aplicação da classe">
+</body>
+
+</html>

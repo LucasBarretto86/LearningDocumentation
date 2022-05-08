@@ -1,0 +1,44 @@
+.btn {
+  display: block;
+  padding: 5px;
+  margin: 8px;
+
+  min-width: 128px;
+  max-width: 100%;
+  width: 100%;
+
+  font-weight: 600;
+  font-size: 16px;
+  color: #FFF;
+  text-align: center;
+
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 19px;
+
+  &:hover {
+    box-shadow: inset 0 0 100px rgba(255, 200, 50, 0.2);
+    border: 1px solid rgba(255, 200, 50, 0.2);
+  }
+
+  &--default {
+    background-image: linear-gradient(160deg, #55F 60%, #44E 100%);
+  }
+
+  &--alert {
+    background-image: linear-gradient(160deg, #DD0 60%, #CC0 100%);
+  }
+
+  &--accept {
+    background-image: linear-gradient(160deg, #5B5 60%, #4A4 100%);
+  }
+
+  &--cancel {
+    background-image: linear-gradient(160deg, #F55 60%, #E44 100%);
+  }
+
+  &--disabled {
+    background-image: linear-gradient(160deg, #888 60%, #777 100%);
+  }
+}

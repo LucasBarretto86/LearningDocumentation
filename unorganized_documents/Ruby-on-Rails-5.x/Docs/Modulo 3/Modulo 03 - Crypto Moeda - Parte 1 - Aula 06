@@ -1,0 +1,33 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 06 - CRUD - Scaffold
+
+-----------------------------------------------------------------
+
+CRUD =  CREATE, READ, UPDATE, DELETE
+
+O CRUD representa as operações que uma determinada classe realiza no banco de dados para a manuteção dos registros.
+
+Scaffold - Andame
+O Rails possui um generator de CRUD chamado scaffold que permite cruar um CRUD para uma determinada table utilizando um script:
+
+script:
+rails generate scaffold <Model> <campo:tipo> <campo:tipo>....
+
+ou
+
+rails g scaffold <Model> <campo:tipo> <campo:tipo>....
+
+
+Exemplo:
+rails generate scaffold Coin description:string acronym: string url_image:string
+
+OBS.: A Conveção determina que o Model tenha a primeira letra maiuscula e sempre em singular.
+s
+Após a criação iremos observar que o rails gera alguns arquivos dentre estes é importante observarmos os seguintes:
+
+1 - As views
+2 - O controller
+3 - O model
+4 - O migration (!)

@@ -1,0 +1,22 @@
+body{
+	width:800px;
+	margin-top: 30px;
+	margin-right:50px;
+	margin-left:50px;
+	background-position: center;
+
+}
+
+h1 {
+	text-align: left;
+	border-top: 1px solid #505AAA;
+	border-right: 1px solid #505AAA;
+	border-bottom: 1px solid #505AAA;
+	border-left: 10px solid #505AAA;
+	padding-left: 1em;
+	background-color: #A0AFFF;
+	background-image: url(img/imgcrz.png);
+	background-position: 0px 3px;
+	background-repeat: no-repeat;
+	
+}

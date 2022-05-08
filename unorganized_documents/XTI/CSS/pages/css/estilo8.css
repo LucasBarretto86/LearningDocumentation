@@ -1,0 +1,39 @@
+div {
+	margin-top: 1px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	margin-left: 20px;	
+	
+	padding-top: 5px;
+	padding-right: 25px;
+	padding-bottom: 25px;
+	padding-left: 20px;	
+
+	border-top-width: 10px;
+	border-right-width: 10px;
+	border-bottom-width: 10px;
+	border-left-width: 10px;	
+	border-color:#005FFF;
+	border-style: initial; /*solid, ridge, dotted, dashed, double, groove, none, hidden, inset, outset */
+}
+
+/* Maneira simplificada de modelar as boxes: 
+
+	Exemplo: MARGIN
+		margin:	 top right bottom left;
+				  |    |      |    |
+		margin:  1px  50px  50px  20px;
+	
+	Exemplo: PADDING
+		padding:	 top right bottom left;
+					  |    |      |    |
+		padding: 	 1px  50px  50px  20px;
+	
+	Exemplo: BORDER
+		border:	width/size    style		color;
+					|			|	      |
+		border:    5px        inset      blue; 
+		
+	
+	
+	*/

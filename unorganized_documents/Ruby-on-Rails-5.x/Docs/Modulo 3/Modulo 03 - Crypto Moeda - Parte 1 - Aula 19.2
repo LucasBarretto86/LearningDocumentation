@@ -1,0 +1,35 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 19.2 - Layouts and Partials - PARTIALS
+-----------------------------------------------------------------
+Partials são modulos das views, haja visto que as views em Rails são modulares. 
+
+As partials são arquivos erb iniciados por '_' na pasta 'views', cada partial tem sua propria responsabilidade de responder a uma seção que se querira fazer especialista em um determinado block de view html. 
+
+Podemos dizer que o Rails trabalha com views modulares, ou seja, aonde cada segmento de uma view é trabalhada por um diferente arquivo .html.erb, uma partial na mais é do que um submodulo dentro de um modulo de view.
+
+	application-layout > view > _partial < view < application-layout
+ 
+EXEMPLO: Dada a criação de uma partial date: _date.html.erb
+	
+	No arquivo: index.html.erb
+
+		<h2>Seja Bem-Vindo <%= @name %></h2>
+		
+		<%= render "date" %>
+		
+		<p>Você está na página: <strong><%=@current_view %></strong></p>
+		
+		<ul>
+		  <li>
+		    <%= link_to "Consultar Moedas", coins_path %>
+		  </li>
+		</ul>
+
+
+Aonde posicionarmos o render menu será então renderizada a partial menu:
+
+	No arquivo: _date.html.erb
+		<p><strong>Data: </strong><%= br_date(Date.today)%></p>
+

@@ -1,0 +1,8 @@
+<%= tag.tr coin do %>
+  <td><%= link_to coin.name, coin %></td>
+  <td><%= coin.acronym %></td>
+  <td><%= coin.mining_type.acronym if coin.mining_type.present? %></td>
+  <td><%= image_tag(coin.url_image, {size: "25x25"}) if coin.url_image.present? %></td>
+  <td><%= link_to 'Edit', edit_coin_path(coin) %></td>
+  <td><%= link_to 'Destroy', coin, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+<% end %>

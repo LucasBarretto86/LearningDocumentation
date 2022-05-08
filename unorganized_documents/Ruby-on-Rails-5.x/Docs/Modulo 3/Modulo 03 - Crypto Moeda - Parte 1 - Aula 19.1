@@ -1,0 +1,34 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 19.1 - Layouts and Partials - LAYOUT
+-----------------------------------------------------------------
+Layout em Rails serve como um template pelo qual todas as views e suas respectivas partials devem passar antes de sua renderização. É um esquema que define o layout de apresentação da aplicação base, por tanto, os Layouts estão acima das views.
+
+O arquivo de layouts fica entro da pasta 'views' em uma subpasta 'layout', é nesta pasta que encontraremos a base, se observarmos o arquivo 'application.html.erb', iremos observar que somente neste arquivo encontramos um arquivo "html" completo, ou seja, aonde entra o as tags padrões de um html, como a tag <html>, <head>, <body> e etc.. Ou seja, o arquivo de layout é o arquivo que estrutura a saída html como um todo para nossa aplicação.
+
+EXEMPLO: view/layout/application.html.erb:
+	<!DOCTYPE html>
+	<html>
+		<head>
+		  <title><%= app_name %></title>
+		  <%= csrf_meta_tags %>
+		  <%= csp_meta_tag %>
+
+		  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		</head>
+
+		<body>
+		    <header>
+		      <h1><%= app_name %></h1>
+		      <p>Você está no ambiente de <strong><%= current_enviroment %></strong></p>
+		    </header>
+
+		    <%= yield %>
+
+		    <footer>
+		      <p>&reg2019 - Todos os Direitos Reservados. Kit3s Entertainment.</p>
+		    </footer>
+		</body>
+	</html>

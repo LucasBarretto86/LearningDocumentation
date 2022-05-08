@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+
+  tr {
+    height: 32px;
+    vertical-align: middle;
+
+    th {
+      border-bottom: 1px solid #CCC;
+      font-weight: 600;
+      color: #2E2F30;
+      text-transform: uppercase;
+
+      &:first-child {
+        text-align: left;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid #CCC;
+      color: #575757;
+
+      &:first-child {
+        text-align: left;
+      }
+    }
+
+    &:last-child {
+      td {
+        border: none;
+      }
+    }
+  }
+}

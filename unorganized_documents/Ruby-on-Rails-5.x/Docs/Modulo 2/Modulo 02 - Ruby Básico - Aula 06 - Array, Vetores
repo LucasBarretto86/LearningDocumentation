@@ -1,0 +1,95 @@
+MODULO 02 - Ruby Básico
+
+AULA 06 - Array, Vetores
+
+--------------------------------------------------------
+
+Assim como outras linguagens o Ruby também trabalha com Array/vetores, há diversas maneiras de instanciar um array em Ruby, veremos embaixo algumas:
+
+v = Array.new					#Instancia a variavel v como um array porém sem estabelecer um tamanho	
+
+v = Array.new(20)				#Instancia a variavel v como um array e estabelece que este terá 20 posições
+
+v = Array.new(4, "mac")			#Instancia a variavel v como um array e estabelece que este terá 4 posições e que as quatro posições terá uma string "mac"
+
+v = Array.new(10){}				#Cria um array de 10 posições vazias
+
+v = Array.new(10){|e| e = e*2} 	#Criação de um array de 10 posições com o uso de um iterator, maneira mais avançada, deve ser melhor estudada com um curso de Ruby
+
+v = Array.[](1,2,3,4)			#Instancia um array sem determinar o número de posições, mas, restringe o tamanho aos valores dados dentro dos parenteses
+
+v = Array[1,2,3,4]				#Instancia com o uso da class Array de manei mais simples
+
+v = [1,2,3,4]					#Instancia de forma convencional
+
+v = [[],[],[]]					#Cria um array de duas dimenssões, para trabalhar com cada elemento é necessário percorre-los com each.
+-------------------------------------------------------
+
+A classe Array possui alguns métodos mais usados
+
+.push()			#"Empurra" um valor para dentro do array
+.length			#Retorna o tamanho do array
+.size			#Retorna o tamanho do array
+.at()			#Retornar o valor atribuido ao index informado como paramentro
+.each			#Percorre cada elemento do array
+
+Exemplo: Usando um array:
+
+	v = [15,52,33,44]
+	puts v
+		
+	v.each do |item|
+		puts "Operando item #{item}"
+	end	
+
+	puts "O length do array é #{v.length}"	
+	puts "O size do array é #{v.size}"
+	puts "O valor do array at index 1 é #{v.at(1)}"
+
+	v.push(10)
+	puts v
+
+	#Saída no Terminal:
+		15
+		52
+		33
+		44
+		Operando item 15
+		Operando item 52
+		Operando item 33
+		Operando item 44
+		O length do array é 4
+		O size do array é 4
+		O valor do array at index 1 é 52
+		15
+		52
+		33
+		44
+		10
+
+----------------------------------------------------------------
+Embora pareça complexo,no Ruby, a maneira de lidar com um array é muito mais amigável do que outras linguagens, pois ele é dinamico, trabalha como pilha e aceita qualquer tipo.
+----------------------------------------------------------------
+
+Percorrendo array multidimensional:
+
+Exemplo: 
+		
+	v = [[11,22,33],[44,55,66],[77,88,99]]
+
+	v.each do |externo|
+		externo.each do|interno|
+			puts interno
+		end
+	end
+
+	#Saída do terminal
+		11
+		22
+		33
+		44
+		55
+		66
+		77
+		88
+		99

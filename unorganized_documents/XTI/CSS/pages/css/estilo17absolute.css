@@ -1,0 +1,25 @@
+h3 {
+	border: 1px solid black;
+}
+
+div {
+	border: 1px solid red;
+	height: 1000px;
+	position: relative;
+	
+}
+
+#dois {
+	position: absolute; /*Posicionamento absoluto em relação ao ancestral mais próximo que receba uma posição que permita as propriedades left, right, top, bottom, como por exemplo a div que indicamos como relative*/
+	left:0px;
+	top:0px;
+	background-color:#DDDDDD;
+}
+
+h1 {
+	position: fixed; /* O posicionamento fixo é absoluto em relação a pagina e neste caso indica que o elemento deverá permanecer nessa posição de forma fix, mesmo se houver um barra de rolagem*/
+	border: 1px solid blue;
+	background-color:#AAAAFF;	
+	
+	top:-20px;
+}

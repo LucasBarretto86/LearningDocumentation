@@ -1,0 +1,25 @@
+MODULO 02 - Ruby Básico
+
+AULA 07 - Hashes
+
+Hash é uma coleção de dados que determina chave para cada valor ao invés de indexes
+
+--------------------------------------------------------------------
+
+Há duas formas para criar Hashes, Tradicional e 1.9+
+
+Tradicional 
+	h = {"x" => 15, "curso" => "rails"}
+
+1.9+
+	h = {"x" : 15, "curso": "rails"}
+
+
+Para acessar os elementos, é usado []
+	Exemplo:
+		h = {"x" => 15, "curso" => "rails"}	
+		puts h["curso"]
+
+
+	#Saída no terminal:
+		rails

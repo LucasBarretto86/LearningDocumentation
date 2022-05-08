@@ -1,0 +1,88 @@
+p {
+	color:green !important;
+}
+
+p em {
+	color:blue;
+}
+
+div > p {
+	color:red;
+}
+
+/* HERANÇA
+	 
+	Faz com que todos os elementos filhos do seletor também recebam o estilo dado ao seletor pai
+	
+	Exemplo:
+	body{
+		color#000000
+	}
+		Por tanto neste caso tudo que for filho da tag body, seletor body receba o estilo determinado.
+	
+*/
+	
+
+/*EFEITO CASCATA
+	* Nivel de prioridade da Folha de Estilo
+		1 - !important do Usuário
+		2 - !important do Autor
+		3- Folha do Autor
+			a) Estilo Inline
+			b) Estilo Incorporado (estilo especificado diretamente no head do html)
+			c) Estilo Externo (Folha de Estilo Externada, linkada ou importada)
+		4 - Folha do Usuário
+		5 - Folha do Navegador
+
+	 * Prioridade dos elementos de especifidade
+		a - Elementos Inline
+		b - Elementos de IDs
+		c - Elemento de Classes, pseudoclasses, atributos, elementos e pseudoelementos
+		d - Elementos do seletor	
+
+		Exemplo 1:
+			p{} 
+				Quantos Elementos Inline usados como paramentro de especifidadedade? 0  
+				Quantos IDs usados como parametro de especifidade? 0
+				Quantas Elementos classe usados como paramentro? 0
+				Quantos Elementos do seletor? 1
+				
+				Por tanto o nível de especifidade será 0,0,0,1 = valor 1
+			
+		Exemplo 2:
+			div p{}
+				Quantos Elementos Inline usados como paramentro de especifidadedade? 0  
+				Quantos IDs usados como parametro de especifidade? 0
+				Quantas Elementos classe usados como paramentro? 0
+				Quantos Elementos do seletor? 2
+				
+				Por tanto o nível de especifidade será 0,0,0,2 = valor 2
+				
+		Exemplo 3:
+			p.intro{}
+				Quantos Elementos Inline usados como paramentro de especifidadedade? 0  
+				Quantos IDs usados como parametro de especifidade? 0
+				Quantas Elementos classe usados como paramentro? 2
+				Quantos Elementos do seletor? 1
+				
+				Por tanto o nível de especifidade será 0,0,1,1 = valor 11	
+
+		Exemplo 4:
+			#menu{}
+				Quantos Elementos Inline usados como paramentro de especifidadedade? 0  
+				Quantos IDs usados como parametro de especifidade? 1
+				Quantas Elementos classe usados como paramentro? 0
+				Quantos Elementos do seletor? 0
+				
+				Por tanto o nível de especifidade será 0,1,0,0 = valor 100
+
+		Exemplo 5:
+			em{}
+				Quantos Elementos Inline usados como paramentro de especifidadedade? 1  
+				Quantos IDs usados como parametro de especifidade? 0
+				Quantas Elementos classe usados como paramentro? 0
+				Quantos Elementos do seletor? 0
+				
+				Por tanto o nível de especifidade será 1,0,0,0 = valor 1000				
+*/
+

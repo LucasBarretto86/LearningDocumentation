@@ -1,0 +1,39 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 25 - Internationalization - i18n
+
+-----------------------------------------------------------------
+
+Para podermos definir outros idiomas na nossa aplicação, inicialmente devemos criar um initializer 'locale.rb' para que nossa aplicação possa atuar com diferentes linguas, o primeiro passo é criar o arquivo 'localo.rb' dentro da pasta initializer de nossa aplicação, dentro deste arquivos devemos informar quais serão os arquivos yml que serão utilizados para internacionaliozação		
+	
+	Dentro do arquivo > 'locale.rb'
+
+		I18n.available_locales = [:en, "pt-BR"]    -----> Informa  quais são os idiomas disponiveis
+		I18n.default_locale = "pt-BR"  			   -----> Define qual será o idioma padrão.
+
+Observe que esses arquivos yml nada mais são do que arquivos de chave e valor, ou seja, quando pedimos a tradução ou a localição com a class I18n, o Rails simplesmente buscar o valor respecitivo a chave. Observe o exemplo:
+		
+		<p>I18n.t(:hello)</p>
+
+
+Neste caso o método 't' é uma alias para translate, o que este metodo faz é simpelsmente buscar um chave :hello junto ao arquivo yml respectivo ao idioma que setamos como padrão, neste caso nosso idioma foi setado para 'pr-BR', por tanto, ele buscará no arquivo  'pt-BR.yml' um chave correspondente a :hello, observe:
+
+
+	Dentro do arquivo 'pt-BR.yml'
+
+
+Dentro  das viwes é possível chamar o o metodo tradição diretosem usar a class, logo, exemplo: t(:hello)
+
+		pt-BR:	
+		  hello: 'Olá Mundo'
+
+	Logo o retorno de:
+			<p><%=t(:hello)%></p>
+
+	será:
+			<p>Olá Mundo</p>
+
+
+					
+		

@@ -1,0 +1,38 @@
+.pos {
+  &-a {
+    position: absolute;
+  }
+
+  &-r {
+    position: relative;
+  }
+
+  &-f {
+    position: fixed;
+  }
+
+  &-50pct {
+    &-t {
+      top: 50%;
+    }
+
+    &-r {
+      right: 50%
+    }
+
+    &-l {
+      left: 50%
+    }
+
+    &-b {
+      bottom: 50%;
+    }
+  }
+
+  &-reset {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

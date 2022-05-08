@@ -1,0 +1,97 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 20 - Filtros Rails
+
+-----------------------------------------------------------------
+Como aprendemos em aulas anteriores para que um variavel de instancia seja transmitida a view era necessário defini-la dentro do metodo respetivo a view em questão:
+
+	EXEMPLO:
+		class CoinsController < ApplicationController
+			...
+			# GET /coins
+			# GET /coins.json
+			def index
+				@coins = Coin.all     <------ Nossa variavel de instancia que é transmitida para a view index.
+			end
+			...
+		end
+
+		Logo, torna-se possível: views\coins\index.html.erb
+		  <% @coins.each do |coin| %>     <---- Observe que por consequencia a variavel fica disponivel para a iteração na view em questão.
+		    <tr>
+		      <td><%= coin.name %></td>
+		      <td><%= coin.acronym %></td>
+		      <td><%= image_tag(coin.url_image, {size: "25x25"}) %></td>
+		      <td><%= link_to 'Show', coin %></td>
+		      <td><%= link_to 'Edit', edit_coin_path(coin) %></td>
+		      <td><%= link_to 'Destroy', coin, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+		    </tr>
+		  <% end %>
+
+No entando, se observarmos em nosso controller outros metodos e suas views iremos observar que existem variaveis de instancias que não necessáriamente são informadas via metodo.
+
+	EXEMPLO:
+		class CoinsController < ApplicationController
+			...
+			# GET /coins/1
+			# GET /coins/1.json
+			def show
+			end
+			...
+		end
+
+		No entanto, na respetiva view: views/coins/show.html.erb:
+
+			<p id="notice"><%= notice %></p>
+
+			<p>
+			  <strong>Name:</strong>
+			  <%= @coin.name %>
+			</p>
+
+			<p>
+			  <strong>Acronym:</strong>
+			  <%= @coin.acronym %>
+			</p>
+
+			<p>
+			  <strong>Image:</strong>
+			  <%= image_tag(@coin.url_image, size: "32x32") %>
+			</p>
+
+			<%= link_to 'Edit', edit_coin_path(@coin) %> |
+			<%= link_to 'Back', coins_path %>
+
+Isso se torna possível por conta dos filtros em Rails, filtros são metodos que são executados antes e/ou depois e antes e depois das actions de cada controller.
+
+Se observarmos nosso controller, iremos encontrar um metodo chamado no inicio da classe 'before_action' este é um filtro que executa uma dada ação antes das actions do nosso controller:
+
+	EXEMPLO:
+		class CoinsController < ApplicationController
+			before_action :set_coin, only: [:show, :edit, :update, :destroy]  <------ Filtro executado antes das actions
+			...
+			# GET /coins/1
+			# GET /coins/1.json
+			def show
+			end
+			...
+		end
+
+Neste filtro before fornecemos um callback  'set_coin' (metodo presente no proprio controller) e um conjunto de symbols respectivos a algumas actions presente nosso controller.
+
+	before_action :set_coin, only: [:show, :edit, :update, :destroy]
+
+	Ou seja, before as ações pedimos que seja instanciada uma coin, porém, apenas para as views show, edit, update e destroy.
+
+	Observe esse metodo set_coin está presente no próprio controller como um metodo privado, se observamos o arquivo por completo iremos identificar o metodo conforme segue:
+
+
+		private
+		    def set_coin
+		      @coin = Coin.find(params[:id]) <--- Observe que o metodo simplesmente instancia uma variavel buscando em nosso banco uma moeda especifica, aonde o id seja igual ao valor fornecido via httpRequest com uso de um query parameter, ou seja, é semelhante a um @PathVariable do Java.
+		    end
+
+Desta forma o nosso filtro before_action já encaminha para as views em questão uma variavel correspondete a ao id indicado, e por isso não há necessidade de criarmos uma variavel para todos os metodos, pq o filtro já faz essa tarefa para nós. 
+
+

@@ -1,0 +1,63 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 19.4 - Layouts and Partials - Novos Layouts
+-----------------------------------------------------------------
+A questão de layout é um tanto quanto simples no Rails, e além do layout padrão também é possivel a criação de novos layouts o Rails não nos obriga a usar sempre o mesmo layout ainda que isto seja comum em um site.
+
+Um exemplo de uso diferente de layouts seria, um layout base, para o usuário regular e um layout para privado para administração.
+
+Para criar um Layout basta criar um novo arquivo .html.erb na pasta 'views/layout'
+
+Em um novo layout naturalmente será necessário a criação do html base, ou seja, tags <html>, <head>, <body> e etc..
+	Layout: adm.html.erb
+	EXEMPLO:
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<title>...</title>
+				<%= csrf_meta_tags %>
+				<%= csp_meta_tag %>
+				<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+				<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+			</head>
+
+			<body>
+				<%= yield %>
+			</body>
+		</html>
+
+Um detalhe importa é que a interpolação <%= yield %> é obrigatória, pois, é o elemento que determina aonde as views indicadas por um controller serão renderizadas.
+
+Naturalmente quando criamos um novo layout ele ainda não possui um controller e por consequencia não haverá views a este layout, por isso é importante que um controller seja direcionado ao novo layout. 
+
+Neste nosso exemplo iremos atribuir o nosso novo layout ao controllerCoins, para isso dentro do controller em questão devemos chamar o método layout:
+
+	EXEMPLO: 
+		class CoinsController < ApplicationController
+		  before_action :set_coin, only: [:show, :edit, :update, :destroy]
+
+		  layout "adm" 			<---- O paramentro neste caso é o nome do novo arquivo de layout
+
+		  def index
+				....
+		  end
+
+		  def show
+				....
+		  end
+
+		  def new
+				....
+		  end
+		  .
+		  .
+		  .
+		  .
+
+		end
+
+OBS.:
+	Todo controller está vinculado a um layout, pois, as views que indicamos no nosso controller sempre devem possuir um layout básico, quando não atribuimos um layout explicitamente o controller automaticamente ira usar o layout application como padrão.
+
+

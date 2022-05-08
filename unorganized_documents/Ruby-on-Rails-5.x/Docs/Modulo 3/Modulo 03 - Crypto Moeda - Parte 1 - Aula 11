@@ -1,0 +1,39 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 11 - Embbeded Ruby - ERB
+
+-----------------------------------------------------------------
+Em nosso projeto podemos observa que as novas views tem um extensao .html.erb
+
+Essa é uma extensão similar com o jsp do java ou um php, ou seja, um arquivo do backend que recebe entrada de comandos do linguagem ruby de modo que no momento em que esse código é processado ele gera um html dinamico.
+
+Dentro dos arquivos ERB podemos inserir as tags html normalmente e para inserir o código ruby usamos o padrão <% %>
+
+Exemplo:
+	<p>A soma é = <%= 1 + 1 %></p>
+	<p>Seu nome de trás para frente é: <%= "Lucas".reverse %></p>
+
+	O retorno no browser será:
+
+	A soma é = 2
+
+	Seu nome de trás para frente é: sacuL
+
+Agora é importante observar que o = dentro de <% %> determina que o retorno do código ruby seja renderizado pelo browser, do contrário o ruby executa a o código pórem não renderiza o retorno.
+
+<p><% 2 + 2 %></p> ----> Efetua a soma, mas, não renderiza o resultado
+
+<p><%= 2 + 2 %></p> ----> Efetua a soma e renderiza o resultado da soma
+
+Exemplo:
+	<p>Faz apenas calculo.... <% cal = 2+2 %></p>
+	<p>Resultado do calculo: <%= cal %></p>
+
+	O retorno no browser será:
+
+	Faz apenas calculo....
+
+	Resultado do calculo: 4
+
+

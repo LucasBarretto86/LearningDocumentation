@@ -1,0 +1,27 @@
+h1, h3, p {
+		border: 1px solid black;
+		width:320px;
+		clear:both;
+		float:left;
+}	
+
+p {
+	background-color:#DDDDDD;
+}
+
+img{
+	float: right;	
+}
+
+span {
+	border: 1px solid black;
+}
+
+span.destaque{
+	float:right;
+	width: 40%;
+	border: 1px solid black;
+	background-color: #FFFFFF;
+}
+
+

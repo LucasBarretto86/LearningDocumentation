@@ -1,0 +1,36 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 23.2 - Implementando um spinner em nossa task
+-----------------------------------------------------------------
+
+Para estilizar a nossa task e deixar o processo mais estético, podemos usar uma gem interessante:
+	gem 'tty-spinner'
+
+Basta adiconar essa gem ao nosso gemfile e executar o bundle no projeto, depois, já podemos utilizar o modulo: TTY::Spinner
+
+	Abaixo segue a implementação do código com o Spinner:
+
+	task init: :environment do
+	  if Rails.env.development?
+	    tasks = %w[db:drop db:create db:migrate db:seed]  <---- Um array de strings com o nome das tasks que iremos executar com %x()
+
+	    tasks.each do |task|  <----- Percorremos o nosso array
+	      spinner = TTY::Spinner.new("[#{task}] :spinner ", format: :dots) <---- Usamos o modulo e criamos nosso spinner do tipo :dots, há diversos tipos.
+
+	      spinner.auto_spin <---- Solicitamos a executação da animação do spinner
+
+	      %x(rails #{task}) <----- Executação a task em si
+
+	      spinner.success() <----- Apresentamos animação de sucesso do spinner.
+	    end
+	  end
+	end
+
+	O resultado final:
+		rails dev:init
+		[db:drop] ✔ 
+		[db:create] ✔ 
+		[db:migrate] ✔ 
+		[db:seed] ✔ 
+

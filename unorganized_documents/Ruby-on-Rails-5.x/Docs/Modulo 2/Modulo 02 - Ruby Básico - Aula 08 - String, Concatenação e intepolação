@@ -1,0 +1,48 @@
+MODULO 02 - Ruby Básico
+
+AULA 08 - String, concatenação e intepolação
+
+Há três maneiras de realizar a concatenação de strings em Ruby
+
+--------------------------------------------------------------------
+
+Concatenação com +
+
+Exemplo:
+	x = "Lucas "
+	y = "Barretto"
+
+	puts x + y
+
+	#Saída no terminal:
+		Lucas Barretto
+
+IMPORTANTE: Toda vez que a concatenação com + é usada o Ruby cri uma nova variavel em memória que é constiuida pela o valor concatenado, ou seja ele gera um novo objeto.
+
+--------------------------------------------------------------------
+
+Concatenação com <<		
+
+Exemplo:
+	x = "Lucas "
+	y = "Barretto"
+
+	puts x << y
+
+	#Saída no terminal:
+		Lucas Barretto
+
+IMPORTANTE: A concatenação com << modifica o valor da variável que se encontra do lado menor, ou seja, no exemplo acima após o uso de x << y, x passa a possuio o valor "Lucas Barretto", pois, o valor de y, foi lançado dentro da variavel x em concatenação.
+
+--------------------------------------------------------------------
+
+Interpolação de variaveis
+
+Exemplo:
+	y = "Barretto"
+
+	puts "Lucas #{y}"
+
+	#Saída no terminal:
+		Lucas Barretto
+

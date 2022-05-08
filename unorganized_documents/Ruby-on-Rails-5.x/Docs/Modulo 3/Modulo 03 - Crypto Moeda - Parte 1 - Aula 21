@@ -1,0 +1,64 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 21 - Permissão de Parametros via HTTP Request
+
+-----------------------------------------------------------------
+Todos os controllers criados em nosso aplicação é um extensão() ou uma filha) da classe Action Controller, essa é uma class nativa do Rails e serve como base para a criação de todos os controllers que criamos na aplicação, esta classe possui metodos e dependecias que são fundamentais para definição do comportamento dos nosso controllers. 
+
+Uma das dependecias mais importante desta classe  é o proveniente de uma classe especializada no tratamento de paramentros recebidos via http request, essa dependecia é a classe Parameters. 
+
+Dessa forma por padrão, todas as requests recebidas em nosso sistema irá passar pela classe ActionController e invariavelmente irá passar pelas validações presentes na modulo Parameters, caso estas estejam setadas. 
+
+O modulo Parameters possui dois métodos principais. 
+
+	require(model: :model)
+	permit(paremeters accepted)
+
+Esse dois metodos devem ser usados em conjunto, require estabelece o model trabalhado no momento e permit estabelece os parametros que serão aceitos via http para trabalhar com o model, o melhor exemplo que podemos mostrar está presente no metodo privado do nosso controller de moedas:
+    def coin_params
+	    params.require(:coin).permit(:name, :acronym, :url_image)
+	end
+
+	EXEMPLO:
+	Após um request de atualização no nosso servidor iremos observar a seguinte operaçao:
+
+	    Started PATCH "/coins/4" for 127.0.0.1 at 2019-06-30 00:09:36 -0300   	<----- Tipo de request PATCH
+	    Processing by CoinsController#update as HTML
+	      Parameters: {"utf8"=>"✓", "authenticity_token"=>"R9Qew3OPmTsrzUgDVxlcMxAJSijJZqW3e8hayjHf2zjRQ3W1OGMtsmJ2GoLr1+KmLROOBNdb/X6Co6yMJKFYIw==", "coin"=>{"name"=>"Litecoin", "acronym"=>"LTC", "url_image"=>"https://i.ibb.co/1KkXKmV/ltc.png"}, "commit"=>"Update Coin", "id"=>"4"}		<---- Parametros recebidos na request.
+	      Coin Load (0.9ms)  SELECT  "coins".* FROM "coins" WHERE "coins"."id" = ? LIMIT ?  [["id", 4], ["LIMIT", 1]]
+	      ↳ app/controllers/coins_controller.rb:69
+	       (0.1ms)  begin transaction
+	      ↳ app/controllers/coins_controller.rb:46
+	       (0.1ms)  commit transaction
+	      ↳ app/controllers/coins_controller.rb:46
+	    Redirected to http://localhost:3000/coins/4		<----- Resposta a requisição.
+	    Completed 302 Found in 36ms (ActiveRecord: 3.6ms)
+
+
+Se observarmos os paremetros recebidos na request são:
+
+		Parameters: {"utf8"=>"✓", "authenticity_token"=>"R9Qew3OPmTsrzUgDVxlcMxAJSijJZqW3e8hayjHf2zjRQ3W1OGMtsmJ2GoLr1+KmLROOBNdb/X6Co6yMJKFYIw==", "coin"=>{"name"=>"Litecoin", "acronym"=>"LTC", "url_image"=>"https://i.ibb.co/1KkXKmV/ltc.png"}, "commit"=>"Update Coin", "id"=>"4"}
+
+		em detalhes:
+
+		Parameters: {
+			"utf8"=>"✓",	<------- Charset da request 
+			"authenticity_token"=>"R9Qew3OPmTsrzUgDVxlcMxAJSijJZqW3e8hayjHf2zjRQ3W1OGMtsmJ2GoLr1+KmLROOBNdb/X6Co6yMJKFYIw==",	<------- Autenticação * deve ser visto em detalhes
+			"coin"=>{"name"=>"Litecoin", "acronym"=>"LTC", "url_image"=>"https://i.ibb.co/1KkXKmV/ltc.png"},	<------- objeto enviado 
+			"commit"=>"Update Coin",	<------- Tipo de ação 
+			"id"=>"4"	<------- PK do modelo
+		}
+
+Toda vez que uma request é feita ao nosso controller esses valores enviados em parametro são armazenados em uma variavel, assim como vimos em aulas anteriores esses valores são armazenados na variavel params. Dessa forma quando nosso controller chama os metodos privados set_coin ou coin_params é esta variavel que é usada. 
+
+
+  private
+    def set_coin
+      @coin = Coin.find(params[:id])	<------- Observe que aqui o metodo set_coin instanciando uma meoda de acordo com o :id recebido na variavel params recebidos na request.
+    end
+
+    def coin_params
+      params.require(:coin).permit(:name, :acronym, :url_image)		<--------- aqui estamos determinando quais dados serão permitidos como parametros advindos de uma http request, logo somente os os dados recebidos por :name, :acronym, :url_image, poderam ser manipulados em nosso model.
+    end
+

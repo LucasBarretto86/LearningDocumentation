@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Este elemento meta é obrigatório para que o Bootstrap seja responsivo-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS  Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+    <!--jQuery-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <!--Popper-->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!--JS  Bootstrap-->
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+
+    <title>Bootstrap - Aula 09 - Carousel</title>
+</head>
+
+<body>
+    <h1>Bootstrap - Aula 09 - Carousel</h1>
+    <p>Carousel é uma classe destinada a apresentação de imagens no formato de slides.</p>
+    <p>Para o funcionamento adequado do carousel teremos classes especificas para sua criação, assim como foi o caso do
+        modal.</p>
+    <p> inicialmente criamos uma div inicial com a classe .carousel slide, também definir uma id e uma
+        propriedade chamada data-ride com valor "carousel".</p>
+    <img src="img/example-1.PNG" alt="example">
+
+    <p>Dentro desta div iremos criar três tipos de blocos, um bloco de indicadores, um bloco para as imagens e um bloco
+        para os controles.</p>
+
+    <h2>Bloco de Indicadores</h2>
+    <p>No bloco de indicadores nós trataremos uma lista ul de classe .carousel-indicators, dentro desta lista cada
+        elemento lo terá duas propriedades data-target e data-slide-to.</p>
+    <p>Na propriedade data-target iremos indicar o id do nosso carousel, na propriedade data=slide-to iremos informar o
+        numero de imagens pelo seus indices.</p>
+    <p>Também é importante que o primeiro item tenha uma classe especial classe .active, essa classe determina que este
+        será o primeiro item a ser exibido.</p>
+    <img src="img/example-2.PNG" alt="example">
+
+    <h2>Bloco de Imagens</h2>
+    <p>Neste bloco nos devemos criar uma div principal com a classe .carousel-inner e dentro desta div para cada nova
+        imagem iremos estabelecer um outra div com a classe .carousel-item, dentro desse elemento iremos vincular o
+        elemento de imagem referente a aquele item do carousel.</p>
+    <p> Para cada imagem deverá ser feito dessa forma, no
+        entanto, uma dessas imagens deverá também conter em sua classe o modificador active para determinar que essa
+        será a primeira imagem a ser exibida.</p>
+    <img src="img/example-3.PNG" alt="example">
+
+    <h2>Bloco de Controles</h2>
+    <p>No bloco de controle teremos dois elementos que são os controles de avançar e retornar as imagens, cada controle
+        terá um elemento link que receberá a classe .carousel-control-prev ou carousel-control-next, assim como sua
+        propriedade href deverá ser dirigida ao id que estabelecemos para o nosso carousel, mas, também devemos
+        especificar na propriedade data-slide o comportamento prev ou next, de acordo com o tipo de controle a ser
+        criado.</p>
+    <p>Dentro de cada elemento a, iremos especificar um elemento span que representará o ícone do controle, para isso
+        definimos a class .carousel-control-next-icon ou carousel-control-prev-icon</p>
+    <img src="img/example-4.PNG" alt="example">
+
+
+
+    <h2>Carousel Example</h2>
+    <div class="container">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicadores -->
+            <ul class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+            </ul>
+
+            <!-- Imagens -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/image-1.png" style="width:100%; height:auto;" alt="Image-1">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/image-2.png" style="width:100%; height:auto;" alt="Image-2">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/image-3.png" style="width:100%; height:auto;" alt="Image-3">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/image-5.png" style="width:100%; height:auto;" alt="Image-4">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/image-6.png" style="width:100%; height:auto;" alt="Image-5">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="img/image-9.png" style="width:100%; height:auto;" alt="Image-6">
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <!--Controle de retorno, controle esquerdo-->
+            <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            
+            <!--Controle de próximo, controle direito-->
+            <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>
+    </div>
+</body>
+
+</html>

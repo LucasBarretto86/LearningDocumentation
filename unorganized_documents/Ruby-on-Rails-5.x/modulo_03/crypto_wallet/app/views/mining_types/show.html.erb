@@ -1,0 +1,15 @@
+<div class="card card--flex-column">
+  <div class="card__header"></div>
+  <div class="card__content">
+    <div><strong>Name</strong>
+      <%= @mining_type.name %>
+    </div>
+
+    <div><strong>Acronym</strong>
+      <%= @mining_type.acronym %>
+    </div>
+  </div>
+  <div class="card__action-pane"><%= link_to 'Edit', edit_mining_type_path(@mining_type) %>
+    | <%= link_to 'Back', mining_types_path %></div>
+</div>
+

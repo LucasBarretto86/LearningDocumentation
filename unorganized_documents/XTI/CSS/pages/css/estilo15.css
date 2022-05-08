@@ -1,0 +1,16 @@
+ul{
+	list-style-type: none; /* circle, disc, none, square, decimal, decimal-leading-zero, lower-/upper-(georgian, armenian, latin, greek, alpha) */
+	list-style-position: inside /*outside*/;
+	list-style-image: url("img/imgcrz.png");
+	
+	
+	/*Maneira simplificada
+	
+	list-style: type 	position 		image;
+				 |	 	   |			  |
+	list-style: none 	 inside 	url("img/imgcrz.png");
+	
+	*/
+	
+	
+}

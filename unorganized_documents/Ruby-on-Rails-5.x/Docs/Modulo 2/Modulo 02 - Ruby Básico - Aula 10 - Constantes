@@ -1,0 +1,31 @@
+
+MODULO 02 - Rúby Básico
+
+AULA 09 - Constantes
+
+-------------------------------------------------------------
+
+No Ruby as contantes devem ser escritas somente com letras maiusculas
+
+Exemplo:
+
+	PI = 3.14
+	puts PI
+
+	#Saída no terminal:
+		3.14
+
+Porém, as constantes do Ruby podem ter seu valor alterado, a única diferença é que o Ruby envia um alerta sobre a mudança, naturalmente, não deve ser usado dessa forma, mas, pode ser alterado.
+
+Exemplo:
+	NOME = "Lucas"
+	puts NOME
+
+	NOME = "Jorge"
+	puts NOME
+
+	# Saída no terminal:
+		Lucas
+		/vagrant/workspace/modulo_02/aula-10-constantes.rb:5: warning: already initialized constant NOME
+		/vagrant/workspace/modulo_02/aula-10-constantes.rb:1: warning: previous definition of NOME was here
+		Jorge

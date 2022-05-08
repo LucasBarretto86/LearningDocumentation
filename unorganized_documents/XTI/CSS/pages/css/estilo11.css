@@ -1,0 +1,14 @@
+p {
+	letter-spacing:5px;
+	word-spacing:10px;
+	line-height:30px; 
+	text-align:justify; /* left, right, center*/
+	text-indent:50px; /* função é como o tab, um espaçamento no inicio do elemento*/
+	
+}
+
+span {
+	vertical-align:text-top; /* sup, sub, bottom*/
+	text-decoration:line-through overline red; /* overline, underline, blink - Aceita multiplos efeitos também aceita cores para as decorações*/
+	text-transform: capitalize /*uppercase, lowercase, capitalize (torna a primeira letra de todas as palavras do elemento especificado em maiuscula)*/
+}

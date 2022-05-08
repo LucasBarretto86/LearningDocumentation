@@ -1,0 +1,54 @@
+a { /*Estilizando de forma global*/
+	text-decoration: none;
+	color: #000000;
+	background-color: #DDDDDD;
+	border:	1px solid black;
+	width: 90px;
+	display: block;
+	padding: 3px 5px;
+}
+
+a:link{ /*Estilaizando com o uso das pseudo classes para customiar as ações*/
+}
+		
+a:hover{ /*Estilaizando com o uso das pseudo classes para customiar as ações*/
+	color:#DDDDDD;
+	background-color:#000000;
+}
+
+a:visited{ /*Estilaizando com o uso das pseudo classes para customiar as ações*/
+	color:#AA0000;
+	background-color:#DDDDDD;
+}
+	
+a:active{ /*Estilaizando com o uso das pseudo classes para customiar as ações*/
+	color:#DDDDDD;
+	background-color:#AA0000;
+}	
+
+a[href^="https://"]{ /* ^= significa começando com*/
+	background-image: url(img/external.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right:14px;													
+}
+
+a[href^="mailto:"]{ /* ^= significa começando com*/
+	background-image: url(img/mailto.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right:14px;													
+}
+
+a[href$=".rar"]{ /* $= significa terminando com*/
+	background-image: url(img/download.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right:14px;													
+}
+
+a.img { /*Estilizando de forma especifica com o uso de uma classe aumenta a prioridade*/
+	border:none;
+	width: 32px;
+	background-color:#FFFFFF;
+}

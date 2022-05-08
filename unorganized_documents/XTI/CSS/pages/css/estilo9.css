@@ -1,0 +1,37 @@
+* {
+	font-size: 10px;
+}
+h1{
+	font-size: 3em;
+}
+h2{
+	font-size: 2em;
+}	
+
+/*	MEDIAS ABSOLUTAS
+
+		5in - inches (1in = 2,56cm)
+		5mm - milimetros
+		5cm - cemtimetros
+		5pt - pontos (1pt = 1/72 de 1in = 0,0138in) + usada
+		5pc - picas (1pc = 12pt = 0,166in)
+
+
+	MEDIDAS RELATIVAS
+	
+	5em - relativa ao tamanho da fonte estabelecida para o elemento indicado, e aceita valores fracionados.
+		Exemplo: 
+		* {
+			font-size: 10px;  -- Através do seletor univesal apontamos que  o tamanho da fonte do texto seja de 10px
+		}
+		h1{
+			font-size: 3em;   -- Porém, neste selector pedimos que a fonte do nosso h1 seja exatamente 3x o valor da fonte do item corrente, portanto, visto que o seletor universal havia settado para 10px, logo a fonte de h1 será 30px.
+		}
+		h2{
+			font-size: 2em;   -- Neste selector pedimos que a fonte do nosso h2 seja  2x o valor da fonte do item corrente, portanto, visto que o seletor universal havia settado para 10px, logo a fonte de h2 será 20px.
+		}	
+			
+	5px - pixel - Controle relativo ao tamanho do pixel, valor muito mais rigido do tamanho.
+	50% - percentual
+*/
+

@@ -1,0 +1,135 @@
+.w { //width
+
+  &-32 {
+    width: 32px;
+  }
+
+  &-64 {
+    width: 64px;
+  }
+
+  &-96 {
+    width: 96px;
+  }
+
+  &-128 {
+    width: 128px;
+  }
+
+  &-25p {
+    width: 25%;
+  }
+
+  &-50p {
+    width: 25%;
+  }
+
+  &-75p {
+    width: 75%;
+  }
+
+  &-100p {
+    width: 100%;
+  }
+
+  &-min {
+    &-32 {
+      min-width: 32px;
+    }
+
+    &-64 {
+      min-width: 64px;
+    }
+
+    &-96 {
+      min-width: 96px;
+    }
+
+    &-128 {
+      min-width: 128px;
+    }
+
+    &-20p {
+      min-width: 20%;
+    }
+
+    &-25p {
+      min-width: 25%;
+    }
+
+    &-40p {
+      min-width: 40%;
+    }
+
+    &-50p {
+      min-width: 25%;
+    }
+
+    &-60p {
+      min-width: 60%;
+    }
+
+    &-75p {
+      min-width: 75%;
+    }
+
+    &-80p {
+      min-width: 80px;
+    }
+
+    &-100p {
+      min-width: 100%;
+    }
+
+  }
+
+  &-max {
+    &-32 {
+      max-width: 32px;
+    }
+
+    &-64 {
+      max-width: 64px;
+    }
+
+    &-96 {
+      max-width: 96px;
+    }
+
+    &-128 {
+      max-width: 128px;
+    }
+
+    &-20p {
+      max-width: 20%;
+    }
+
+    &-25p {
+      max-width: 25%;
+    }
+
+    &-40p {
+      max-width: 40%;
+    }
+
+    &-50p {
+      max-width: 25%;
+    }
+
+    &-60p {
+      max-width: 60%;
+    }
+
+    &-75p {
+      max-width: 75%;
+    }
+
+    &-80p {
+      max-width: 80px;
+    }
+
+    &-100p {
+      max-width: 100%;
+    }
+  }
+}

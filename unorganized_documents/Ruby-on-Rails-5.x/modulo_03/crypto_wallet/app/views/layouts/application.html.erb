@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= app_name %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <%= render "layouts/components/header" %>
+    <main class="flex">
+      <%= render "layouts/components/aside" %>
+      <%= render "layouts/components/article" %>
+    </main>
+
+    <%= render "layouts/components/footer" %>
+  </body>
+</html>

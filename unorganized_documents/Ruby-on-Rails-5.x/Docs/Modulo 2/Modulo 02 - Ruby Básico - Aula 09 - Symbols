@@ -1,0 +1,22 @@
+
+MODULO 02 - Rúby Básico
+
+AULA 09 - Symbols
+
+Symbols são muito usados em situações aonde precisamos de um identificador pois eles garatem que seu uso não implicará na criação de um novo objeto, são usados normalmente com Hashes
+
+------------------------------------------------------------------------
+
+Symbols são como Strings, porém, elas são usadas como identificadores, valores que não podem ser alterados.
+
+Para criar um symbol, basta usar :
+
+Exemplo:
+	nome = :Lucas
+	puts nome
+
+	#Saída no terminal:
+		Lucas
+
+
+A diferença entre Symbols e Strings é nublada, mas, basta saber que os Symbols são usados para definir valores que não são alterados e servem de indicadores e strings são valores que vem do mundo exterior.

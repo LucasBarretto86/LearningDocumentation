@@ -1,0 +1,27 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 18 - Query Params para Requests - Hashes
+
+-----------------------------------------------------------------
+
+Para compreender o qu são Query Params, primeiramente iremos lembrar o conceito de hashes no Ruby: 
+
+Uma Hashe é um conjunto de chave e valor, para o qual atribuimos um symbol do ruby e um valor:
+
+Parar criarmos um hash no ruby, usamos algo similar ao JSON:
+
+	irb(main):001:0> h = {nome: "Lucas", cargo: "Estágiario"}
+	=> {:nome=>"Lucas", :cargo=>"Estágiario"}
+
+Mas, observe que ao criarmos uma hash no Ruby, ainda assim, o Ruby irá compreende-lo como um conjunto symbol=>valor:
+		=> {:nome=>"Lucas", :cargo=>"Estágiario"}
+
+Para acessarmos o valor iremos chamar a variavel e dentro das chaves chamaremos os symbols que representam o valor:
+
+	irb(main):002:0> h[:nome]
+	=> "Lucas"
+
+	irb(main):003:0> h[:cargo]
+	=> "Estágiario"
+

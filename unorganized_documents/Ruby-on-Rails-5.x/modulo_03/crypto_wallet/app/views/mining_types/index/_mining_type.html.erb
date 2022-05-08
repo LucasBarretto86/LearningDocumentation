@@ -1,0 +1,6 @@
+<%= tag.tr mining_type do %>
+    <td><%= link_to mining_type.name, mining_type %></td>
+    <td><%= mining_type.acronym %></td>
+    <td><%= link_to 'Edit', edit_mining_type_path(mining_type) %></td>
+    <td><%= link_to 'Destroy', mining_type, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+<% end %>

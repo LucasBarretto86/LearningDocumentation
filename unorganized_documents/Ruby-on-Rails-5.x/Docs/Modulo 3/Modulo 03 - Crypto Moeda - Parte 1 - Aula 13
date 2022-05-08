@@ -1,0 +1,36 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 13 - Helpers - Criando nossos próprios Helpers
+
+-----------------------------------------------------------------
+
+Helpers são modulos ruby utilitarios, ou seja, modulos que servem para ajudar cada view da nossa aplicação. Quando usamos o generator para o scalffold ou para os controllers aonde há views, o Rails automaticamente cria uma pasta chamada helpers, nela ele cria por padrão um arquivo chamado application_helper, assim como, um arquivo *_helper para cada view teremos.
+
+O conceito é simples o arquivo application_helper será para a criação de métodos utilitarios que serão usados em toda a nossa aplicação, enquanto arquivos de views especificas deverão ser utilizadas para métodos especializados para view em questão.
+
+Exemplo de Helpers
+
+app/helpers/appilication_helper:
+
+	module ApplicationHelper
+	  def app_name 
+	    "Kit3s's CRYPTO WALLET"
+	    # Um Helper que apenas retorna o nome da aplicação, com o inteção de que este seja chamado throughout o app para apresentar o nome da aplicação. 
+	  end
+
+	  def br_date(date)
+	    date.strftime("%d/%m/%Y")
+	    # Um helper que busca apenas formatar uma data que entra por param para o formato brasileiro de forma literal, ou seja, sem usar localização até então.
+	  end
+	end
+
+
+Usando o helper:
+
+O uso é muito simples
+
+<h1><%= app_name %></h1>
+
+Em qualquer localidade da aplicação em que usarmos o metodo do application_helper será apresentado o nome  da aplicação.
+

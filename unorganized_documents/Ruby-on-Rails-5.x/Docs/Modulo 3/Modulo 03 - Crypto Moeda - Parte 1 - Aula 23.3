@@ -1,0 +1,38 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 23.3 - Yield
+-----------------------------------------------------------------
+Apenas uma rapida definição do que é o yield, basicamente o é uma palavra reservad do ruby que posibilita a execução de blocos de codigo.
+
+	EXEMPLO:
+
+	task init: :environment do
+	if Rails.env.development? 
+		show_spinner("Dropping current database...") do
+			%x(db:drop)   <------ Bloco de código transmitido ao o yield do metodo, ou seja, enviado para dentro do meotod.
+		end
+
+		show_spinner("Creating new instance of database...") do
+			%x(db:create)
+		end
+
+		show_spinner("Migrating database...") do
+			%x(db:migrate)
+		end
+
+		show_spinner("Seeding database...") do
+			%x(db:seed)
+		end
+	end
+
+
+	show_spinner(start_msg, end_msg = nil)
+	    spinner = TTY::Spinner.new("[#{start_msg}] :spinner ", format: :dots)
+        spinner.auto_spin
+        yield  <--- this yield significa que haverá entrada de um bloco de código, quando o metodo for chamado.
+        spinner.success()
+	end
+
+
+

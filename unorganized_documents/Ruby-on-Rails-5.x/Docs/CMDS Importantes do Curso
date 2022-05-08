@@ -1,0 +1,51 @@
+CMDS Importantes do Curso.
+
+GEM CMDS
+
+gem list 								// Lista as gems instaladas
+	
+gem list <nome da gem>					// Pesquisa gems instaladas aprox de acordom com o nome
+
+gem list <nome da gem> --remote     	// Pesquisa por gems remotamente, no servidores do rubygems
+
+gem install <nome da gem>				// Instala uma gem
+
+gem install <nome da gem> -v <x.x.x>	// Força instalação de uma versão especifica
+
+gem uninstall <nome da gem>				// Remove a gem informada
+
+gem uninstall <nome da gem> -v <x.x.x>	// Remove uma versao especifica da gem informada
+
+gem cleanup								// Remove versões antigas das gems instaldas
+
+bundle install || bundle 				// Atualizar as gems presentes no projeto
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+RAILS CMD
+
+rails new nome_do_projeto	// Cria um projeto simples
+
+rails server  || rails s 	// Inicializa o servidor PUMA - PUMA  é um servidor que j vem dentro do ruby, ao inves de ser necessária a instalação de um lamp ou um wamp 
+
+rails console || rails c 	// Inicializa o console do Rails
+
+rails dbconsole				// Permite que o banco de dados seja aberto como console no terminal
+
+rails db:migrate			// Realizaras migrações processadas no banco de dados.
+
+rails db:rollback			// Permite que migrações sejam desfeitas  no banco de dados.
+
+rails generate || rails g	// Permite que diversos tipos de elementos da estrutura do projeto sejam criadas. 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CONSOLE CMDS
+Rails.env				// Informa em qual enviroment o console se encontra
+Rails.env.enviroment?	// Aonde enviroment é ambiente que deseja confirmar se é true ou false
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SQLite 3 Bundler Error - Ubuntu
+
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo gem install sqlite3-ruby

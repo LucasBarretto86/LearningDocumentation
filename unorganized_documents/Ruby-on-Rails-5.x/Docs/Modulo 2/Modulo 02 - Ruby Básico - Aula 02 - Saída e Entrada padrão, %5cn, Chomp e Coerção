@@ -1,0 +1,144 @@
+MODULO 02 - Ruby Básico
+
+AULA 03 - Saída e Entrada padrão, \n, Chomp e Coerção
+
+----------------------------------------------------------------
+
+SAIDA padrão.
+
+A saída padrão, ou STDOUT (Standard Output), é representado pela 'tela'.
+No Ruby usamos o  comando 'puts' ou 'print' para imprimir algo em tela.
+
+Exemplo:
+
+	puts "Lucas Barretto"
+	
+	# Saída no temrinal:
+		Lucas Barretto
+
+A diferença entre o 'puts' e o 'print' é que o 'puts' quebra a linha com '\n' e o print não, somente imprime o texto.
+
+----------------------------------------------------------------
+
+ ENTRADA padrão.
+
+ A entrada padrão, ou STDIN ( (Standard Input), é representado pelo 'teclado'.
+ No Ruby usamos o comando 'gets' para receber uma entrada do teclado.
+
+Exemplo:
+	
+	puts "Entre com um valor"
+	a = gets
+	puts a
+	
+	#Saída no terminal:
+		Entre com um valor:
+		=> teste
+		teste
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+EXEMPLO DE ENTRADA e SAÌDA:
+
+	puts "Escreva seu nome:";
+	nome = gets;
+	puts "Seu nome é: " + nome;
+
+	 # Saída no temrinal:
+		Escreva seu nome:
+		Lucas Barretto
+		Seu nome é: Lucas Barretto
+
+-----------------------------------------------------------------
+
+\n e Chomp
+
+No ruby quando utilizamos o comando puts, automaticamente a linguagem já atribui a string um \n de quebra de linha.
+
+Exemplo:
+
+	puts "Escreva seu nome:"
+	nome = gets
+	puts nome.inspect
+
+	#Saida do terminal:
+		Escreva seu nome:
+		Lucas
+		"Lucas\n"
+
+Observe no exemplo que mesmo digitado somente o "Lucas" ainda assim o ruby acrescentou o \n, para inibir a entrada deste \n nós utilizamos o metodo .chomp:
+
+Exemplo:
+
+	puts "Escreva seu nome:"
+	nome = gets
+	puts nome.inspect
+
+	puts "Escreva outro nome:"
+	nome = gets.chomp
+	puts nome.inspect
+
+	#Saida do terminal:	
+		Escreva seu nome:
+		Lucas
+		"Lucas\n"
+		Escreva outro nome:
+		Lucas
+		"Lucas"
+
+
+-----------------------------------------------------------------
+
+Coerção, cast ou Casting
+
+No Ruby também é possivel fazer casting de tipos com uso de metodos especificos, para isso usamos o metodo to_i para casting to integer, to_f para casting to float, to_s para casting to string:
+
+Exemplo:
+		puts "Digite seu nome: "
+		nome = gets.chomp
+
+		puts "Digite sua idade: "
+		idade = gets.chomp.to_i
+
+		puts "Digite seu salário: "
+		salario = gets.chomp.to_f
+
+		puts "Nome: " + nome + "\nIdade: " + idade.to_s + "\nSalario: " + salario.to_s
+
+	#Saida do terminal:	
+		Digite seu nome: 
+		Lucas
+		Digite sua idade: 
+		32
+		Digite seu salário: 
+		1700
+		Nome: Lucas
+		Idade: 32
+		Salario: 1700.0
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Split de string para array
+
+Exemplo:
+		nomes = "Lucas Daniel Rafael".split
+		puts nomes;
+
+	#Saida do terminal:
+		Lucas
+		Daniel
+		Rafael
+
+	Para compreendermos melhor quais são os métodos de coerção observe a tabela abaixo:
+
+    Classe	      Explicito	   Implicito
+    Array	        to_a	    to_ary
+    Hash	        to_h	    to_hash
+    String	        to_s	    to_str
+    Integer 	    to_i    	to_int
+    Float  	        to_f    	-
+    Complex	        to_c    	-
+    Rational	    to_r    	-
+    Regexp	        -	        to_regexp
+    IO	            -	        to_io
+
+

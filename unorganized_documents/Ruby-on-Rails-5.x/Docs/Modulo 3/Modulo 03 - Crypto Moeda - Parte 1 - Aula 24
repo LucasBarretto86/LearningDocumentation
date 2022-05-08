@@ -1,0 +1,55 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 24 - .map | .pluck
+-----------------------------------------------------------------
+MAP
+-----------------------------------------------------------------
+
+O método map é um método disponivel para coleções, esse método permite que seja feita modificações nos elementos da coeção sem que seja necessária a criação de variaveis auxiliares para tal, observe o exemplo abaixo:
+
+	Neste exemplo o objetivo é modificar cada elemento do array pelo seu próprio valor multiplicado por 2, observe que utilizando o each teriamos bastate trabalho, teriamos que usar uma nova variavel apenas para fazer isso:
+
+			irb(main):001:0> a = [1,2,3,4,5]
+			irb(main):002:0> b = []
+			irb(main):003:0> a.each {|i| b.push(i*2)}
+			=> [1, 2, 3, 4, 5]
+			irb(main):004:0> b
+			=> [2, 4, 6, 8, 10]
+			irb(main):005:0> 
+
+	Já com o método map, fica muito mais simples:
+
+			irb(main):006:0> c.map {|i| i*2}
+			=> [2, 4, 6, 8, 10]
+
+O método map também pode ser utilizado entre uma coleção de objetos:
+
+			irb(main):001:0> Coin.all.map {|coin| coin.name}
+			=> ["Bitcoin", "Ethereum", "Dash", "Smartcash", "Zcash", "Decred", "Tether"]
+
+		Outra maneira de usar o método map para coletar dado:
+
+			irb(main):001:0> Coin.all.map(&:name)
+			=> ["Bitcoin", "Ethereum", "Dash", "Smartcash", "Zcash", "Decred", "Tether"]
+
+		No entanto dessa forma não é possível fazer seleções mais complexas. 
+
+		Outro exemplo, com mais complexidade:
+
+			irb(main):001:0> Coin.all.map {|coin| [coin.name, coin.acronym]}		
+			=> [["Bitcoin", "BTC"], ["Ethereum", "ETH"], ["Dash", "DSH"], ["Smartcash", "SMART"], ["Zcash", "ZEC"], ["Decred", "DCR"], ["Tether", "USDT"]]
+
+
+No entanto, o método map, faz mais sentido se usado iterar e eventualmente modicar valores ou elementos, apenas para consultar valores existe o método pluck, que ao menos para objectos se torna mais simples.
+
+-----------------------------------------------------------------
+Pluck
+-----------------------------------------------------------------
+
+Pluck é um método que se permite a criação de subcoleções apartir de uma coleção principal, no entanto, pluck não funciona em array simples:
+
+			Coin.all.pluck(:name, :acronymn)
+
+			=> [["Bitcoin", "acronymn"], ["Ethereum", "acronymn"], ["Dash", "acronymn"], ["Smartcash", "acronymn"], ["Zcash", "acronymn"], ["Decred", "acronymn"], ["Tether", "acronymn"]]
+

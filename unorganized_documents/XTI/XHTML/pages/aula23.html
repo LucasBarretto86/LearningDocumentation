@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>XHTML Aula 23 - Form</title>
+	</head>
+	<body>
+		<form action="aula23.html" method="post">
+			<fieldset>
+				<legend>Informações pessoais:</legend>
+				<input type="hidden" id="chave" value="Controle Oculto, envia informações que o usuário mão tem acesso">
+				<label for="nome">Nome:</label><input type="text" id="nome" /><br />
+				
+				<label for="senha">
+					Senha:<input type="password" id="senha" disabled="disabled" />
+				</label><br />
+				
+				Sexo:<input type="radio" name="sexo" value="M" />Masculino	<input type="radio" name="sexo" value="M" />Feminino<br />
+				
+			País:
+			<select id="pais">
+				<option value="BR">Brasil</option>
+				<option value="CH">China</option>
+				<option value="US">Estados Unidos</option>
+				<option value="EN">Inglaterra</option>
+				<option value="AR">Argentina</option>
+				<option value="RU">Russia</option>
+			</select><br />
+				
+			</fieldset>
+			
+			<fieldset>
+				<legend>Informações Profissionais:</legend>
+				Conhecimento:<br />
+				<input type="checkbox" name="conhecimento" value="java" />Java<br />
+				<input type="checkbox" name="conhecimento" value="html" />HTML<br />
+				<input type="checkbox" name="conhecimento" value="css" />CSS<br />
+				<input type="checkbox" name="conhecimento" value="javascript" />Javascript<br />
+				<input type="checkbox" name="conhecimento" value="c#" />C#<br />
+				<input type="checkbox" name="conhecimento" value="c++" />C++<br />
+				
+				Resumo:<br />
+				<textarea cols="45" rows="6">Escreva uma resumo...</textarea><br />
+
+				
+				 Liguagem e IDE:<select id="langedit">
+					<optgroup label="Java">
+						<option>Eclipse</option>
+						<option>IntelliJ</option>
+						<option>NetBeans</option>
+					</optgroup>
+					
+					<optgroup label="C#">
+						<option>MonoDevelop</option>
+						<option>Eclipse</option>
+						<option>Visual Studio</option>
+					</optgroup>
+				</select><br />
+				
+				Anexar currículo:<input type="file" id="curriculo" /><br />
+				
+			</fieldset>
+			
+			<input type="submit" value="Enviar" />
+			<input type="reset" value="Cancelar" />
+			<input type="button" value="Button" /><br/>		
+		</form>
+	</body>
+	
+</html>

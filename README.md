@@ -47,6 +47,7 @@
     - [Add new dependency](#add-new-dependency)
       - [add only in dev](#add-only-in-dev)
     - [Reinstall all dependencies](#reinstall-all-dependencies)
+    - [Adding multiple dependencies version](#adding-multiple-dependencies-version)
     - [Downloading files](#downloading-files)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
@@ -302,7 +303,6 @@ Mermaid --> Worked
 - [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
 - [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
 - [Learning Python](https://github.com/LucasBarretto86/LearningPython)
-- [Learning Random](specifics/random.md)|
 - [Learning ReactJS](https://github.com/LucasBarretto86/LearningReactJS)|
 - [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
 - [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
@@ -365,6 +365,24 @@ yarn add dependency_name -D
 
 ```shell
 yarn install --check-files
+```
+
+### Adding multiple dependencies version
+
+new dependency syntax -> "`dependency-alias`": "npm:`dependency-name@version`"
+older dependency syntax -> "`dependency-name`": "`version`"
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@analytics": "npm:analytics@^0.6.2",
+    "@analytics/google-analytics": "^0.5.2",
+    "@apollo/client/updated": "npm:apollo/client@^3.6.2",
+    "@apollo/client": "3.5.8"
+  }
+}
+
 ```
 
 ### Downloading files

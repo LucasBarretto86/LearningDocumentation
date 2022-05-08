@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card__header"><h1>Editing Coin</h1></div>
+
+  <div class="card__content">
+    <%= render 'coins/shared/form', coin: @coin %>
+  </div>
+  <div class="card__action-pane">
+    <%= link_to 'Back', coins_path, class: "btn btn--medium btn--default" %>
+  </div>
+
+</div>

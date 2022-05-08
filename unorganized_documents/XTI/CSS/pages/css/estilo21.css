@@ -1,0 +1,20 @@
+.lamp {
+	border: 1px solid #000000;
+	background: url(img/sprite.png) -218px -220px;
+	height:50px;
+	width:50px;
+}
+
+.search {
+	border: 1px solid #000000;
+	background: url(img/sprite.png) -89px -27px;
+	height:50px;
+	width:50px;
+}
+
+.edit {
+	border: 1px solid #000000;
+	background: url(img/sprite.png) -90px -218px;
+	height:50px;
+	width:50px;
+}

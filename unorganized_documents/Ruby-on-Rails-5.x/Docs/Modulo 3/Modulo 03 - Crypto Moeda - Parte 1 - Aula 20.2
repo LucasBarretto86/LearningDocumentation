@@ -1,0 +1,38 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 20.2 - Verbos HTTP e actions
+
+-----------------------------------------------------------------
+
+Nas rotas da nossa aplicação iremos observar que alguns paths irão se repetir
+
+HTTP VERB 		|	PATH / ROTA		|	Controller#Action	| Ruby path variable
+------------------------------------------------------------------------------------
+ GET 			| /coins			| coins#index			| coins_path
+ GET 			| /coins/new		| coins#new				| new_coin_path
+ POST 			| /coins			| coins#create			| 
+ GET 			| /coins/:id		| coins#show			| coin_path
+ GET 			| /coins/:id/edit	| coins#edit			| edit_coin_path
+ PATCH/PUT 		| /coins/:id		| coins#update			|
+ DELETE 		| /coins/:id		| coins#destroy			|
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Isso ocorre, pois, ainda embora uma rota possa ser chamada de diferentes pontos da aplicação o verbo HTTP que o chama é o que irá determinar a action que o nosso controlador terá que executar.
+	EXEMPLO:
+		verbo HTTP GET
+			/coins/:id chama a action: coins#show
+
+		verbo HTTP PATCH || PUT
+			/coins/:id chama a action: coins#update
+		
+		Verbo HTTP DELETE
+			/coins/:id chama a action: coins#delete
+
+Quem defini que tipo de action será diparada conforme o verbo http é o nosso ###, se observarmos:
+
+
+
+
+

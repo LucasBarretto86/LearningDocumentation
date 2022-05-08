@@ -1,0 +1,121 @@
+*{
+	font-family: calibri;
+	margin:0 auto;
+	padding:0;
+}
+
+div {
+	border: 0px solid #000000;
+	padding-bottom: 1em;
+}
+
+p {
+	text-indent: 2em;
+	padding-top: 1em;
+	vertical-align: center;
+}
+
+
+#container {
+	/*background-image: url(img/helmet1.png);*/
+	width: 80%;
+	margin: 5 auto;
+}
+#header {
+	clear:both;
+	width: 130px;
+	height: 144px;
+	padding: 2em; 
+	text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111111;
+}
+
+#content{
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 24px;
+}
+#content > h1, h2, h3{
+	text-align: center;
+}
+
+div >.quote{
+	font-size: 12px;
+	padding: 5px;
+	position:relative;
+	float:right;
+	width: 45%;
+	text-align: center;
+	font-style: italic;
+
+
+}
+.imagem {
+	position:relative;
+	padding: 1em;
+	text-align: center;
+}
+
+#img0{
+	padding:0; 
+	box-shadow: 0px 4px 10px #CCCCCC;
+}
+
+#img1{
+	float:right;
+	width: 320px;
+}	
+
+#img2{
+	float:left;
+	width: 320px;
+}
+
+#img3{
+	float:right;
+	width: 192px;
+}
+
+
+#img4{
+	float:right;
+	width: 192px;
+}
+
+#img5{
+	float:left;
+	width: 192px;
+}
+
+#img6{
+	float:right;
+	width: 192px;
+}
+
+
+#footer{
+	clear:both;
+}

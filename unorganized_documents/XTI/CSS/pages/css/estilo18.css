@@ -1,0 +1,32 @@
+h3{
+	border: 3px solid black;
+	position: absolute;
+}
+
+#um {
+	background-color: #00FF00;
+	width: 200px;
+	height: 80px;
+	z-index: -1; /* o Z-index determina a prioridade de cada elemento, neste caso usamos números negativos para simplificar o processo*/
+}
+
+#dois {
+	background-color: #FFFF00;
+	width: 300px;
+	height: 50px;
+	z-index: -4;
+}
+
+#tres {
+	background-color: #AAAAFF;
+	width: 150px;
+	height: 140px;
+	z-index: -2;
+}
+
+#quatro {
+	background-color: #AAAAAA;
+	width: 250px;
+	height: 250px;
+	z-index: -3;
+}

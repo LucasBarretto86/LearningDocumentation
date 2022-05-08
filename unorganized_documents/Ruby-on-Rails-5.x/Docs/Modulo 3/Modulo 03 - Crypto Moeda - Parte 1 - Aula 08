@@ -1,0 +1,31 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 08 - dbconsole e tasks
+
+-----------------------------------------------------------------
+dbconsole
+
+O rails também disponibiliza um console/interface para a consulta e o gerenciamento do banco de dados que será utilizado na aplicação.
+
+Esse console é chamado dbconsole e para execulado basta executar o comando rails dbconsole ou rails db:
+
+-----------------------------------------------------------------
+Rails tasks
+
+São scripts que rodandam código, são tasks, para verificar todas as tasks diponiveis no rails digite o comando : rails -T, ou filtrando como rails -T <parametro de pequisa>
+
+	Algumas taks para o gerencimento do banco de dados.
+
+		rails db:create				#Cria o banco de dados
+		rails db:drop				#Apaga o banco de dados
+		rails db:migrate			#Executa os migrations
+		rails db:rollback			#Desfaz a ultima migration
+
+------------------------------------------------------------------
+Nas aulas anteriores nós criamos o scaffold da tabela coins, agora para criarmos a tabela usamos a task 'rails db: create', desta forma a tarefa do rails será criar o banco e a tabela, depois, executamos a task 'rails db:migrate, para que as alterações do banco de dados sejam efetivamente migradas para o banco'.
+
+Para verificarmos se o CRUD da nossa tabela foi devidamente criada pelo o rails nos podemos acessar o endpoint /coins.
+	Exemplo:
+		localhost:3000/coins
+

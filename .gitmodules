@@ -28,3 +28,9 @@
 [submodule "specifics/LearningReactJS"]
 	path = specifics/LearningReactJS
 	url = https://github.com/LucasBarretto86/LearningReactJS.git
+[submodule "specifics/LearningCPP"]
+	path = specifics/LearningCPP
+	url = https://github.com/LucasBarretto86/LearningCPP.git
+[submodule "specifics/LearningAssembly"]
+	path = specifics/LearningAssembly
+	url = https://github.com/LucasBarretto86/LearningAssembly.git

@@ -1,0 +1,29 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 07 - Migrations
+
+-----------------------------------------------------------------
+Migrations
+
+Migrations são uma caracteristica do Active Record(o framework) que permite você escrever/especificar as tabelas do BD usando a liguagem RUBY.
+
+	Active record (Similar ao hibernate no JAVA)
+		Active record é o M do MVC é o Model, é a camada do software responsável pela lógica de dados e negócio.
+		O Active record é um framework responsável somente por trabalha com models, trabalhando com dados.
+	ATENÇÃO: Não confundir o padrão Active Record com o framework presente no rails chamado de Active record, esse framework implementa a especificação. 
+
+	ORM
+		Object-Relational Mapping
+		Em resumo é uma tecnica que mapeia o dados em um BD para classes/objetos na programação.
+		O ORM é responsável por gerenciar os objeto para este sejam armazenados no banco de dados.
+
+	Em suma o framework Active Record presente no rails é um ORM.
+
+Desta forma, você pode adicionar, modificar e remover tabelas do BD sem utilizar SQL, além, de ter sempre disponivel todas a sequencia de criação/alteração das tabelas envolvidas no projeto.
+
+As migrations também controlam quais ja foram ou não aplicadas ao BD através do arquivo db/schema.rb
+
+As migrations ficam localizadas no projeto dentro de db/migrate (Navegue no projeto e verifique o arquivo criado)
+
+Sempre que criamos migrações precisamos faze-las migrar para o DB, ou seja, precisamos aplicar as mudanças ao banco de dados, para isso usamos taks definidas no Rails.

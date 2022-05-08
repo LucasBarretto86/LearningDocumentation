@@ -1,0 +1,23 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 09 - Ambientes Rails
+
+-----------------------------------------------------------------
+
+O Rails trabalha com três ambientes iniciais DESENVOLVIMENTO, TESTE e PRODUÇÃO, cada ambiente permite configurações próprias, ou seja, cada ambiente tem seu próprio banco de dados sua pŕoprias configurações, estes ambientes são isolados. Dentro da Gemfile é possível verificar as Gems que serão usadas para cada ambiente e em cada grupo é possível instalar diferentes gems, em nosso database.yml também é possível observar essa separação.
+
+Para alterar o ambiente do rails devemos utilizar o seguinte comando:
+
+RAILS_ENV=production rails s    | Para subir o servidor em ambiente de produção
+RAILS_ENV=test rails  			| Para subir o servidor em teste
+
+Outra maneira é usar o comando
+
+rails s -e production
+rails s -e test
+
+
+
+
+

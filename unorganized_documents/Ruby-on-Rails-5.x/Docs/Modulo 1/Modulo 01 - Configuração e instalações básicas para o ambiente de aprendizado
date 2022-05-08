@@ -1,0 +1,31 @@
+MODULO 01 - Configuração e instalações básicas para o ambiente de aprendizado.
+
+Ambiente de desenvolvimento;
+
+A três possibilidades para criação do ambiente de desenvolvimento, são: Local, Web e Virtualizada.
+
+	Local; 
+		Quando o ruby e seus frameworks são instalados localmente, direto na máquina.
+
+	Web; 
+		Quando o ambiente de desenvolvimento está em nuvem, ou seja, os arquivos e as configurações do ambiente estão completamente em uma nuvem, o que normalmente é pago.
+
+	Virtualizada;
+		Quando é utilizada uma maquina virtual para a criação do ambiente, essa maquina virtual pode ser facilmente ser implementada em outras máquinas, com o uso de programas especificos (VirtualBox e Vagrant);
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Instalação do ambiente virtualizado:
+
+Primeiramente é necessário instalar o Virtualbox, normal, sem a necessidade de nenhuma configuração;
+
+Depois é necessária a instalação do Vagrant, também simples sem a necessidade de nenuma configuração;
+
+Após a instalação, é necessário que seja instalado plugin para o serviço de guest do VB, para essa instalação utilizamos o comando:
+vagrant plugin install vagrant-vbguest.
+
+Após a conclusão bastar inicializar a maquina virtual, dentro do pasta em que temos o arquivo vangratfile, com o comando: 
+vagrant up
+
+ATENÇÃO: Você precisa possuir um arquivo vagrantfile com as configurações do ambiente que foi virtualizado.

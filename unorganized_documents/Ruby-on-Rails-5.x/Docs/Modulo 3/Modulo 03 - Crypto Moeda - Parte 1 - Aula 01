@@ -1,0 +1,23 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 01 - Gerar aplicação base com Rails
+
+------------------------------------------------------------------------
+CRIAR NOVO PROJETO RAILS #
+
+	Para criar uma nova aplicação em Rails, basta digitar o comando: rails new <app_name>
+
+		EXEMPLO:
+			rails new crypto_wallet
+#
+
+SUBIR SERVIDOR RAILS (PUMA) #
+	Após a criação do app acesse a pasta do projeto e inicialize o servidor:
+		rails s || rails server
+
+	ATENÇÃO: Se o servidor não subir, usar o seguinte comando:
+
+		rails s -b 0.0.0.0
+#
+

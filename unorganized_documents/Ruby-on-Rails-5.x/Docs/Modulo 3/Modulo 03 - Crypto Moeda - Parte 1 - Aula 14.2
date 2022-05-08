@@ -1,0 +1,45 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 14.2 - Recursos / Routes
+
+-----------------------------------------------------------------
+RECURSOS E ROTAS
+
+Quando determinamos um recurso significa dizer que nossa aplicação terá um objeto que necessitará das ações REST do HTTP, por exemplo se determinarmos uma model photos, automáticamente, o Rails irá constuir 7 rotas HTTP padrão para a manuteção deste recurso...
+
+Exemplo aonde o recurso, ou seja, o nosso model para fotos:
+
+resources: photos
+
+HTTP VERB 		|	PATH / ROTA		|	Controller#Action	| Ruby path variable
+------------------------------------------------------------------------------------
+ GET 			| /photos			| photos#index			| photos_path
+ GET 			| /photos/new		| photos#new			| new_photo_path
+ POST 			| /photos			| photos#create			| 
+ GET 			| /photos/:id		| photos#show			| photo_path
+ GET 			| /photos/:id/edit	| photos#edit			| edit_photo_path
+ PATCH/PUT 		| /photos/:id		| photos#update			|
+ DELETE 		| /photos/:id		| photos#destroy		|
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MAPEAMENTO DE ROTAS: routes.rb
+
+ Em Rails todo o mapeamento de rotas da aplicação é feito pelo arquivo routes.rb, este arquivo fica dentro da pasta config na raiz do projeto 'project_name/config/routes.rb'
+
+ROTA INICIAL PADRÃO:
+
+Para fazermos inicialmente mapeamento da página inicial padrão, dentro do arquivo routes.rb usamos uma instrução 'root_to'
+
+Exemplo: 
+	root to: 'welcome#index'
+
+		ou
+
+	root: 'welcome#index'
+
+O arquivo routes.rb também permite a criação explicita de rotas, para isso basta defirnir o tipo de request (o verbo) o endpoint e o controller#ação. Exemplo:
+
+get '/photos', to: 'photos#index'
+
+Isso seguinifica que quando acessarmos o endpoint /photos será enviada uma request ao controller photos que irá invocar o metodo index que irá retornará um response o arquivo index.html da view photos, aonde o html produzido é  resultado do arquivo index.html.erb pós processamento do servidor.

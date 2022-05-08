@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Este elemento meta é obrigatório para que o Bootstrap seja responsivo-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS  Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+    <!--jQuery-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <!--Popper-->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!--JS  Bootstrap-->
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+    
+    <title>Bootstrap - Aula 06 - Barras de Progresso</title>
+</head>
+
+<body>
+    <h1>Bootstrap - Aula 06 - Barras de Progresso</h1>
+    <p>O Bootstrap também dispoe de barras de progresso customizadas e que aceitam colorização, estilização, animação,
+        como veremos a seguir.</p>
+    <h2>Barra de progresso padrão</h2>
+    <p>Para criar a barra de progresso primeiramente criamos uma div com a classe .progress, essa primeira div
+        representa o recipiente do progresso e dentro desta div nós criamos outra div que recebe a classe .progress-bar
+        que será a barra de progresso em si, esta div especialista manifestará o processo, se usada juntamente com um
+        javascript.</p>
+
+    <div class="progress">
+        <!--Container recipiente-->
+        <div class="progress-bar" style="width: 40%">40%</div>
+    </div><br />
+
+
+    <h2>Barra com height customizado</h2>
+    <p>Também é possível definir um style para customizar o height da barra.</p>
+    <div class="progress" style="height:64px;">
+        <div class="progress-bar" style="width: 60%; height:64px;">60%</div>
+    </div><br />
+
+    <h2>Com colorização</h2>
+    <p>Com a classe .bg-"cor" podemos também customizar as corres da barra. <a href="../aula02.5/index.html">Aula
+            de colorização no Bootstrap</a></p>
+    <h3>Classe .bg-success</h3>
+    <div class="progress">
+        <div class="progress-bar bg-success" style="width: 50%;">50%</div>
+    </div><br />
+
+    <h3>Classe .bg-info</h3>
+    <div class="progress">
+        <div class="progress-bar bg-info" style="width: 85%;">85%</div>
+    </div><br />
+
+    <h3>Classe .bg-warning</h3>
+    <div class="progress">
+        <div class="progress-bar bg-warning" style="width: 90%;">90%</div>
+    </div><br />
+
+    <h2>Barra com stripes</h2>
+    <h3>.progress-bar e bar progress-bar-striped, colorização .br-danger</h3>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-danger" style="width: 20%;">20%</div>
+    </div><br />
+
+    <h2>Com stripes animada</h2>
+    <h3>.progress-bar, progress-bar-striped, progress-bar-animated colorização .br-success</h3>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: 20%;">20%</div>
+    </div><br />
+
+    <h2>Barra segmentada, barra múltipla</h2>
+    <p>A barra segmentada ocorre quando é usada somente uma div recipiente e diferentes divs para o progresso</p>
+
+    <div class="progress">
+        <div class="progress-bar bg-success" style="width: 30%;">Success</div>
+        <div class="progress-bar bg-warning" style="width: 15%;">Warning</div>
+        <div class="progress-bar bg-danger" style="width: 20%;">Danger</div>
+    </div>
+</body>
+
+</html>

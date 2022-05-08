@@ -1,0 +1,28 @@
+
+MODULO 03 - Crypto Waller - Parte 1
+
+AULA 04 - Modelagem da estrutura de dados. 
+
+------------------------------------------------------------------------
+
+A próxima etada é a definidação da estrutura de dados que será usada para o estabelecimento da estrutura de tabelas do banco de dados, ou seja, devemos definir quais as tabelas serão necessárias e qual será a relação entre essas tabelas.
+
+Neste caso o que deve ser levando em consideração é o modelo conceitual e lógico das tabelas.
+
+A primeira tabela que iremos desenvolver em nosso sistema será a tabela de moedas, nesta tabela guardaremos o nome da moeda, a sigla e a imagem de icone
+
+
+TABELA MOEDAS
+ CAMPOS (Colunas)
+	|
+	v	
+----------------------------------------------------------------
+NOME 	|  SIGLA 	| IMAGEM
+----------------------------------------------------------------
+BITCOIN | BTC 		| http://meusite.com.br/assets/btc_icon.png		<-- Registro (Linhas)
+----------------------------------------------------------------
+LITCOIN | LTC 		| http://meusite.com.br/assets/ltc_icon.png
+----------------------------------------------------------------
+
+
+------------------------------------------------------------------------

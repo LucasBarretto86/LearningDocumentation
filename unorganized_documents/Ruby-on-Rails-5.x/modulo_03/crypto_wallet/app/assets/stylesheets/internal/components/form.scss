@@ -1,0 +1,28 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+
+  label {
+    display: block;
+    font-weight: 600;
+    color: #2E2F30;
+    margin-bottom: 4px;
+  }
+
+  figure {
+    margin-bottom: 4px;
+  }
+
+  input[type="text"], select {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #CCCCFF;
+    border-radius: 6px;
+    height: 32px;
+    color: #888;
+  }
+}

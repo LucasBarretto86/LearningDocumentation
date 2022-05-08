@@ -1,0 +1,66 @@
+<!DOCTYPE = html>
+<html>
+	
+	<head>
+		<title>CSS Aula 20- Menu  Vertical DropDown com CSS</title>
+		<style type="text/css">
+			ul{
+				padding:0;
+				margin:0;
+				list-style:none;
+			}
+			
+			li {
+				border: 1px solid black;
+				width: 120px;
+				padding: 3px;
+				position:relative;
+			}
+			
+			li:hover{
+				background-color: #000000;
+				color:#FFFFFF;
+			}
+			
+			li > ul{
+				position:absolute;
+				left:126px;
+				top:-1px;
+				color:#000000;
+				display: none; /*Oculta o elemento indicado*/
+			}
+			
+			li:hover > ul{
+				display:block;
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<ul id="menu">
+			<li>Home</li>
+			<li>Soluções</li>
+			<li>Indústrias
+				<ul>
+					<li>Financeiras</li>
+					<li>Comunicação</li>
+					<li>Educação</li>
+					<li>Energia
+						<ul>
+							<li>Elétrica</li>
+							<li>Éolica</li>
+							<li>Hidráulica</li>
+							<li>Fóssil</li>
+							<li>Solar</li>
+						</ul>
+					</li>
+					<li>Governo</li>
+				</ul>
+			</li>
+			<li>Cases</li>
+			<li>Contato</li>
+		</ul>
+	</body>
+
+</html>

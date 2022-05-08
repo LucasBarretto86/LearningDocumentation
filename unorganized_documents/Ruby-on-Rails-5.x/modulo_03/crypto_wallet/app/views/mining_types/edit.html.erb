@@ -1,0 +1,9 @@
+<div class="card">
+  <div class="card__header"><h1>Editing Mining Types</h1></div>
+  <div class="card__content">
+    <%= render 'mining_types/shared/form', mining_type: @mining_type %>
+  </div>
+  <div class="card__action-pane">
+    <%= link_to 'Back', mining_types_path, class: "btn btn--medium btn--default" %>
+  </div>
+</div>

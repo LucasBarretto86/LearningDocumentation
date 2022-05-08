@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Este elemento meta é obrigatório para que o Bootstrap seja responsivo-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--CSS  Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css" />
+    <!--jQuery-->
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <!--Popper-->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!--JS  Bootstrap-->
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+
+    <title>Bootstrap - Aula 07 - Modal, caixas de diálogos</title>
+</head>
+
+<body>
+    <h1>Bootstrap - Aula 07 - Modal, caixas de diálogos</h1>
+    <p>Modais no Bootstrap permitem a customização de caixa de dialogo, é um componente que usa tanto HTML, CSS como
+        Javascript, são bem interessantes, mas, possuem detalhes que devem ser analisados com maior cuidado, não se
+        trata apenas de vincular classes pre-definidas, requer também o desenvolvimento dos elementos deste componente,
+        por tanto, iremos abordar nessa aula os detalhes para a confecção de modais por passos.</p>
+
+    <h2>Trigger, elemento de disparo do modal</h2>
+    <p>O primeiro passo será definir um elemento que servirá para disparar o nosso modal.</p>
+    <p>Este gatilho deverá possuir duas propriedades que apontem para a criação/exibição de um modal, data-toggle que
+        declara o tipo de elemento que será exibido, data-target que indica o id que iremos estabelecer para o main
+        container do nosso modal:</p>
+    <img src="img/example-0.PNG" alt="example-0">
+
+    <h2>Main container do modal</h2>
+    <p>Depois devemos criar um elemento div que representará o nosso modal como um todo, esse elemento recebe a classe
+        .modal, também devemos definir um id para
+        este elemento, é dentro deste elemento que criarmos os componentes do nosso modal:</p>
+    <img src="img/example-1.PNG" alt="example-1">
+
+    <h2>Sub container que define o tipo de modal</h2>
+    <p>Dentro do container principal devemos criar outra div que representará um sub-container com uma classe
+        .modal-dialog que determina o tipo de modal que iremos compor.</p>
+    <img src="img/example-2.PNG" alt="example-2">
+
+    <h2>Conteúdo do modal</h2>
+    <p>Dentro do container/tipo devemos criar uma nova div que irá agregar 3 blocos para a composição do nosso modal,
+        bloco header, bloco body, bloco footer.</p>
+    <img src="img/example-3.PNG" alt="example-3">
+
+    <h3>Bloco header</h3>
+    <p>Este bloco é aonde o titulo do modal será exibido, assim como definirá o botões de comportamento do modal, neste
+        exemplo um simples botão de fechar.</p>
+    <p>O botão de fechar precisa definir a classe .close e também atribuir uma propriedade data-dismiss apontando para
+        o elemento que será fechado.</p>
+    <img src="img/example-4.PNG" alt="example-4">
+
+    <h3>Bloco body</h3>
+    <p>Este bloco tem o propósito de apresentar o conteúdo principal do modal</p>
+    <img src="img/example-5.PNG" alt="example-5">
+
+    <h3>Bloco footer</h3>
+    <p>Este bloco serve principalmente para apresentar os botões de ação referentes ao modal.</p>
+    <p>Neste exemplo teremos també um simples botão para fechar o modal.</p>
+    <img src="img/example-6.PNG" alt="example-6">
+
+    <h2>Exemplo de modal</h2>
+    <div class="container">
+        <p>Clique no botão para disparar o modal.</p>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modal">Go!</button>
+    </div>
+
+    <div class="modal" id="modal">
+        <!--Componente Modal-->
+        <div class="modal-dialog">
+            <!--Tipo de modal, neste exemplo o tipo é dialog-->
+            <div class="modal-content">
+                <!--Conteúdo do modal a ser criado, ou seja, header, content e footer-->
+                <div class="modal-header">
+                    <!--Modal Header-->
+                    <h4 class="modal-title">Título do modal</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!--Modal Body-->
+                <div class="modal-body">
+                    Alguma mensagem presente no body do modal!
+                </div>
+                <div class="modal-footer">
+                    <!--Modal Footer-->
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
