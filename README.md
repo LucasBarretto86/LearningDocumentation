@@ -296,10 +296,13 @@ Mermaid --> Worked
 
 ## Languages Learning
 
+- [Learning Assembly](https://github.com/LucasBarretto86/LearningAssembly)
+- [Learning C++](https://github.com/LucasBarretto86/LearningCPP)
 - [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
+- [Learning SCSS](https://github.com/LucasBarretto86/LearningCSS/LearningSCSS)
 - [Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
-- [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
 - [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
+- [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
 - [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
 - [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
 - [Learning Python](https://github.com/LucasBarretto86/LearningPython)
