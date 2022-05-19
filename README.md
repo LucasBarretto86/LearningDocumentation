@@ -49,6 +49,12 @@
     - [Reinstall all dependencies](#reinstall-all-dependencies)
     - [Adding multiple dependencies version](#adding-multiple-dependencies-version)
     - [Downloading files](#downloading-files)
+  - [ESLint](#eslint)
+    - [Adding ESlint to the project](#adding-eslint-to-the-project)
+    - [Interactive configuration](#interactive-configuration)
+    - [ESlint basic config](#eslint-basic-config)
+    - [Some additional rules](#some-additional-rules)
+      - [To add new rules](#to-add-new-rules)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
   - [References](#references)
@@ -393,6 +399,117 @@ older dependency syntax -> "`dependency-name`": "`version`"
 ```shell
 curl https://emoji.slack-edge.com/T58JKBZJS/merged/adb3ef9def323d9a.png --output  ~/Downloads/images/merged.png
 ```
+
+## ESLint
+
+### Adding ESlint to the project
+
+```shell
+yarn add -D eslint
+```
+
+### Interactive configuration
+
+```shell
+eslint --init
+
+# Output
+
+# $ eslint --init
+# You can also run this command directly using 'npm init @eslint/config'.
+# npx: installed 40 in 8.683s
+# ✔ How would you like to use ESLint? · problems
+# ✔ What type of modules does your project use? · esm
+# ✔ Which framework does your project use? · react
+# ✔ Does your project use TypeScript? · No / Yes
+# ✔ Where does your code run? · browser
+# ✔ What format do you want your config file to be in? · JavaScript
+# The config that you've selected requires the following dependencies:
+
+# eslint-plugin-react@latest
+# ✔ Would you like to install them now? · No / Yes
+# ✔ Which package manager do you want to use? · yarn
+```
+
+### ESlint basic config
+
+```js
+// .eslintrc.js
+
+module.exports = {
+  'env': {
+    'browser': true,
+    'es2021': true
+  },
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended'
+  ],
+  'parserOptions': {
+    'ecmaFeatures': {
+      'jsx': true
+    },
+    'ecmaVersion': 'latest',
+    'sourceType': 'module'
+  },
+  'plugins': [
+    'react'
+  ],
+  'rules': {
+    'array-bracket-spacing': ['error', 'never'],
+    'brace-style': ['error', '1tbs'],
+    'comma-dangle': ['error', {
+      'arrays': 'never',
+      'objects': 'never',
+      'imports': 'never',
+      'exports': 'never',
+      'functions': 'ignore'
+    }],
+    'jsx-quotes': ['error', 'prefer-single'],
+    'keyword-spacing': ['error'],
+    'linebreak-style': ['error', 'unix'],
+    'no-console': 'warn',
+    'object-curly-spacing': ['error', 'always'],
+    'quotes': ['error', 'single', { 'avoidEscape': true }],
+    'quote-props': ['error', 'consistent'],
+    'react/prop-types': ['off'],
+    'semi': ['error', 'never'],
+    'space-in-parens': ['error', 'never']
+  }
+}
+
+```
+
+### Some additional rules
+
+```js
+  'rules': {
+    'array-bracket-spacing': ['error', 'never'],
+    'brace-style': ['error', '1tbs'],
+    'comma-dangle': ['error', {
+      'arrays': 'never',
+      'objects': 'never',
+      'imports': 'never',
+      'exports': 'never',
+      'functions': 'ignore'
+    }],
+    'jsx-quotes': ['error', 'prefer-single'],
+    'keyword-spacing': ['error'],
+    'linebreak-style': ['error', 'unix'],
+    'no-console': 'warn',
+    'object-curly-spacing': ['error', 'always'],
+    'quotes': ['error', 'single', { 'avoidEscape': true }],
+    'quote-props': ['error', 'consistent'],
+    'react/prop-types': ['off'],
+    'semi': ['error', 'never'],
+    'space-in-parens': ['error', 'never']
+  }
+
+```
+
+#### To add new rules
+
+<https://eslint.org/docs/rules/>
 
 ## Concepts
 
