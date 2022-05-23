@@ -414,7 +414,6 @@ yarn add -D eslint
 eslint --init
 
 # Output
-
 # $ eslint --init
 # You can also run this command directly using 'npm init @eslint/config'.
 # npx: installed 40 in 8.683s
