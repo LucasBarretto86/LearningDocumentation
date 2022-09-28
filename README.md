@@ -57,6 +57,11 @@
       - [To add new rules](#to-add-new-rules)
   - [Concepts](#concepts)
     - [Serialization](#serialization)
+    - [Versioning](#versioning)
+      - [Build versioning](#build-versioning)
+      - [Calendar versioning](#calendar-versioning)
+      - [Semantic versioning](#semantic-versioning)
+        - [Milestone version](#milestone-version)
   - [References](#references)
   - [Gists](#gists)
 
@@ -517,6 +522,81 @@ module.exports = {
 Basically serialize is the process to convert data to a byte stream that will represent an object to another end
 
 [What is serialization](https://www.freecodecamp.org/news/what-is-serialization/)
+
+### Versioning
+
+Basically it defines how to set unique sequential identification for a software, there is few schemes to do version:
+
+- Build versioning
+- Calendar versioning
+- Semantic versioning
+- Milestone versioning
+  
+#### Build versioning
+
+Simple V1, V2, V3
+
+#### Calendar versioning
+
+It's basically set version based on current year, month, day. Used mostly to softwares that have consistent yearly or monthly releases, ubuntu is a good example:
+
+![Ubuntu Calendar Versioning](assets/images/ubuntu-versions.png)
+
+Typically the format used is `YY.MM.DD` or `YYYY.MM`
+
+It's also common to add a unique after the date schema to specify a hotfix: `YY.MM.HOTFIX` or `YY.MM.DD.HOTFIX`
+
+```txt
+21.04.1
+21.04.2
+```
+
+#### Semantic versioning
+
+Semantic versioning is perhaps the most used way to make clear versions, the semantic versioning are `MAJOR.MINOR.PATCH`
+
+- PATCH - Means that this version is implementing a hotfix and it's backward compatible
+- MINOR - Means we are introducing a new feature, a new functionality that is also backward compatible and if there's any dependency installation or upgrade it won't require any change on the current code base.
+- MAJOR - Increment the major version means that the new features or the code changes that are being implemented isn't backward compatible, which means the whole application will be effected
+
+But there's some rules, whenever a MINOR version is implemented the PATCH version becomes `0`, Whenever a MAJOR version is implemented both MINOR and PATCH version becomes `0`
+
+```md
+**Patch change**
+- 1.0.1
+- 1.0.2
+- ...
+- 1.0.20
+
+**Minor change**
+- 1.1.0
+- 1.2.0
+- ...
+- 1.15.0
+
+**Major change**
+- 2.0.0
+- 3.0.0
+- ...
+- 10.0.0
+```
+
+Semantic version can also use suffixes to describe if a release is in  `pre-alpha`, `alpha`, `beta`, `close-beta` phases, it normally means that this releases are mostly available for testing purposes
+
+```md
+1.0.1b
+1.0.2-beta
+1.0.2-alpha
+1.0.2-alpha-1
+1.0.2-alpha.2
+1.0.2a
+```
+
+![releases-life-cycle]("assets/../assets/images/software-dev-cycle.svg)
+
+##### Milestone version
+
+Basically is a version number or a name given at random or decided arbitrarily, mostly for marketing reasons
 
 ## References
 
