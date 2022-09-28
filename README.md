@@ -166,14 +166,14 @@ To add a submodule first you need to have a remote repo to be attached as submod
 git submodule add https://github.com/LucasBarretto86/LearningLOVE.git
 ```
 
-As added a submodule you can control it's versions withint the specific module directory
+As added a submodule you can control it's versions within the specific module directory
 
 ```shell
 cd LearningLove
 
 touch test.txt
 git add test.txt
-git commit -m"Commiting directly with a submodule"
+git commit -m"Committing directly with a submodule"
 git push
 ```
 
@@ -187,7 +187,7 @@ git subtree add --prefix {local directory being pulled into} {remote repo URL} {
 
 #### Updating subtree
 
-To update subtress you have to use pull and push refering the prefix and the remote repos path
+To update subtrees you have to use pull and push referring the prefix and the remote repos path
 
 ##### Pulling changes
 
@@ -226,7 +226,7 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 |`git branch -M NEW_NAME`| Renaming branch and origin
 |`git branch -m NEW_NAME`| Renaming branch locally |
 |`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
-|`git reset --hard`| Undo every change not commited, also allow you to undo commits with flag `HEAD~1` |
+|`git reset --hard`| Undo every change not committed, also allow you to undo commits with flag `HEAD~1` |
 |`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
 |`git push --set-upstream origin BRANCH_NAME`| Push and set upstream |
 |`git fetch --prune`| Updates existing branches|
@@ -235,7 +235,7 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 |`git config --global user.email USER_EMAIL`| Set global user email|
 |`git config --global user.password PASSWORD`| Set global user password|
 |`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
-|`git rebase BRANCH`| Sync loca branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
+|`git rebase BRANCH`| Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
 |`git remote add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as remote|
 |`git submodule add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as submodule|
 |`git submodule update`| To make pull in every submodule |
