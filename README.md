@@ -19,6 +19,7 @@
   - [Git and Github](#git-and-github)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
+    - [Updating submodules](#updating-submodules)
       - [Adding subtree](#adding-subtree)
       - [Updating subtree](#updating-subtree)
         - [Pulling changes](#pulling-changes)
@@ -180,6 +181,12 @@ touch test.txt
 git add test.txt
 git commit -m"Committing directly with a submodule"
 git push
+```
+
+### Updating submodules
+
+```shell
+git pull --recurse-submodule
 ```
 
 #### Adding subtree

@@ -34,3 +34,6 @@
 [submodule "specifics/LearningAssembly"]
 	path = specifics/LearningAssembly
 	url = https://github.com/LucasBarretto86/LearningAssembly.git
+[submodule "specifics/LearningMermaid"]
+	path = specifics/LearningMermaid
+	url = https://github.com/LucasBarretto86/LearningMermaid.git
