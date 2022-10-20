@@ -29,11 +29,6 @@
       - [Creating tags](#creating-tags)
       - [Search tags](#search-tags)
     - [Git commands table](#git-commands-table)
-    - [Markdown Diagrams](#markdown-diagrams)
-      - [Mermaid Diagrams](#mermaid-diagrams)
-        - [Fluxogram Left to Right](#fluxogram-left-to-right)
-        - [Fluxogram Right to Left](#fluxogram-right-to-left)
-        - [Fluxogram Top Down](#fluxogram-top-down)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
   - [Languages Learning](#languages-learning)
@@ -255,58 +250,6 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 |`git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To add a subtree to the project |
 |`git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To pull changes from original repo |
 |`git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To push changes to a specific repo |
-
-### Markdown Diagrams
-
-#### Mermaid Diagrams
-
-##### Fluxogram Left to Right
-
-~~~txt
-  ```mermaid
-  graph LR
-  Mermaid --> Worked
-  ```
-~~~
-
-Output:
-
-```mermaid
-graph LR
-Mermaid --> Worked
-```
-
-##### Fluxogram Right to Left
-
-~~~txt
-  ```mermaid
-  graph RL
-  Mermaid --> Worked
-  ```
-~~~
-
-Output:
-
-```mermaid
-graph RL
-Mermaid --> Worked
-```
-
-##### Fluxogram Top Down
-
-~~~txt
-  ```mermaid
-  graph
-  Mermaid --> Worked
-  ```
-~~~
-
-Output:
-
-```mermaid
-graph
-Mermaid --> Worked
-```
 
 ## Heroku
 
