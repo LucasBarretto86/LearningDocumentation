@@ -58,6 +58,8 @@
       - [Calendar versioning](#calendar-versioning)
       - [Semantic versioning](#semantic-versioning)
         - [Milestone version](#milestone-version)
+    - [What is a Slug?](#what-is-a-slug)
+    - [Absolute and Relative paths](#absolute-and-relative-paths)
   - [References](#references)
   - [Gists](#gists)
 
@@ -548,13 +550,25 @@ Semantic version can also use suffixes to describe if a release is in  `pre-alph
 
 Basically is a version number or a name given at random or decided arbitrarily, mostly for marketing reasons
 
+### What is a Slug?
+
+What is a Slug? A slug is the last part of the url containing a unique string which identifies the resource being served by the web service. In that sense, a slug is a unique identifier for the resource.
+
+### Absolute and Relative paths
+
+An absolute, or full, path begins with a drive letter followed by a colon, such as D:.
+
+A relative path refers to a location that is relative to a current directory. Relative paths make use of two special symbols, a dot (.) and a double-dot (..), which translate into the current directory and the parent directory. Double dots are used for moving up in the hierarchy. A single dot represents the current directory itself.
+
+In the example directory structure below, assume you used Windows Explorer to navigate to `D:\Data\Shapefiles\Soils`. After navigating to this directory, a relative path will use `D:\Data\Shapefiles\Soils` as the current directory (until you navigate to a new directory, at which point the new directory becomes the current directory). The current directory is sometimes referred to as the root directory.
+
 ## References
 
-| Reference |
-| :---- |
-|[S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) |
-|[GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/) |
-|[Serialization](https://www.freecodecamp.org/news/what-is-serialization/) |
+- [S.O.L.I.D](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+- [GraphQL vs REST](https://www.imaginarycloud.com/blog/graphql-vs-rest/)
+- [Serialization](https://www.freecodecamp.org/news/what-is-serialization/)
+- [Web Developer Playbook: Slug](https://medium.com/dailyjs/web-developer-playbook-slug-a6dcbe06c284)
+- [Paths explained: Absolute, relative, UNC, and URL](https://desktop.arcgis.com/en/arcmap/10.3/tools/supplement/pathnames-explained-absolute-relative-unc-and-url.htm#GUID-5118AC85-57E4-4027-AC24-FB6E99FADEFF)
 
 ## Gists
 
