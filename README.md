@@ -52,6 +52,15 @@
     - [Some additional rules](#some-additional-rules)
       - [To add new rules](#to-add-new-rules)
   - [Concepts](#concepts)
+  - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
+    - [User Story Framework](#user-story-framework)
+      - [Workflow](#workflow)
+        - [Theme](#theme)
+        - [Initiative](#initiative)
+        - [Epic](#epic)
+        - [Story](#story)
+        - [Task, Subtask, Chores](#task-subtask-chores)
+        - [Bug](#bug)
     - [Serialization](#serialization)
     - [Versioning](#versioning)
       - [Build versioning](#build-versioning)
@@ -469,6 +478,39 @@ module.exports = {
 
 ## Concepts
 
+## Product Manager vs Product Owner
+
+![PM and PO Comparison](assets/images/po-and-pm.png)
+
+### User Story Framework
+
+![Agile Management](assets/images/epics-vs-stories-agile-development.png)
+
+In agile management the breakdown
+
+#### Workflow
+
+![Agile Work Flow](assets/images/AgileWorkflow.svg)
+
+- [Theme](#theme)
+- [Initiative](#initiative)
+- [Epic](#epic)
+- [Story](#story)
+- [Task, Subtask, Chores](#task-subtask-chores)
+- [Bug](#bug)
+
+##### Theme
+
+##### Initiative
+
+##### Epic
+
+##### Story
+
+##### Task, Subtask, Chores
+
+##### Bug
+
 ### Serialization
 
 Basically serialize is the process to convert data to a byte stream that will represent an object to another end
@@ -569,6 +611,7 @@ In the example directory structure below, assume you used Windows Explorer to na
 - [Serialization](https://www.freecodecamp.org/news/what-is-serialization/)
 - [Web Developer Playbook: Slug](https://medium.com/dailyjs/web-developer-playbook-slug-a6dcbe06c284)
 - [Paths explained: Absolute, relative, UNC, and URL](https://desktop.arcgis.com/en/arcmap/10.3/tools/supplement/pathnames-explained-absolute-relative-unc-and-url.htm#GUID-5118AC85-57E4-4027-AC24-FB6E99FADEFF)
+- [User Story Framework](https://en.wikipedia.org/wiki/User_story)
 
 ## Gists
 
