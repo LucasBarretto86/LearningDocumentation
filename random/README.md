@@ -6,6 +6,11 @@
     - [Building Server with python3](#building-server-with-python3)
     - [Killing Server from a specific port](#killing-server-from-a-specific-port)
   - [Testing REST API](#testing-rest-api)
+  - [Adding custom display resolutions ubuntu](#adding-custom-display-resolutions-ubuntu)
+    - [Checking displays and resolutions](#checking-displays-and-resolutions)
+    - [Checking compatibility and specs](#checking-compatibility-and-specs)
+    - [Adding resolution](#adding-resolution)
+    - [Setting new resolution](#setting-new-resolution)
   - [Emojis by Code](#emojis-by-code)
 
 ## Checking Computer Hostname
@@ -46,7 +51,64 @@ kill -9 $(lsof -t -i:8080)
 
 ```shell
 curl -u marcondesv:a24d4e50c2c4298e34789fa84b0296f330ab7bdd 'https://api.name.com/v4/domains:checkAvailability' -X POST -H 'Content-Type: application/json' --data 
-'{"domainNames":["marcosemariaw.us"]},' {"results":[{"domainName":"marcosemariaw.us","sld":"marcosemariaw","tld":"us","purchasable":true,"purchasePrice":8.99,"purchaseType":"registration","renewalPrice":10.99}]}
+'{"domainNames":["lucasbarretto.us"]},' {"results":[{"domainName":"lucasbarretto.us","sld":"lucasbarretto","tld":"us","purchasable":true,"purchasePrice":8.99,"purchaseType":"registration","renewalPrice":10.99}]}
+```
+
+## Adding custom display resolutions ubuntu
+
+### Checking displays and resolutions
+
+```shell
+xrandr
+```
+
+**Output:**
+
+```bash
+Screen 0: minimum 320 x 200, current 1920 x 1080, maximum 16384 x 16384
+LVDS-1 connected (normal left inverted right x axis y axis)
+...
+VGA-1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+   1024x768      60.00  
+   800x600       60.32    56.25  
+   848x480       60.00  
+   640x480       59.94  
+   1920x1080_60.00  59.96* 
+HDMI-1 disconnected (normal left inverted right x axis y axis)
+DP-1 disconnected (normal left inverted right x axis y axis)
+HDMI-2 disconnected (normal left inverted right x axis y axis)
+HDMI-3 disconnected (normal left inverted right x axis y axis)
+DP-2 disconnected (normal left inverted right x axis y axis)
+DP-3 disconnected (normal left inverted right x axis y axis)
+```
+
+> Notice that the connected display is on `VGA-1`, that's the display name used to set new resolution
+
+### Checking compatibility and specs
+
+```shell
+cvt 1920 1080 60
+```
+
+**Output:**
+
+```shell
+# 1920x1080 59.96 Hz (CVT 2.07M9) hsync: 67.16 kHz; pclk: 173.00 MHz
+Modeline "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+```
+
+### Adding resolution
+
+```shell
+sudo xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+```
+
+### Setting new resolution
+
+To set the new added resolution we gonna use this line: `xrandr --addmode DISPLAY_NAME NEW_RESOLUTION`
+
+```shell
+xrandr --addmode VGA-1 "1920x1080_60.00"
 ```
 
 ## Emojis by Code
