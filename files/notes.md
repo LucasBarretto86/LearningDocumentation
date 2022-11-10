@@ -11,6 +11,7 @@
 - <https://en.wikipedia.org/wiki/Extreme_programming>
 - <https://medium.com/dlt-labs-publication/the-structure-of-a-user-story-3a0dc3917d23>
 - <https://www.portal-gestao.com/blog/811700-crystal-agile-framework-%E2%80%93-mais-um-pouco-de-agile.html>
+- <https://www.delibr.com/post/product-manager-vs-product-owner>
 
 ## Studying later
 

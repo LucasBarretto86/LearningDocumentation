@@ -28,6 +28,12 @@
       - [Listing tags](#listing-tags)
       - [Creating tags](#creating-tags)
       - [Search tags](#search-tags)
+    - [Git lfs / Large files on Github](#git-lfs--large-files-on-github)
+      - [Extension installation](#extension-installation)
+        - [First download the git-lfs file](#first-download-the-git-lfs-file)
+        - [Download additional script](#download-additional-script)
+      - [Git lfs usage](#git-lfs-usage)
+        - [Tracking files](#tracking-files)
     - [Git commands table](#git-commands-table)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
@@ -234,6 +240,38 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 ```
 
 #### Search tags
+
+### Git lfs / Large files on Github
+
+Git has an extension to control larger files
+
+#### Extension installation
+
+First is required to download files
+
+##### First download the git-lfs file
+
+<https://github.com/git-lfs/git-lfs/releases>
+
+##### Download additional script
+
+```shell
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo  bash
+```
+
+#### Git lfs usage
+
+```shell
+git lfs install
+```
+
+##### Tracking files
+
+Within the repo with large files start tracking files
+
+```shell
+git lfs track "*.capx"
+```
 
 ### Git commands table
 
@@ -612,6 +650,7 @@ In the example directory structure below, assume you used Windows Explorer to na
 - [Web Developer Playbook: Slug](https://medium.com/dailyjs/web-developer-playbook-slug-a6dcbe06c284)
 - [Paths explained: Absolute, relative, UNC, and URL](https://desktop.arcgis.com/en/arcmap/10.3/tools/supplement/pathnames-explained-absolute-relative-unc-and-url.htm#GUID-5118AC85-57E4-4027-AC24-FB6E99FADEFF)
 - [User Story Framework](https://en.wikipedia.org/wiki/User_story)
+- [Why the PM and the PO should be the same person](https://www.delibr.com/post/product-manager-vs-product-owner)
 
 ## Gists
 
