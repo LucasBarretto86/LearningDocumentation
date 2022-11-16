@@ -19,7 +19,10 @@
   - [Git and Github](#git-and-github)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
-    - [Updating submodules](#updating-submodules)
+  - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
+    - [Updating existing submodules](#updating-existing-submodules)
+    - [Pull each submodule](#pull-each-submodule)
+      - [Submodule issues](#submodule-issues)
       - [Adding subtree](#adding-subtree)
       - [Updating subtree](#updating-subtree)
         - [Pulling changes](#pulling-changes)
@@ -180,8 +183,16 @@ To add a submodule first you need to have a remote repo to be attached as submod
 
 #### Adding submodule
 
+**Through https - OLD:**
+
 ```shell
 git submodule add https://github.com/LucasBarretto86/LearningLOVE.git
+```
+
+**Through SSH:**
+
+```shell
+git submodule add git@github.com:LucasBarretto86/LearningLOVE.git
 ```
 
 As added a submodule you can control it's versions within the specific module directory
@@ -195,10 +206,44 @@ git commit -m"Committing directly with a submodule"
 git push
 ```
 
-### Updating submodules
+## Pull for all submodules for the first time
+
+```shell
+git submodule update --init --recursive
+```
+
+### Updating existing submodules
 
 ```shell
 git pull --recurse-submodule
+```
+
+### Pull each submodule
+
+```shell
+git submodule foreach git pull origin main
+```
+
+#### Submodule issues
+
+Sometimes a repo that has submodules does not fully updates so here there's few lines you may use
+
+- Remove `.git` caches Re-adding modules and Re-downloading
+
+Within the modules root folder
+
+```shell
+# Cleaning submodules and repo indexes
+rm -Rf .git/modules/*
+rm .git/index
+
+# Adding modules again, before doing this you can check submodules path within the file .gitmodules
+cd *SUBMODULES_FOLDER*
+git submodule add git@github.com:*USER_NAME*/*REPO_NAME*.git
+
+# Pull from each submodule
+cd ..
+git submodule foreach git pull origin main
 ```
 
 #### Adding subtree
@@ -292,8 +337,8 @@ git lfs track "*.capx"
 |`git config --global user.password PASSWORD`| Set global user password|
 |`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
 |`git rebase BRANCH`| Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
-|`git remote add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as remote|
-|`git submodule add origin https://github.com/USER_NAME/REPO_NAME.git`| Add repo as submodule|
+|`git remote add origin git@github.com:USER_NAME/REPO_NAME.git`| Add repo as remote|
+|`git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`| Add repo as submodule|
 |`git submodule update`| To make pull in every submodule |
 |`git submodule update MODULE_PATH`| To make pull in specific submodule |
 |`git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To add a subtree to the project |

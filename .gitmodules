@@ -1,39 +1,39 @@
 [submodule "specifics/LearningSQL"]
 	path = specifics/LearningSQL
-	url = https://github.com/LucasBarretto86/LearningSQL.git
+	url = git@github.com:LucasBarretto86/LearningSQL.git
 [submodule "specifics/LearningPython"]
 	path = specifics/LearningPython
-	url = https://github.com/LucasBarretto86/LearningPython.git
+	url = git@github.com:LucasBarretto86/LearningPython.git
 [submodule "specifics/LearningMarkdown"]
 	path = specifics/LearningMarkdown
-	url = https://github.com/LucasBarretto86/LearningMarkdown.git
+	url = git@github.com:LucasBarretto86/LearningMarkdown.git
 [submodule "specifics/LearningLua"]
 	path = specifics/LearningLua
-	url = https://github.com/LucasBarretto86/LearningLua.git
+	url = git@github.com:LucasBarretto86/LearningLua.git
 [submodule "specifics/LearningLOVE"]
 	path = specifics/LearningLOVE
-	url = https://github.com/LucasBarretto86/LearningLOVE.git
+	url = git@github.com:LucasBarretto86/LearningLOVE.git
 [submodule "specifics/LearningRubyOnRails"]
 	path = specifics/LearningRubyOnRails
-	url = https://github.com/LucasBarretto86/LearningRubyOnRails.git
+	url = git@github.com:LucasBarretto86/LearningRubyOnRails.git
 [submodule "specifics/LearningJS"]
 	path = specifics/LearningJS
-	url = https://github.com/LucasBarretto86/LearningJS.git
+	url = git@github.com:LucasBarretto86/LearningJS.git
 [submodule "specifics/LearningCSS"]
 	path = specifics/LearningCSS
-	url = https://github.com/LucasBarretto86/LearningCSS.git
+	url = git@github.com:LucasBarretto86/LearningCSS.git
 [submodule "specifics/LearningHTML"]
 	path = specifics/LearningHTML
-	url = https://github.com/LucasBarretto86/LearningHTML.git
+	url = git@github.com:LucasBarretto86/LearningHTML.git
 [submodule "specifics/LearningReactJS"]
 	path = specifics/LearningReactJS
-	url = https://github.com/LucasBarretto86/LearningReactJS.git
+	url = git@github.com:LucasBarretto86/LearningReactJS.git
 [submodule "specifics/LearningCPP"]
 	path = specifics/LearningCPP
-	url = https://github.com/LucasBarretto86/LearningCPP.git
+	url = git@github.com:LucasBarretto86/LearningCPP.git
 [submodule "specifics/LearningAssembly"]
 	path = specifics/LearningAssembly
-	url = https://github.com/LucasBarretto86/LearningAssembly.git
+	url = git@github.com:LucasBarretto86/LearningAssembly.git
 [submodule "specifics/LearningMermaid"]
 	path = specifics/LearningMermaid
-	url = https://github.com/LucasBarretto86/LearningMermaid.git
+	url = git@github.com:LucasBarretto86/LearningMermaid.git
