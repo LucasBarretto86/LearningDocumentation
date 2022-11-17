@@ -11,6 +11,10 @@
     - [Checking compatibility and specs](#checking-compatibility-and-specs)
     - [Adding resolution](#adding-resolution)
     - [Setting new resolution](#setting-new-resolution)
+    - [Ubuntu PPA's](#ubuntu-ppas)
+      - [List PPA](#list-ppa)
+    - [Adding PPA](#adding-ppa)
+    - [Removing PPA](#removing-ppa)
   - [Emojis by Code](#emojis-by-code)
 
 ## Checking Computer Hostname
@@ -109,6 +113,68 @@ To set the new added resolution we gonna use this line: `xrandr --addmode DISPLA
 
 ```shell
 xrandr --addmode VGA-1 "1920x1080_60.00"
+```
+
+### Ubuntu PPA's
+
+#### List PPA
+
+```shell
+apt policy
+```
+
+**Output:**
+
+```shell
+Package files:
+ 100 /var/lib/dpkg/status
+     release a=now
+ 500 https://dl.google.com/linux/chrome/deb stable/main amd64 Packages
+     release v=1.0,o=Google LLC,a=stable,n=stable,l=Google,c=main,b=amd64
+     origin dl.google.com
+ 500 https://packagecloud.io/github/git-lfs/ubuntu jammy/main i386 Packages
+     release v=1,o=packagecloud.io/github/git-lfs,a=jammy,n=jammy,l=git-lfs,c=main,b=i386
+     origin packagecloud.io
+
+```
+
+**Alternative:**
+
+```shell
+ls /etc/apt/sources.list.d
+```
+
+**Output:**
+
+```shell
+archive_uri-https_deb_tableplus_com_debian_22-jammy.list              github_git-lfs.list
+archive_uri-https_deb_tableplus_com_debian_22-jammy.list.distUpgrade  github_git-lfs.list.distUpgrade
+archive_uri-https_deb_tableplus_com_debian_22-jammy.list.save         google-chrome.list
+
+```
+
+### Adding PPA
+
+```shell
+sudo add-apt-repository -r ppa:PPA_NAME
+```
+
+### Removing PPA
+
+```shell
+sudo add-apt-repository -r ppa:PPA_NAME
+```
+
+OR
+
+```shell
+sudo rm /etc/apt/sources.list.d/PPA_FILE_NAME
+```
+
+**Example:**
+
+```shell
+sudo rm /etc/apt/sources.list.d/skype-stable.list
 ```
 
 ## Emojis by Code
