@@ -19,10 +19,11 @@
   - [Git and Github](#git-and-github)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
-  - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
-    - [Updating existing submodules](#updating-existing-submodules)
-    - [Pull each submodule](#pull-each-submodule)
+      - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
+      - [Updating existing submodules](#updating-existing-submodules)
+      - [Pull each submodule](#pull-each-submodule)
       - [Submodule issues](#submodule-issues)
+    - [Subtrees](#subtrees)
       - [Adding subtree](#adding-subtree)
       - [Updating subtree](#updating-subtree)
         - [Pulling changes](#pulling-changes)
@@ -35,6 +36,7 @@
       - [Extension installation](#extension-installation)
         - [First download the git-lfs file](#first-download-the-git-lfs-file)
         - [Download additional script](#download-additional-script)
+        - [First install](#first-install)
       - [Git lfs usage](#git-lfs-usage)
         - [Tracking files](#tracking-files)
     - [Git commands table](#git-commands-table)
@@ -118,7 +120,13 @@ echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
 Each plugin has dependencies so we need to check the plugin repo where they should be listed. For asdf-nodejs they are:
 
 ```shell
-apt-get install dirmngr gpg curl gawk
+sudo apt-get install dirmngr gpg curl gawk build-essential libssl-dev
+```
+
+> some installations might require more of libs
+
+```shell
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev libreadline-dev
 ```
 
 #### Listing ASDF Plugins
@@ -139,7 +147,7 @@ asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
 ### Installing through ASDF Plugins
 
 ```shell
-asdf  install ruby 3.1.0
+asdf install ruby 3.1.0
 ```
 
 ### Updating through ASDF Plugins
@@ -206,19 +214,19 @@ git commit -m"Committing directly with a submodule"
 git push
 ```
 
-## Pull for all submodules for the first time
+#### Pull for all submodules for the first time
 
 ```shell
 git submodule update --init --recursive
 ```
 
-### Updating existing submodules
+#### Updating existing submodules
 
 ```shell
 git pull --recurse-submodule
 ```
 
-### Pull each submodule
+#### Pull each submodule
 
 ```shell
 git submodule foreach git pull origin main
@@ -246,9 +254,11 @@ cd ..
 git submodule foreach git pull origin main
 ```
 
-#### Adding subtree
+### Subtrees
 
 Subtree is very similar to submodules, however subtree allow you to bring in external repos by merging it and squashing
+
+#### Adding subtree
 
 ```shell
 git subtree add --prefix {local directory being pulled into} {remote repo URL} {remote branch} --squash
@@ -301,7 +311,15 @@ First is required to download files
 ##### Download additional script
 
 ```shell
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo  bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh?os=Ubuntu&dist=jammy&source=script | sudo bash
+```
+
+##### First install
+
+Within the `git-lfs-3.2.0` folder
+
+```shell
+sudo ./install.sh
 ```
 
 #### Git lfs usage
