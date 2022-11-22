@@ -595,22 +595,24 @@ yarn add -D eslint
 
 ```shell
 eslint --init
+```
 
-# Output
-# $ eslint --init
-# You can also run this command directly using 'npm init @eslint/config'.
-# npx: installed 40 in 8.683s
-# ✔ How would you like to use ESLint? · problems
-# ✔ What type of modules does your project use? · esm
-# ✔ Which framework does your project use? · react
-# ✔ Does your project use TypeScript? · No / Yes
-# ✔ Where does your code run? · browser
-# ✔ What format do you want your config file to be in? · JavaScript
-# The config that you've selected requires the following dependencies:
+**Output:**
 
-# eslint-plugin-react@latest
-# ✔ Would you like to install them now? · No / Yes
-# ✔ Which package manager do you want to use? · yarn
+```shell
+You can also run this command directly using 'npm init @eslint/config'.
+npx: installed 40 in 8.683s
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · react
+✔ Does your project use TypeScript? · No / Yes
+✔ Where does your code run? · browser
+✔ What format do you want your config file to be in? · JavaScript
+The config that you've selected requires the following dependencies:
+
+eslint-plugin-react@latest
+✔ Would you like to install them now? · No / Yes
+✔ Which package manager do you want to use? · yarn
 ```
 
 ### ESlint basic config
