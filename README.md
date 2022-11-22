@@ -50,6 +50,19 @@
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
   - [CURL](#curl)
+    - [Install Curl](#install-curl)
+    - [Downloading file with CURL](#downloading-file-with-curl)
+      - [HTTPS](#https)
+      - [FTP or SFTP](#ftp-or-sftp)
+      - [Skipping SSL](#skipping-ssl)
+      - [View full response](#view-full-response)
+      - [Follows redirect and download](#follows-redirect-and-download)
+    - [Upload files with CURL](#upload-files-with-curl)
+      - [Upload multiple files](#upload-multiple-files)
+    - [Limiting download/upload speed](#limiting-downloadupload-speed)
+    - [Set user agent](#set-user-agent)
+    - [Set CURL silent mode](#set-curl-silent-mode)
+    - [Curl Help](#curl-help)
   - [YARN](#yarn)
     - [Add new dependency](#add-new-dependency)
       - [add only in dev](#add-only-in-dev)
@@ -422,6 +435,109 @@ potrace example.bmp -s -o example.svg
 ![Converted](assets/images/example.svg)
 
 ## CURL
+
+### Install Curl
+
+```shell
+sudo apt install curl
+```
+
+### Downloading file with CURL
+
+#### HTTPS
+
+```shell
+curl url --o filename.ext
+```
+
+OR
+
+```shell
+curl https://url -o filename.ext
+```
+
+**Getting HTTP headers information without downloading files:**
+
+```shell
+curl -I https://www.cyberciti.biz/files/sticker/sticker_book.pdf -o output.pdf
+```
+
+#### FTP or SFTP
+
+```shell
+curl ftp://ftp-your-domain-name/file.tar.gz
+```
+
+#### Skipping SSL
+
+```shell
+curl -k url
+curl -k https://www.cyberciti.biz/
+```
+
+#### View full response
+
+Pass the `-v` for viewing the complete request send and response received from the web server.
+
+```shell
+curl -v url
+curl -o output.pdf -v https://www.cyberciti.biz/files/sticker/sticker_book.pdf
+```
+
+#### Follows redirect and download
+
+```shell
+curl -L -o file.tgz http://www.cyberciti.biz/long.file.name.tgz
+```
+
+### Upload files with CURL
+
+```shell
+#curl -F "var=@path/to/local/file.pdf" https://url/upload.php
+
+curl -F "img_file=@~/Pictures/test.png" https://127.0.0.1/app/upload.php
+```
+
+#### Upload multiple files
+
+```shell
+curl -F "img_file1=@~/Pictures/test-1.png" \
+-F "img_file2=@~/Pictures/test-2.png" \
+https://127.0.0.1/app/upload-multi.php
+```
+
+### Limiting download/upload speed
+
+You can specify the maximum transfer rate you want the curl to use for both downloads and uploads files.
+
+```shell
+# curl --limit-rate {speed} url
+curl --limit-rate 200 https://www.cyberciti.biz/
+curl --limit-rate 3m https://www.cyberciti.biz/
+```
+
+### Set user agent
+
+Some web application firewall will block the default curl user agent while downloading files. To avoid such problems pass the `-A` option that allows you to set the user agent.
+
+```shell
+#curl -A '{user agent name}' url
+curl -A 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0' https://google.com/
+```
+
+### Set CURL silent mode
+
+```shell
+#curl -s url
+
+curl --silent --output filename https://url/foo.tar.gz
+```
+
+### Curl Help
+
+```shell
+curl --help
+```
 
 ## YARN
 
