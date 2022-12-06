@@ -16,6 +16,12 @@
     - [Adding PPA](#adding-ppa)
     - [Removing PPA](#removing-ppa)
   - [Emojis by Code](#emojis-by-code)
+  - [Unicode Cards](#unicode-cards)
+    - [Mixed](#mixed)
+    - [Spades](#spades)
+    - [Hearts](#hearts)
+    - [Diamonds](#diamonds)
+    - [Clubs](#clubs)
 
 ## Checking Computer Hostname
 
@@ -238,3 +244,89 @@ sudo rm /etc/apt/sources.list.d/skype-stable.list
 | 🍾 | &#127870 |
 | 😀 | &#128512 |
 | ⛪ | &#9962   |
+
+## Unicode Cards
+
+### Mixed
+
+| Symbol | Card Name         | Unicode     | Html        |
+| :----: | :---------------- | :---------: | :---------: |
+|   🂠   | Card Back         | `&#x1F0A0;` | `&#127136;` |
+|   🃟   | White Joker       | `&#x1F0FF;` | `&#127199;` |
+|   🃏   | Joker             | `&#x1F0CF;` | `&#127167;` |
+
+### Spades
+
+| Symbol | Card Name         | Unicode     | HTML        |
+| :----: | :---------------- | :---------: | :---------: |
+|   🂡   | Ace Of Spades     | `&#x1F0A1;` | `&#127137;` |
+|   🂢   | Two Of Spades     | `&#x1F0A2;` | `&#127138;` |
+|   🂣   | Three Of Spades   | `&#x1F0A3;` | `&#127139;` |
+|   🂤   | Four Of Spades    | `&#x1F0A4;` | `&#127140;` |
+|   🂥   | Five Of Spades    | `&#x1F0A5;` | `&#127141;` |
+|   🂦   | Six Of Spades     | `&#x1F0A6;` | `&#127142;` |
+|   🂧   | Seven Of Spades   | `&#x1F0A7;` | `&#127143;` |
+|   🂨   | Eight Of Spades   | `&#x1F0A8;` | `&#127144;` |
+|   🂩   | Nine Of Spades    | `&#x1F0A9;` | `&#127145;` |
+|   🂪   | Ten Of Spades     | `&#x1F0AA;` | `&#127146;` |
+|   🂫   | Jack Of Spades    | `&#x1F0AB;` | `&#127147;` |
+|   🂬   | Knight Of Spades  | `&#x1F0AC;` | `&#127148;` |
+|   🂭   | Queen Of Spades   | `&#x1F0AD;` | `&#127149;` |
+|   🂮   | King Of Spades    | `&#x1F0AE;` | `&#127150;` |
+
+### Hearts
+
+| Symbol | Card Name        | Unicode     | HTML        |
+| :----: | :--------------- | :---------: | :---------: |
+|   🂱   | Ace Of Hearts    | `&#x1F0B1;` | `&#127153;` |
+|   🂲   | Two Of Hearts    | `&#x1F0B2;` | `&#127154;` |
+|   🂳   | Three Of Hearts  | `&#x1F0B3;` | `&#127155;` |
+|   🂴   | Four Of Hearts   | `&#x1F0B4;` | `&#127156;` |
+|   🂵   | Five Of Hearts   | `&#x1F0B5;` | `&#127157;` |
+|   🂶   | Six Of Hearts    | `&#x1F0B6;` | `&#127158;` |
+|   🂷   | Seven Of Hearts  | `&#x1F0B7;` | `&#127159;` |
+|   🂸   | Eight Of Hearts  | `&#x1F0B8;` | `&#127160;` |
+|   🂹   | Nine Of Hearts   | `&#x1F0B9;` | `&#127161;` |
+|   🂺   | Ten Of Hearts    | `&#x1F0BA;` | `&#127162;` |
+|   🂻   | Jack Of Hearts   | `&#x1F0BB;` | `&#127163;` |
+|   🂼   | Knight Of Hearts | `&#x1F0BC;` | `&#127164;` |
+|   🂽   | Queen Of Hearts  | `&#x1F0BD;` | `&#127165;` |
+|   🂾   | King Of Hearts   | `&#x1F0BE;` | `&#127166;` |
+
+### Diamonds
+
+| Symbol | Card Name         | Unicode     | Html        |
+| :----: | :---------------- | :---------: | :---------: |
+|   🃁   | Ace Of Diamonds   | `&#x1F0C1;` | `&#127169;` |
+|   🃂   | Two Of Diamonds   | `&#x1F0C2;` | `&#127170;` |
+|   🃃   | Three Of Diamonds | `&#x1F0C3;` | `&#127171;` |
+|   🃄   | Four Of Diamonds  | `&#x1F0C4;` | `&#127172;` |
+|   🃅   | Five Of Diamonds  | `&#x1F0C5;` | `&#127173;` |
+|   🃆   | Six Of Diamonds   | `&#x1F0C6;` | `&#127174;` |
+|   🃇   | Seven Of Diamonds | `&#x1F0C7;` | `&#127175;` |
+|   🃈   | Eight Of Diamonds | `&#x1F0C8;` | `&#127176;` |
+|   🃉   | Nine Of Diamonds  | `&#x1F0C9;` | `&#127177;` |
+|   🃊   | Ten Of Diamonds   | `&#x1F0CA;` | `&#127178;` |
+|   🃋   | Jack Of Diamonds  | `&#x1F0CB;` | `&#127179;` |
+|   🃌   | Knight Of Diamonds| `&#x1F0CC;` | `&#127180;` |
+|   🃍   | Queen Of Diamonds | `&#x1F0CD;` | `&#127181;` |
+|   🃎   | King Of Diamonds  | `&#x1F0CE;` | `&#127182;` |
+
+### Clubs
+
+| Symbol | Card Name         | Unicode     | Html        |
+| :----: | :---------------- | :---------: | :---------: |
+|   🃑   | Ace Of Clubs      | `&#x1F0D1;` | `&#127185;` |
+|   🃒   | Two Of Clubs      | `&#x1F0D2;` | `&#127186;` |
+|   🃓   | Three Of Clubs    | `&#x1F0D3;` | `&#127187;` |
+|   🃔   | Four Of Clubs     | `&#x1F0D4;` | `&#127188;` |
+|   🃕   | Five Of Clubs     | `&#x1F0D5;` | `&#127189;` |
+|   🃖   | Six Of Clubs      | `&#x1F0D6;` | `&#127190;` |
+|   🃗   | Seven Of Clubs    | `&#x1F0D7;` | `&#127191;` |
+|   🃘   | Eight Of Clubs    | `&#x1F0D8;` | `&#127192;` |
+|   🃙   | Nine Of Clubs     | `&#x1F0D9;` | `&#127193;` |
+|   🃚   | Ten Of Clubs      | `&#x1F0DA;` | `&#127194;` |
+|   🃛   | Jack Of Clubs     | `&#x1F0DB;` | `&#127195;` |
+|   🃜   | Knight Of Clubs   | `&#x1F0DC;` | `&#127196;` |
+|   🃝   | Queen Of Clubs    | `&#x1F0DD;` | `&#127197;` |
+|   🃞   | King Of Clubs     | `&#x1F0DE;` | `&#127198;` |
