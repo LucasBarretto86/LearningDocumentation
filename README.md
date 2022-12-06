@@ -366,6 +366,7 @@ git lfs track "*.capx"
 |`git config --global user.name USER_NAME`| Set global user name|
 |`git config --global user.email USER_EMAIL`| Set global user email|
 |`git config --global user.password PASSWORD`| Set global user password|
+|`git config --global init.defaultBranch BRANCH_NAME`| To redefine initial branch name globally |
 |`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
 |`git rebase BRANCH`| Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
 |`git remote add origin git@github.com:USER_NAME/REPO_NAME.git`| Add repo as remote|
