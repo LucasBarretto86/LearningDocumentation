@@ -17,6 +17,9 @@
   - [Tableplus](#tableplus)
     - [Tableplus Linux installation](#tableplus-linux-installation)
   - [Git and Github](#git-and-github)
+    - [cherry-pick](#cherry-pick)
+      - [cherry-pick single commit](#cherry-pick-single-commit)
+      - [cherry-pick multiple commits](#cherry-pick-multiple-commits)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
       - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
@@ -190,6 +193,28 @@ sudo apt install tableplus
 ```
 
 ## Git and Github
+
+### cherry-pick
+
+Cherry pick commits allow you to copy commit from one branch to another
+
+#### cherry-pick single commit
+
+```shell
+git cherry-pick COMMIT_HASH
+```
+
+#### cherry-pick multiple commits
+
+To get multiple commit we use the two commits hash representing "from", "to" and add operator `^..` between them
+
+```shell
+git cherry-pick COMMIT_A^..COMMIT_B
+```
+
+- A must be older than B
+- If you want get all commits but ignore A, you only `A..B`
+- in `ZSH` needs to use `'A^..B` or `'A..B`
 
 ### Submodules
 
