@@ -9,8 +9,8 @@
     - [ASDF Install](#asdf-install)
     - [ASDF Plugins](#asdf-plugins)
       - [Adding plugin dependencies](#adding-plugin-dependencies)
-      - [Listing ASDF Plugins](#listing-asdf-plugins)
       - [Adding ASDF Plugins](#adding-asdf-plugins)
+      - [Listing versions through ASDF Plugins](#listing-versions-through-asdf-plugins)
     - [Installing through ASDF Plugins](#installing-through-asdf-plugins)
     - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
@@ -23,7 +23,6 @@
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
       - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
-      - [Updating existing submodules](#updating-existing-submodules)
       - [Pull each submodule](#pull-each-submodule)
       - [Submodule issues](#submodule-issues)
     - [Subtrees](#subtrees)
@@ -117,11 +116,15 @@ cat ~/.ssh/id_rsa.pub
 
 ### ASDF Install
 
+> Remember to check current branch to download <https://asdf-vm.com/guide/getting-started.html#_1-install-dependencies>
+
 ```shell
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.0
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
 echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
 echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
 ```
+
+> Reboot OS after install
 
 ### ASDF Plugins
 
@@ -139,12 +142,6 @@ sudo apt-get install dirmngr gpg curl gawk build-essential libssl-dev
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev libreadline-dev
 ```
 
-#### Listing ASDF Plugins
-
-```shell
-asdf list-all ruby
-```
-
 #### Adding ASDF Plugins
 
 ```shell
@@ -153,6 +150,12 @@ asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
 asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git
+```
+
+#### Listing versions through ASDF Plugins
+
+```shell
+asdf list-all ruby
 ```
 
 ### Installing through ASDF Plugins
@@ -172,13 +175,13 @@ asdf plugin-update --all
 Global
 
 ```shell
-asdf global nodejs 16.5.0
+asdf global nodejs X.X.X
 ```
 
 Local
 
 ```shell
-asdf local nodejs 12.23.0
+asdf local nodejs X.X.X
 ```
 
 ## Tableplus
@@ -251,11 +254,6 @@ git push
 
 ```shell
 git submodule update --init --recursive
-```
-
-#### Updating existing submodules
-
-```shell
 git pull --recurse-submodule
 ```
 
