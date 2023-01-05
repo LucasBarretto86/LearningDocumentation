@@ -71,6 +71,9 @@
     - [Reinstall all dependencies](#reinstall-all-dependencies)
     - [Adding multiple dependencies version](#adding-multiple-dependencies-version)
     - [Downloading files](#downloading-files)
+  - [Issues](#issues)
+    - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
+    - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
   - [Concepts](#concepts)
   - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
@@ -600,6 +603,48 @@ older dependency syntax -> "`dependency-name`": "`version`"
 
 ```shell
 curl https://emoji.slack-edge.com/T58JKBZJS/merged/adb3ef9def323d9a.png --output  ~/Downloads/images/merged.png
+```
+
+## Issues
+
+### Ubuntu sharing entire screen
+
+```shell
+sudo nano /etc/gdm3/custom.conf
+```
+
+basically just uncomment line bellow
+
+```txt
+# /etc/gdm3/custom.conf
+...
+
+[daemon]
+# Uncomment the line below to force the login screen to use Xorg
+WaylandEnable=false
+```
+
+after that save and reboot
+
+### Note shutdown with lid down even in power
+
+```shell
+sudo nano /etc/systemd/logind.conf
+```
+
+Change the line `HandleLidSwitch=suspend` for one of the following
+
+| Value     | Description           |
+|:----------|:----------------------|
+| lock      | lock when lid closed. |
+| ignore    | do nothing.           |
+| poweroff  | shutdown.             |
+| hibernate | hibernate Ubuntu.     |
+
+save config and restart services
+
+```shell
+systemctl restart systemd-logind.service
 ```
 
 ## Concepts
