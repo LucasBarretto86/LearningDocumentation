@@ -1,6 +1,10 @@
 # Learning Documentation
 
 - [Learning Documentation](#learning-documentation)
+  - [Tree](#tree)
+    - [Installing tree](#installing-tree)
+    - [Tree usage](#tree-usage)
+    - [Tree options](#tree-options)
   - [SSH](#ssh)
     - [Create SSH](#create-ssh)
     - [Validate SSH](#validate-ssh)
@@ -94,6 +98,41 @@
     - [Absolute and Relative paths](#absolute-and-relative-paths)
   - [References](#references)
   - [Gists](#gists)
+
+## Tree
+
+### Installing tree
+
+```shell
+sudo apt-get install tree
+```
+
+### Tree usage
+
+```shell
+tree files/
+```
+
+**Output:**
+
+```shell
+files/
+├── flows.md
+├── notes.md
+├── scratch.json
+└── scratch.md
+```
+
+### Tree options
+
+|  Option   | Description                                               |
+|:---------:|:--------------------------------------------------------- |
+|    -a     | lista todos os arquivos, inclusive os arquivos ocultos.   |
+|    -d     | lista somente os subdiretórios.                           |
+|    -f     | exibe o caminho completo dos arquivos.                    |
+|    -p     | exibe as permissões dos arquivos.                         |
+|  −−help   | exibe as opções do utilitário.                            |
+| −−version | mostra informações sobre o utilitário.                    |
 
 ## SSH
 
@@ -193,7 +232,7 @@ asdf local nodejs X.X.X
 
 ```shell
 wget -qO - http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/20 tableplus main"
+sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
 sudo apt update
 sudo apt install tableplus
 ```

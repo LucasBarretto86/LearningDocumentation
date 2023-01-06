@@ -15,8 +15,14 @@
 
 ## Studying later
 
+### Concepts and Theories
+
 - Lean Framework
 - User Story Mapping
 - XP
 - Scrum
 - Kanban
+
+### Practical and technical
+
+- ngrok
