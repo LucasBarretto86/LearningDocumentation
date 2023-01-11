@@ -78,6 +78,7 @@
   - [Issues](#issues)
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
+    - [Increasing-the-amount-of-inotify-watchers](#increasing-the-amount-of-inotify-watchers)
   - [Concepts](#concepts)
   - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
@@ -384,7 +385,7 @@ First is required to download files
 ##### Download additional script
 
 ```shell
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh?os=Ubuntu&dist=jammy&source=script | sudo bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh?os=Ubuntu&dist=kinnect&source=script | sudo bash
 ```
 
 ##### First install
@@ -684,6 +685,21 @@ save config and restart services
 
 ```shell
 systemctl restart systemd-logind.service
+```
+
+### Increasing-the-amount-of-inotify-watchers
+
+**Error:**
+
+```shell
+FATAL: Listen error: unable to monitor directories for changes.
+Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers for info on how to fix this.
+```
+
+**Fix:**
+
+```shell
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
 ## Concepts
