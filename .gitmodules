@@ -37,3 +37,6 @@
 [submodule "specifics/LearningMermaid"]
 	path = specifics/LearningMermaid
 	url = git@github.com:LucasBarretto86/LearningMermaid.git
+[submodule "specifics/LearningLinux"]
+	path = specifics/LearningLinux
+	url = git@github.com:LucasBarretto86/LearningLinux.git

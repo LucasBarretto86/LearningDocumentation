@@ -51,30 +51,11 @@
   - [Languages Learning](#languages-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
+    - [ImageMagick convert](#imagemagick-convert)
       - [SVG TO PNG](#svg-to-png)
       - [PSD TO PNG](#psd-to-png)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
-  - [CURL](#curl)
-    - [Install Curl](#install-curl)
-    - [Downloading file with CURL](#downloading-file-with-curl)
-      - [HTTPS](#https)
-      - [FTP or SFTP](#ftp-or-sftp)
-      - [Skipping SSL](#skipping-ssl)
-      - [View full response](#view-full-response)
-      - [Follows redirect and download](#follows-redirect-and-download)
-    - [Upload files with CURL](#upload-files-with-curl)
-      - [Upload multiple files](#upload-multiple-files)
-    - [Limiting download/upload speed](#limiting-downloadupload-speed)
-    - [Set user agent](#set-user-agent)
-    - [Set CURL silent mode](#set-curl-silent-mode)
-    - [Curl Help](#curl-help)
-  - [YARN](#yarn)
-    - [Add new dependency](#add-new-dependency)
-      - [add only in dev](#add-only-in-dev)
-    - [Reinstall all dependencies](#reinstall-all-dependencies)
-    - [Adding multiple dependencies version](#adding-multiple-dependencies-version)
-    - [Downloading files](#downloading-files)
   - [Issues](#issues)
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
@@ -448,13 +429,17 @@ git lfs track "*.capx"
 - [Learning C++](https://github.com/LucasBarretto86/LearningCPP)
 - [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
 - [Learning SCSS](https://github.com/LucasBarretto86/LearningCSS/LearningSCSS)
-- [Learning JS]([specifics/js.md](https://github.com/LucasBarretto86/LearningJS))
-- [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
+- [Learning HTML](https://github.com/LucasBarretto86/LearningHTML)
+- [Learning JS](https://github.com/LucasBarretto86/LearningJS)
+- [Learning LINUX](https://github.com/LucasBarretto86/LearningLinux)
+- [Learning LÖVE](https://github.com/LucasBarretto86/LearningLOVE)
 - [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
 - [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
-- [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/src/Postgres/README.md)
+- [Learning Mermaid](https://github.com/LucasBarretto86/LearningMermaid)
+- [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/Postgres/README.md)
 - [Learning Python](https://github.com/LucasBarretto86/LearningPython)
 - [Learning ReactJS](https://github.com/LucasBarretto86/LearningReactJS)|
+- [Learning Ruby](https://github.com/LucasBarretto86/LearningRubyOnRails/LearningRuby/README.md)
 - [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
 - [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
@@ -465,6 +450,8 @@ git lfs track "*.capx"
 ```shell
 sudo apt install Imagemagick
 ```
+
+### ImageMagick convert
 
 #### SVG TO PNG
 
@@ -495,155 +482,6 @@ potrace example.bmp -s -o example.svg
 
 ![original BMP](assets/images/example.bmp)
 ![Converted](assets/images/example.svg)
-
-## CURL
-
-### Install Curl
-
-```shell
-sudo apt install curl
-```
-
-### Downloading file with CURL
-
-#### HTTPS
-
-```shell
-curl url --o filename.ext
-```
-
-OR
-
-```shell
-curl https://url -o filename.ext
-```
-
-**Getting HTTP headers information without downloading files:**
-
-```shell
-curl -I https://www.cyberciti.biz/files/sticker/sticker_book.pdf -o output.pdf
-```
-
-#### FTP or SFTP
-
-```shell
-curl ftp://ftp-your-domain-name/file.tar.gz
-```
-
-#### Skipping SSL
-
-```shell
-curl -k url
-curl -k https://www.cyberciti.biz/
-```
-
-#### View full response
-
-Pass the `-v` for viewing the complete request send and response received from the web server.
-
-```shell
-curl -v url
-curl -o output.pdf -v https://www.cyberciti.biz/files/sticker/sticker_book.pdf
-```
-
-#### Follows redirect and download
-
-```shell
-curl -L -o file.tgz http://www.cyberciti.biz/long.file.name.tgz
-```
-
-### Upload files with CURL
-
-```shell
-#curl -F "var=@path/to/local/file.pdf" https://url/upload.php
-
-curl -F "img_file=@~/Pictures/test.png" https://127.0.0.1/app/upload.php
-```
-
-#### Upload multiple files
-
-```shell
-curl -F "img_file1=@~/Pictures/test-1.png" \
--F "img_file2=@~/Pictures/test-2.png" \
-https://127.0.0.1/app/upload-multi.php
-```
-
-### Limiting download/upload speed
-
-You can specify the maximum transfer rate you want the curl to use for both downloads and uploads files.
-
-```shell
-# curl --limit-rate {speed} url
-curl --limit-rate 200 https://www.cyberciti.biz/
-curl --limit-rate 3m https://www.cyberciti.biz/
-```
-
-### Set user agent
-
-Some web application firewall will block the default curl user agent while downloading files. To avoid such problems pass the `-A` option that allows you to set the user agent.
-
-```shell
-#curl -A '{user agent name}' url
-curl -A 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0' https://google.com/
-```
-
-### Set CURL silent mode
-
-```shell
-#curl -s url
-
-curl --silent --output filename https://url/foo.tar.gz
-```
-
-### Curl Help
-
-```shell
-curl --help
-```
-
-## YARN
-
-### Add new dependency
-
-```shell
-yarn add dependency_name
-```
-
-#### add only in dev
-
-```shell
-yarn add dependency_name -D
-```
-
-### Reinstall all dependencies
-
-```shell
-yarn install --check-files
-```
-
-### Adding multiple dependencies version
-
-new dependency syntax -> "`dependency-alias`": "npm:`dependency-name@version`"
-older dependency syntax -> "`dependency-name`": "`version`"
-
-```json
-// package.json
-{
-  "dependencies": {
-    "@analytics": "npm:analytics@^0.6.2",
-    "@analytics/google-analytics": "^0.5.2",
-    "@apollo/client/updated": "npm:apollo/client@^3.6.2",
-    "@apollo/client": "3.5.8"
-  }
-}
-
-```
-
-### Downloading files
-
-```shell
-curl https://emoji.slack-edge.com/T58JKBZJS/merged/adb3ef9def323d9a.png --output  ~/Downloads/images/merged.png
-```
 
 ## Issues
 
