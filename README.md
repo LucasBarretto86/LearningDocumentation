@@ -60,6 +60,11 @@
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
     - [Increasing-the-amount-of-inotify-watchers](#increasing-the-amount-of-inotify-watchers)
+    - [Deprecated trusted.gpg](#deprecated-trustedgpg)
+      - [List source list](#list-source-list)
+      - [Backup source list](#backup-source-list)
+      - [Remove all source lists](#remove-all-source-lists)
+      - [Update and upgrade apts](#update-and-upgrade-apts)
   - [Concepts](#concepts)
   - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
@@ -174,6 +179,7 @@ asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
 asdf plugin-add yarn https://github.com/twuni/asdf-yarn.git
+asdf plugin-add java https://github.com/halcyon/asdf-java.git
 ```
 
 #### Listing versions through ASDF Plugins
@@ -493,7 +499,7 @@ sudo nano /etc/gdm3/custom.conf
 
 basically just uncomment line bellow
 
-```txt
+```mono
 # /etc/gdm3/custom.conf
 ...
 
@@ -538,6 +544,61 @@ Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watc
 
 ```shell
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
+
+### Deprecated trusted.gpg
+
+> W: <https://deb.tableplus.com/debian/22/dists/tableplus/InRelease>: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+
+1. [List source lists](#list-source-list)
+2. [Backup source list](#backup-source-list)
+3. [Remove all source lists](#remove-all-source-lists)
+4. [Update and upgrade apts](#update-and-upgrade-apts)
+
+#### List source list
+
+```shell
+ls -l /etc/apt/sources.list.d
+```
+
+**Output:**
+
+```shell
+total 24
+-rw-r--r-- 1 root root   0 dez 30 13:19 archive_uri-https_deb_tableplus_com_debian_20-kinetic.list
+-rw-r--r-- 1 root root   0 dez 30 13:19 archive_uri-https_deb_tableplus_com_debian_20-kinetic.list.save
+-rw-r--r-- 1 root root 142 jan  5 16:23 archive_uri-https_deb_tableplus_com_debian_22-kinetic.list
+-rw-r--r-- 1 root root  68 jan  5 16:15 archive_uri-https_deb_tableplus_com_debian_22-kinetic.list.save
+-rw-r--r-- 1 root root 190 jan  5 16:23 google-chrome.list
+-rw-r--r-- 1 root root 190 jan  5 16:15 google-chrome.list.save
+-rw-r--r-- 1 root root   0 jan  5 16:15 google.list
+-rw-r--r-- 1 root root   0 jan  5 16:15 google.list.save
+-rw-r--r-- 1 root root  74 jan  5 16:35 pgdg.list
+-rw-r--r-- 1 root root  62 jan  5 16:15 pgdg.list.save
+
+```
+
+#### Backup source list
+
+```shell
+sudo cp /etc/apt/sources.list.d /etc/apt/sources.list.d.backup -r
+```
+
+#### Remove all source lists
+
+```shell
+sudo rm /etc/apt/sources.list.d/*
+```
+
+#### Update and upgrade apts
+
+```shell
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+sudo apt autoremove
+sudo apt install update-manager-core
+sudo do-release-upgrade
 ```
 
 ## Concepts
@@ -604,7 +665,7 @@ Typically the format used is `YY.MM.DD` or `YYYY.MM`
 
 It's also common to add a unique after the date schema to specify a hotfix: `YY.MM.HOTFIX` or `YY.MM.DD.HOTFIX`
 
-```txt
+```mono
 21.04.1
 21.04.2
 ```
