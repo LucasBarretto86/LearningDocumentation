@@ -1,5 +1,13 @@
 # Learning Documentation
 
+This project hold all the information and knowledge I gathered through my experiences
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/LucasBarretto86/LearningDocumentation)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/LucasBarretto86/LearningDocumentation)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/LucasBarretto86/LearningDocumentation)
+
+---
+
 - [Learning Documentation](#learning-documentation)
   - [Tree](#tree)
     - [Installing tree](#installing-tree)
@@ -90,13 +98,6 @@
     - [Absolute and Relative paths](#absolute-and-relative-paths)
   - [References](#references)
   - [Gists](#gists)
-
-This project hold all the information and knowledge I gathered through my experiences
-
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/LucasBarretto86/LearningDocumentation/.markdownlint.yml)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/LucasBarretto86/LearningDocumentation)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/LucasBarretto86/LearningDocumentation)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/LucasBarretto86/LearningDocumentation)
 
 ## Tree
 
