@@ -4,6 +4,7 @@
   - [Tree](#tree)
     - [Installing tree](#installing-tree)
     - [Tree usage](#tree-usage)
+    - [Output](#output)
     - [Tree options](#tree-options)
   - [SSH](#ssh)
     - [Create SSH](#create-ssh)
@@ -60,13 +61,16 @@
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
     - [Increasing-the-amount-of-inotify-watchers](#increasing-the-amount-of-inotify-watchers)
+    - [Error](#error)
+    - [Fix](#fix)
     - [Deprecated trusted.gpg](#deprecated-trustedgpg)
       - [List source list](#list-source-list)
+    - [Output](#output-1)
       - [Backup source list](#backup-source-list)
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
   - [Concepts](#concepts)
-  - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
+    - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
       - [Workflow](#workflow)
         - [Theme](#theme)
@@ -81,6 +85,9 @@
       - [Calendar versioning](#calendar-versioning)
       - [Semantic versioning](#semantic-versioning)
         - [Milestone version](#milestone-version)
+    - [Readme](#readme)
+    - [Changelog](#changelog)
+      - [Keep a Changelog](#keep-a-changelog)
     - [What is a Slug?](#what-is-a-slug)
     - [Absolute and Relative paths](#absolute-and-relative-paths)
   - [References](#references)
@@ -533,14 +540,14 @@ systemctl restart systemd-logind.service
 
 ### Increasing-the-amount-of-inotify-watchers
 
-**Error:**
+### Error
 
 ```shell
 FATAL: Listen error: unable to monitor directories for changes.
 Visit https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers for info on how to fix this.
 ```
 
-**Fix:**
+### Fix
 
 ```shell
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
@@ -603,7 +610,7 @@ sudo do-release-upgrade
 
 ## Concepts
 
-## Product Manager vs Product Owner
+### Product Manager vs Product Owner
 
 ![PM and PO Comparison](assets/images/po-and-pm.png)
 
@@ -717,6 +724,49 @@ Semantic version can also use suffixes to describe if a release is in  `pre-alph
 
 Basically is a version number or a name given at random or decided arbitrarily, mostly for marketing reasons
 
+### Readme
+
+A README file it's the first file you should create for a project, this file should contain the most important information to assist consumers and developers about your application, a good README also provide a better understanding from the current state, goals and progress from your project
+
+These are some important subjects that a good README should describe:
+
+- Titles and internal titles
+- Introduction - the project's aim
+- Technologies
+- Launch
+
+Consider also using additional elements such as:
+
+- Table of contents
+- Illustrations
+- Scope of functionalities
+- Examples of use
+- Project status
+- Sources
+- Other information
+
+<https://bulldogjob.com/readme/how-to-write-a-good-readme-for-your-github-project>
+
+<https://github.com/matiassingers/awesome-readme>
+
+<https://www.yegor256.com/2019/04/23/elegant-readme.html>
+
+<https://github.com/jehna/readme-best-practices#readme>
+
+<https://gist.github.com/luvuong-le/ec9eaa582c34b1403d1b811fbc5c51d7>
+
+Badges
+
+<https://shields.io/>
+
+### Changelog
+
+#### Keep a Changelog
+
+It's a set of rules to organize changelog from a project to understand how it works see: <http://keepachangelog.com/en/1.0.0/>
+
+[CHANGELOG EXAMPLE](/files/CHANGELOG.md)
+
 ### What is a Slug?
 
 What is a Slug? A slug is the last part of the url containing a unique string which identifies the resource being served by the web service. In that sense, a slug is a unique identifier for the resource.
@@ -738,6 +788,7 @@ In the example directory structure below, assume you used Windows Explorer to na
 - [Paths explained: Absolute, relative, UNC, and URL](https://desktop.arcgis.com/en/arcmap/10.3/tools/supplement/pathnames-explained-absolute-relative-unc-and-url.htm#GUID-5118AC85-57E4-4027-AC24-FB6E99FADEFF)
 - [User Story Framework](https://en.wikipedia.org/wiki/User_story)
 - [Why the PM and the PO should be the same person](https://www.delibr.com/post/product-manager-vs-product-owner)
+- [Keep a changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## Gists
 

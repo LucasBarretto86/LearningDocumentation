@@ -3532,7 +3532,7 @@
      *
      * Requires the `preventOverflow` modifier before it in order to work.
      *
-     * **NOTE:** this modifier will interrupt the current update cycle and will
+     * ### NOTE this modifier will interrupt the current update cycle and will
      * restart it if it detects the need to flip the placement.
      * @memberof modifiers
      * @inner

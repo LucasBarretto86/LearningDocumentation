@@ -10,7 +10,7 @@
 >#### :root  
 > Allow  various default configurations, but mostly css variables creation
 > to create a variable, you set a '--variable-name: value;'
-> ##### Example
+> ##**Example:**
     :root {
         --hero-gradient: linear-gradient(-45deg, #9F02CC, #5484f4);
     }
