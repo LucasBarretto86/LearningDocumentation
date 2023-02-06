@@ -4,10 +4,7 @@
 Check badge examples: <https://shields.io/>
 
 ![Build Status](https://clearworks.semaphoreci.com/badges/clearworks/branches/main.svg?style=shields&key=33bd0a1c-e12a-40c2-be83-5b02e588dd63)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/LucasBarretto86/LearningDocumentation)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/LucasBarretto86/LearningDocumentation)
-![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/LucasBarretto86/LearningDocumentation)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/LucasBarretto86/LearningDocumentation)
+
 
 - [Project Name](#project-name)
   - [General Information](#general-information)

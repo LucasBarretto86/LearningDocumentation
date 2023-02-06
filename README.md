@@ -4,7 +4,6 @@
   - [Tree](#tree)
     - [Installing tree](#installing-tree)
     - [Tree usage](#tree-usage)
-    - [Output](#output)
     - [Tree options](#tree-options)
   - [SSH](#ssh)
     - [Create SSH](#create-ssh)
@@ -65,7 +64,6 @@
     - [Fix](#fix)
     - [Deprecated trusted.gpg](#deprecated-trustedgpg)
       - [List source list](#list-source-list)
-    - [Output](#output-1)
       - [Backup source list](#backup-source-list)
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
@@ -92,6 +90,13 @@
     - [Absolute and Relative paths](#absolute-and-relative-paths)
   - [References](#references)
   - [Gists](#gists)
+
+This project hold all the information and knowledge I gathered through my experiences
+
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/LucasBarretto86/LearningDocumentation/.markdownlint.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/LucasBarretto86/LearningDocumentation)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/LucasBarretto86/LearningDocumentation)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/LucasBarretto86/LearningDocumentation)
 
 ## Tree
 
