@@ -5,7 +5,6 @@ on: push
 jobs:
   Lint:
     runs-on: ubuntu-latest
-    runs
     steps:
       - uses: actions/checkout@v1
       - name: Markdown Lint
