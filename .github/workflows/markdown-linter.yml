@@ -5,12 +5,12 @@ on: push
 jobs:
   Lint:
     runs-on: ubuntu-latest
+    runs
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Markdown Lint
-        uses: avto-dev/markdown-lint@v1
-        with:
-          rules: "./.markdownlintrc"
-          args: "**/*.md"
-          ignore: "./CHANGELOG.md"
+    - uses: actions/checkout@v1
+    - name: Markdown Lint
+      uses: avto-dev/markdown-lint@v1
+      with:
+        rules: "./.markdownlintrc"
+        args: "**/*.md"
+        ignore: "./CHANGELOG.md"
