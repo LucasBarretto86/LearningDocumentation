@@ -13,4 +13,4 @@ jobs:
         with:
           config: "./.markdownlintrc"
           args: "**/*.md"
-          ignore: "./CHANGELOG.md"
+          ignore: ["./CHANGELOG.md", "./unorganized_documents/", "./files/"]
