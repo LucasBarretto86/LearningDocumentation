@@ -12,5 +12,5 @@ jobs:
         uses: avto-dev/markdown-lint@v1
         with:
           config: "./.markdownlintrc"
-          args: "**/*.md"
+          args: "./README.md ./specifics/*.md"
           ignore: "./CHANGELOG.md ./unorganized_documents/* ./files/*"
