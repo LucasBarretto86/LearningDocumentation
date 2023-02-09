@@ -56,7 +56,6 @@ This project hold all the information and knowledge I gathered through my experi
     - [Github actions](#github-actions)
       - [Events](#events)
       - [Workflows](#workflows)
-        - [Workflow variables](#workflow-variables)
     - [Git commands table](#git-commands-table)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
@@ -515,32 +514,31 @@ A workflow is a configurable automated process that will run one or more jobs, i
 ```tree
 .github
 └── workflows
-    └── learn-github-actions.yml
+    └── markdown-linter.yml
 ```
 
 Workflow basically runs sequenced pre-existing actions or shell scripts
 
-**Workflow YAML file example:**
+**Workflow YAML file example using pre existing action:**
 
 ```yml
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+name: markdown-linter
+
+on: push
+
 jobs:
-  check-bats-version:
+  MarkdownLinter:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v1
+
+      - name: Markdown Lint
+        uses: avto-dev/markdown-lint@v1
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          config: "./.markdownlintrc"
+          args: "./README.md ./specifics/*.md"
+          ignore: "./CHANGELOG.md ./unorganized_documents/* ./files/*"
 ```
-
-> Notice that workflow can also accepts variables
-
-##### Workflow variables
 
 ### Git commands table
 
