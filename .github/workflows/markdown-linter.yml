@@ -6,11 +6,11 @@ jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Markdown Lint
-      uses: avto-dev/markdown-lint@v1
+      - name: Markdown Lint
+        uses: avto-dev/markdown-lint@v1
         with:
-        rules: "./.markdownlintrc"
-        args: "**/*.md"
-        ignore: "./CHANGELOG.md"
+          rules: "./.markdownlintrc"
+          args: "**/*.md"
+          ignore: "./CHANGELOG.md"
