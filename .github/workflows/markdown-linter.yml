@@ -3,7 +3,7 @@ name: markdown-linter
 on: push
 
 jobs:
-  Markdown Linter:
+  MarkdownLinter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
