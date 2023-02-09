@@ -53,6 +53,10 @@ This project hold all the information and knowledge I gathered through my experi
         - [First install](#first-install)
       - [Git lfs usage](#git-lfs-usage)
         - [Tracking files](#tracking-files)
+    - [Github actions](#github-actions)
+      - [Events](#events)
+      - [Workflows](#workflows)
+        - [Workflow variables](#workflow-variables)
     - [Git commands table](#git-commands-table)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
@@ -93,6 +97,7 @@ This project hold all the information and knowledge I gathered through my experi
         - [Milestone version](#milestone-version)
     - [Readme](#readme)
     - [Changelog](#changelog)
+      - [Cron jobs](#cron-jobs)
       - [Keep a Changelog](#keep-a-changelog)
     - [What is a Slug?](#what-is-a-slug)
     - [Absolute and Relative paths](#absolute-and-relative-paths)
@@ -115,7 +120,7 @@ tree files/
 
 **Output:**
 
-```shell
+```mono
 files/
 ├── flows.md
 ├── notes.md
@@ -125,14 +130,15 @@ files/
 
 ### Tree options
 
-|  Option   | Description                                               |
-|:---------:|:--------------------------------------------------------- |
-|    -a     | lista todos os arquivos, inclusive os arquivos ocultos.   |
-|    -d     | lista somente os subdiretórios.                           |
-|    -f     | exibe o caminho completo dos arquivos.                    |
-|    -p     | exibe as permissões dos arquivos.                         |
-|  −−help   | exibe as opções do utilitário.                            |
-| −−version | mostra informações sobre o utilitário.                    |
+|    Option     | Description                           |
+|:-------------:|:--------------------------------------|
+|      -a       | list all files, hidden files included |
+|      -d       | list only subdirectories              |
+|      -f       | list file absolute path               |
+|      -p       | list file with permissions            |
+| --filelimit=N | list files within a limit             |
+|    −−help     | shows tree help                       |
+|   −−version   | shows tree version                    |
 
 ## SSH
 
@@ -410,6 +416,132 @@ Within the repo with large files start tracking files
 git lfs track "*.capx"
 ```
 
+### Github actions
+
+Actions allows us to set automatization that run over a repository triggered by events, mostly the actions are used to run linters, CI, deploy, builds, and etc...
+
+```mermaid
+graph LR
+Events-->| Trigger | Workflows-->| Use | Actions
+```
+
+All configuration is setup using YAML
+
+**Example:**
+
+```yml
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  label_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh issue edit $ISSUE_URL --add-label "triage"
+```
+
+#### Events
+
+Events establishes when a workflow should be triggered
+
+Some of the most common triggers are:
+
+- push
+- pull_request
+- public
+- fork
+- label
+- workflow_dispatch
+- schedule
+
+To automatically trigger a workflow, use on to define which events can cause the workflow to run.
+
+**`schedule` trigger examples:**
+
+```yml
+on:
+  schedule:
+  - cron: 0 12 * * 1 
+```
+
+**`label` trigger example:**
+
+```yml
+on:
+  label:
+    types:
+      - created
+```
+
+It's also possible to define multiple triggers
+
+```yml
+on: [push, fork]
+  # - do something
+```
+
+OR
+
+```yml
+on:
+  label:
+    types:
+      - created
+  push:
+    branches:
+      - main
+```
+
+It's also possible to have multiple types
+
+```yml
+on:
+  label:
+    types: [created, edited]
+```
+
+To see more available workflow triggers go to <https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows>
+
+#### Workflows
+
+A workflow is a configurable automated process that will run one or more jobs, it is also defined by YAML file, which has to saved under `workflows` directory
+
+```tree
+.github
+└── workflows
+    └── learn-github-actions.yml
+```
+
+Workflow basically runs sequenced pre-existing actions or shell scripts
+
+**Workflow YAML file example:**
+
+```yml
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
+```
+
+> Notice that workflow can also accepts variables
+
+##### Workflow variables
+
 ### Git commands table
 
 | Command|Description |
@@ -576,7 +708,7 @@ ls -l /etc/apt/sources.list.d
 
 **Output:**
 
-```shell
+```mono
 total 24
 -rw-r--r-- 1 root root   0 dez 30 13:19 archive_uri-https_deb_tableplus_com_debian_20-kinetic.list
 -rw-r--r-- 1 root root   0 dez 30 13:19 archive_uri-https_deb_tableplus_com_debian_20-kinetic.list.save
@@ -588,7 +720,6 @@ total 24
 -rw-r--r-- 1 root root   0 jan  5 16:15 google.list.save
 -rw-r--r-- 1 root root  74 jan  5 16:35 pgdg.list
 -rw-r--r-- 1 root root  62 jan  5 16:15 pgdg.list.save
-
 ```
 
 #### Backup source list
@@ -766,6 +897,8 @@ Badges
 <https://shields.io/>
 
 ### Changelog
+
+#### Cron jobs
 
 #### Keep a Changelog
 
