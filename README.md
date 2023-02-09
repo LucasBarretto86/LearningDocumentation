@@ -538,11 +538,6 @@ jobs:
       - run: bats -v
 ```
 
-
-
-
-
-
 > Notice that workflow can also accepts variables
 
 ##### Workflow variables
