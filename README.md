@@ -519,10 +519,10 @@ A workflow is a configurable automated process that will run one or more jobs, i
 
 Workflow basically runs sequenced pre-existing actions or shell scripts
 
-**Workflow YAML file example using pre existing action:**
+**Workflow YAML file example using pre existing:**
 
 ```yml
-name: markdown-linter
+name: Code Linting
 
 on: push
 
@@ -539,6 +539,8 @@ jobs:
           args: "./README.md ./specifics/*.md"
           ignore: "./CHANGELOG.md ./unorganized_documents/* ./files/*"
 ```
+
+> In some cases we might to add specific args it depend on the action itself, so we might check the action repo
 
 ### Git commands table
 
