@@ -1,0 +1,16 @@
+name: Code Linting
+
+on: push
+
+jobs:
+  MarkdownLinter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Markdown Lint
+        uses: avto-dev/markdown-lint@v1
+        with:
+          config: "./.markdownlintrc"
+          args: "./README.md ./specifics/*.md"
+          ignore: "./CHANGELOG.md ./unorganized_documents/* ./files/*"
