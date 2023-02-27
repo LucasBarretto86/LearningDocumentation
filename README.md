@@ -79,6 +79,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
   - [Concepts](#concepts)
+    - [Daemon processes](#daemon-processes)
     - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
       - [Workflow](#workflow)
@@ -746,6 +747,14 @@ sudo do-release-upgrade
 ```
 
 ## Concepts
+
+### Daemon processes
+
+Daemon process in a nutshell is a process that runs on the background, daemon processes can be trigger by the OS silently, an example of daemon process is the Network Time Protocol (NTP) daemon is used to measure time differences between the clock on the computer it runs on and those of all other computers on the network.
+
+**Read more:**
+
+<https://www.techtarget.com/whatis/definition/daemon>
 
 ### Product Manager vs Product Owner
 
