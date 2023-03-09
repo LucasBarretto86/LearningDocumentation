@@ -59,12 +59,16 @@ This project hold all the information and knowledge I gathered through my experi
     - [Git commands table](#git-commands-table)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
+  - [Awesome Fonts](#awesome-fonts)
+    - [Ruby on Rails install](#ruby-on-rails-install)
+      - [Usage on Rails](#usage-on-rails)
   - [Languages Learning](#languages-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
     - [ImageMagick convert](#imagemagick-convert)
       - [SVG TO PNG](#svg-to-png)
       - [PSD TO PNG](#psd-to-png)
+      - [Common ImageMagick issue](#common-imagemagick-issue)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
   - [Issues](#issues)
@@ -575,6 +579,72 @@ jobs:
 
 ### Staging Deployment
 
+## Awesome Fonts
+
+- Create profile to generate the snippet we gonna use to trigger the lib
+<https://www.w3schools.com/icons/fontawesome5_intro.asp#:~:text=To%20use%20the%20Free%20Font>,Awesome%20to%20your%20web%20page.
+
+### Ruby on Rails install
+
+First add on the gemfile
+
+```gemfile
+gem "font-awesome-sass", "~> 6.3.0"
+```
+
+```mono
+bundle install
+```
+
+After we need to add the import line on the `application.scss`
+
+```scss
+// app/assets/stylesheets/application.scss
+
+@import "font-awesome";
+```
+
+> If you are using importmaps don't forget to run: `rails assets:precompile`
+
+Depending on where you want to use FontAwesome, you will need to add the script tag generated on your profile to link the lib, this can be found at
+
+```html
+<!-- app/views/layouts/application.html.erb -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patients Intermediary App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/323h4jk32h4l2j123.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    ...
+  </body>
+</html>
+
+```
+
+#### Usage on Rails
+
+**Example:**
+
+```rb
+<%= icon("fa-solid", "note-sticky", class: "fa-1x") %>
+```
+
+but you still can use with html on .erb
+
+```html
+<i class="fa-solid fa-x1 fa-note-sticky"></i>
+```
+
 ## Languages Learning
 
 - [Learning Assembly](https://github.com/LucasBarretto86/LearningAssembly)
@@ -600,7 +670,7 @@ jobs:
 ### Installing ImageMagick
 
 ```shell
-sudo apt install Imagemagick
+sudo apt install imagemagick
 ```
 
 ### ImageMagick convert
@@ -616,6 +686,46 @@ convert -background -quality 100 *.svg -set filename:base "%[basename]" "%[filen
 ```shell
 convert  *.psd -set filename:base "%[basename]" -quality 100 "%[filename:base].png"
 convert cover.ai cover.png
+```
+
+#### Common ImageMagick issue
+
+ImageMagick is very demanding so you gonna find some problems if you attempt to convert many files
+
+```mono
+convert-im6.q16: cache resources exhausted `301612577831.png' @ error/cache.c/OpenPixelCache/4095.
+```
+
+In that ca you might need to adjust policy.xml
+
+Find the policy.xml, commonly you find here `/etc/ImageMagick-6/policy.xml`
+
+```shell
+find / -name "policy.xml"
+```
+
+> In case you need to search for the correct path
+
+Withing the xml file find and change this two lines below:
+
+```xml
+<!-- /etc/ImageMagick-6/policy.xml -->
+
+<!-- FROM -->
+<policy domain="resource" name="disk" value="1GiB"/>
+
+<!-- TO -->
+<policy domain="resource" name="disk" value="8GiB"/>
+```
+
+You can edit on nano or any other text editor
+
+```shell
+# Nano
+nano /etc/ImageMagick-6/policy.xml
+
+# Sublime
+subl /etc/ImageMagick-6/policy.xml
 ```
 
 ### Installing Potrace
