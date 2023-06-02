@@ -15,6 +15,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Tree options](#tree-options)
   - [SSH](#ssh)
     - [Create SSH](#create-ssh)
+      - [SSH-keygen Options](#ssh-keygen-options)
     - [Validate SSH](#validate-ssh)
     - [Check SSH public key](#check-ssh-public-key)
   - [ASDF](#asdf)
@@ -71,6 +72,14 @@ This project hold all the information and knowledge I gathered through my experi
       - [Common ImageMagick issue](#common-imagemagick-issue)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
+  - [Digital Ocean](#digital-ocean)
+    - [Adding you SSH public key to Digital Ocean](#adding-you-ssh-public-key-to-digital-ocean)
+    - [Adding SSH public key manually for existing Droplets](#adding-ssh-public-key-manually-for-existing-droplets)
+    - [Paste SSH key to the `authorized_keys` file](#paste-ssh-key-to-the-authorized_keys-file)
+    - [Access Droplet with SSH](#access-droplet-with-ssh)
+    - [Copying files from a droplet](#copying-files-from-a-droplet)
+  - [AWS CLI](#aws-cli)
+  - [MinIO](#minio)
   - [Issues](#issues)
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
@@ -99,6 +108,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Calendar versioning](#calendar-versioning)
       - [Semantic versioning](#semantic-versioning)
         - [Milestone version](#milestone-version)
+    - [File permissions](#file-permissions)
     - [Readme](#readme)
     - [Changelog](#changelog)
       - [Cron jobs](#cron-jobs)
@@ -148,9 +158,19 @@ files/
 
 ### Create SSH
 
+**Basic:**
+
+```shell
+ssh-keygen
+```
+
+**With options:**
+
 ```shell
 ssh-keygen -t rsa -b 4096 -C "joe@example.com"
 ```
+
+#### SSH-keygen Options
 
 ### Validate SSH
 
@@ -745,6 +765,81 @@ potrace example.bmp -s -o example.svg
 ![original BMP](assets/images/example.bmp)
 ![Converted](assets/images/example.svg)
 
+## Digital Ocean
+
+### Adding you SSH public key to Digital Ocean
+
+1. First generate or copy your id_rsa.pub
+2. Navigate on DO dashboard and add your id_rsa.pub, you will find here: settings/security
+
+> Notice that adding SSH public only new droplets will be creating with you public key, if the droplet you are trying access was created prior to the SSH definition you will have to add your key manually as below:
+
+### Adding SSH public key manually for existing Droplets
+
+1. Access the droplet you want to add your SSH key through the browser console
+2. Within the droplet you will have to paste your SSH public key to the `authorized_keys` file
+3. From you local console access the droplet
+
+### Paste SSH key to the `authorized_keys` file
+
+```shell
+mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys
+```
+
+> After open the file on nano, paste your public key and save it and that's it
+
+### Access Droplet with SSH
+
+```shell
+ssh -i root@vm-ip
+```
+
+### Copying files from a droplet
+
+To copy files we basically will use `SCP` command
+
+```shell
+scp -r root@droplet_ip:/file/path/ /where/to/save/file
+```
+
+**Example:**
+
+```shell
+scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
+```
+
+## AWS CLI
+
+<https://softhints.com/download-files-s3-bucket-aws-cli-linux-mint/>
+
+Simple install for aws CLI using root credentials
+
+```shell
+sudo pip install aws CLI
+```
+
+```shell
+aws configure
+```
+
+```mono
+AWS Access Key ID [****************SB5M]: 
+AWS Secret Access Key [****************efwC]: 
+Default region name [sa-east-1]: 
+Default output format [json]: 
+```
+
+```shell
+aws s3 cp s3://bolt-gf-development/quicksilver_v2/patients/ ~/Downloads/AWS/bolt-gf-development --recursive
+```
+
+## MinIO
+
+<https://saveincloud.com/pt/blog/armazenamento/saiba-o-que-e-e-como-funciona-o-minio/>
+
+<https://linuxhint.com/installing_minio_ubuntu/>
+
 ## Issues
 
 ### Ubuntu sharing entire screen
@@ -979,6 +1074,10 @@ Semantic version can also use suffixes to describe if a release is in  `pre-alph
 ##### Milestone version
 
 Basically is a version number or a name given at random or decided arbitrarily, mostly for marketing reasons
+
+### File permissions
+
+<https://www.magenteiro.com/blog/para-magenteiros/permissoes-um-jeito-simples-de-entender/>
 
 ### Readme
 

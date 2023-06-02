@@ -1,44 +1,169 @@
-# Calendar App
+# Archives
 
-Calendar App is basically a prove of concept to show how to use Database to
-generate static data to improve applications that uses Calendar to handle
-appointments or events.
+[Back to home](/docs/rest.md)
 
-- [Calendar App](#calendar-app)
-  - [Stack](#stack)
-  - [Tasks](#tasks)
-    - [Calendar Tasks](#calendar-tasks)
-    - [Util Tasks](#util-tasks)
-    - [Development](#development)
+- [Archives](#archives)
+  - [Create Archive](#create-archive)
+  - [Update Archive](#update-archive)
+  - [Delete Archive](#delete-archive)
 
-## Stack
+**URL:**
 
-- Ruby 3.1.0
-- Rails edge, latest commit
-- PostgreSQL 15
-- Node 18.12.1
-- Yarn 1.22.19
-- Gems
-  - RSpec
-  - Brakeman
-  - Rubocop
+```http
+/v2/rest/patients/:patient_id/documents/folders/:folder_id/archives
+```
 
-## Tasks
+---
 
-### Calendar Tasks
+## Create Archive
 
-| Task                      | Description                                                                   |
-|:--------------------------|:------------------------------------------------------------------------------|
-| `rails calendar:populate` | Used to populate database, most like to be never used if app is on production |
+Create new Archive for a specific `Folder` from a specific `Patient`.
 
-### Util Tasks
+**Request:**
 
-| Task                       | Description                            |
-|:---------------------------|:---------------------------------------|
-| `rails calendar:util:kill` | To kill database in case it get frozen |
+```http
+POST /v2/rest/patients/:patient_id/documents/folders/:folder_id/archives
+```
 
-### Development
+**Scope parameters:**
 
-| Task                               | Description                          |
-|:-----------------------------------|:-------------------------------------|
-| `rails calendar:development:setup` | User to rebuild development database |
+| Parameter  | type    | required | description                  |
+|:-----------|:--------|:---------|:-----------------------------|
+| patient_id | integer | yes      | id of patient                |
+| folder_id  | integer | yes      | id of folders from a patient |
+
+**Permitted Parameters:**
+
+| Parameter | type   | required | description       |
+|:----------|:-------|:---------|:------------------|
+| file      | file   | yes      | file from folders |
+| name      | string | no       | archive name      |
+
+**Payload:**
+
+```json
+{
+  "archive": {
+    "file": /document.pdf/,
+    "name": "new document",
+    "createdAt": "2022-11-29T16:09:19.624-05:00",
+    "updatedAt": "2022-11-29T16:09:19.624-05:00"
+  }
+}
+```
+
+**Response:**
+
+*Success:*
+
+```json
+{
+  {
+    "id": 1,
+    "name": "new document"
+    "url": /document.pdf/,
+    "createdAt": "2022-11-29T16:09:19.624-05:00",
+    "updatedAt": "2022-11-29T16:09:19.624-05:00"
+  }
+}
+```
+
+*Error:*
+
+```json
+{
+  {
+    "file": "No file has been uploaded",
+  }
+}
+```
+
+---
+
+## Update Archive
+
+Update Archive for a specific `Folder` from a specific `Patient`.
+
+**Request:**
+
+```http
+POST /v2/rest/patients/:patient_id/documents/folders/:folder_id/archives/:id
+```
+
+**Scope parameters:**
+
+| Parameter  | type    | required | description         |
+|:-----------|:--------|:---------|:--------------------|
+| patient_id | integer | yes      | id of patient       |
+| folder_id  | integer | yes      | id of parent folder |
+| id         | integer | yes      | id of archive       |
+
+**Permitted Parameters:**
+
+| Parameter | type   | required | description       |
+|:----------|:-------|:---------|:------------------|
+| file      | file   | yes      | file from folders |
+| name      | string | no       | file name         |
+
+**Payload:**
+
+```json
+{
+  "archive": {
+    "file": /document.pdf/,
+    "name": "another document",
+  }
+}
+```
+
+**Response:**
+
+*Success:*
+
+```json
+{
+  {
+    "id": 1,
+    "name": "another document"
+    "url": /document.pdf/,
+    "createdAt": "2022-11-29T16:09:19.624-05:00",
+    "updatedAt": "2022-11-29T16:09:19.624-05:00"
+  }
+}
+```
+
+*Error:*
+
+```json
+{
+  {
+    "file": "No file has been uploaded",
+  }
+}
+```
+
+---
+
+## Delete Archive
+
+Delete an Archive from a specific `Folder`.
+
+**Request:**
+
+```http
+DELETE /v2/rest/patients/:patient_id/documents/folders/:folder_id/archives/:id
+```
+
+**Scope parameters:**
+
+| Parameter  | type    | required | description         |
+|:-----------|:--------|:---------|:--------------------|
+| patient_id | integer | yes      | id of patient       |
+| folder_id  | integer | yes      | id of parent folder |
+| id         | integer | yes      | id of archive       |
+
+**Response:**
+
+```http
+204 No Content
+```
