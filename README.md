@@ -78,6 +78,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Paste SSH key to the `authorized_keys` file](#paste-ssh-key-to-the-authorized_keys-file)
     - [Access Droplet with SSH](#access-droplet-with-ssh)
     - [Copying files from a droplet](#copying-files-from-a-droplet)
+    - [Running server from droplet](#running-server-from-droplet)
   - [AWS CLI](#aws-cli)
   - [MinIO](#minio)
   - [Issues](#issues)
@@ -115,6 +116,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Keep a Changelog](#keep-a-changelog)
     - [What is a Slug?](#what-is-a-slug)
     - [Absolute and Relative paths](#absolute-and-relative-paths)
+    - [Public Page No Index](#public-page-no-index)
   - [References](#references)
   - [Gists](#gists)
 
@@ -809,6 +811,12 @@ scp -r root@droplet_ip:/file/path/ /where/to/save/file
 scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
 ```
 
+### Running server from droplet
+
+```shell
+ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
+```
+
 ## AWS CLI
 
 <https://softhints.com/download-files-s3-bucket-aws-cli-linux-mint/>
@@ -1135,6 +1143,10 @@ An absolute, or full, path begins with a drive letter followed by a colon, such 
 A relative path refers to a location that is relative to a current directory. Relative paths make use of two special symbols, a dot (.) and a double-dot (..), which translate into the current directory and the parent directory. Double dots are used for moving up in the hierarchy. A single dot represents the current directory itself.
 
 In the example directory structure below, assume you used Windows Explorer to navigate to `D:\Data\Shapefiles\Soils`. After navigating to this directory, a relative path will use `D:\Data\Shapefiles\Soils` as the current directory (until you navigate to a new directory, at which point the new directory becomes the current directory). The current directory is sometimes referred to as the root directory.
+
+### Public Page No Index
+
+<https://www.siteguru.co/seo-academy/when-to-use-meta-robots-noindex-tags>
 
 ## References
 
