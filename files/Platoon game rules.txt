@@ -1,0 +1,33 @@
+Platoon is a turn-based card game played with a deck of 40 cards. The objective of the game is to win more rounds than your opponent.
+
+Each player starts with 10 cards, and each round, both players play a card simultaneously. The cards have three stats: attack, defense, and speed. The attack stat represents how much damage the card can deal, the defense stat represents how much damage the card can take before being defeated, and the speed stat determines which card goes first in the round.
+
+When both players have played a card, the cards' stats are compared, and the player with the highest attack stat deals damage equal to their attack minus their opponent's defense. If a card's defense is reduced to zero, it is defeated and removed from play.
+
+If both cards have the same attack stat, the player with the higher defense stat wins the round. If both cards have the same attack and defense stats, the player with the higher speed stat wins the round.
+
+If a player wins a round, they gain a point. The game continues until all 40 cards have been played, and the player with the most points at the end of the game wins.
+
+There are also some special cards that have unique abilities, such as healing or damaging all cards on the field. These cards can add an extra layer of strategy to the game.
+
+That's a basic rundown of the rules of Platoon. I hope it helps you understand the game better!
+
+
+1. Each player starts with a deck of 15 cards. The cards are divided into three categories: ground, sky, and water.
+
+2. At the beginning of each turn, both players draw five cards from their deck.
+
+3. Players take turns placing one card at a time onto the game board. Each card has an attack value, a defense value, and a type (ground, sky, or water).
+
+4. When a player places a card on the board, they can choose to attack one of the opponent's cards that is adjacent to their card. The attacking card's attack value is compared to the defending card's defense value, and if the attack value is higher, the defending card is captured and added to the attacking player's collection.
+
+5. If a player cannot or chooses not to make an attack, they can pass their turn. The game ends when both players have passed their turn consecutively.
+
+6. If a player has captured all of the opponent's cards, they win the game. If both players still have cards on the board when the game ends, the player with the most cards wins.
+
+7. There are some special cards that have unique abilities, such as being able to move to different positions on the board or dealing extra damage. These cards add an additional layer of strategy to the game.
+
+Overall, Platoon is a simple but engaging card game that requires both luck and strategy to win. It is a fun addition to the Ni no Kuni video game and is worth checking out if you enjoy card games.
+
+
+

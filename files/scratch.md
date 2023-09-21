@@ -1,76 +1,92 @@
-# Awaiting Processes
+# Payment Methods
 
 [Back to home](/docs/rest.md)
 
-- [Awaiting Processes](#awaiting-processes)
-  - [Update Invoice status from `awaiting_payment` to `awaiting_process`](#update-invoice-status-from-awaiting_payment-to-awaiting_process)
+- [Payment Methods](#payment-methods)
+  - [Update Invoice Payment Method](#update-invoice-payment-method)
 
-## Update Invoice status from `awaiting_payment` to `awaiting_process`
+---
 
-Used to send an invoice to the queue of invoices awaiting payment to be
-processed instead to awaiting staff or patient to pay invoice manually.
+## Update Invoice Payment Method
 
-**Request:**
+This endpoint enables you to update the payment method for a specific invoice.
+You can also set this payment method as the preferred method for other payable
+invoices within the same payment plan. Additionally, you can trigger a
+processing queue for related invoices to ensure automatic processing on their
+due dates.
+
+**Endpoint:**
 
 ```http request
-PUT /v2/rest/billing/invoices/:invoice_id/awaiting_process.json
+PUT /v2/rest/billing/invoices/:invoice_id/payment_method.json
 ```
 
-**Scope parameters:**
+**Scope Parameters:**
 
-| Parameter  | type | required | description                                         |
-|:-----------|:-----|:---------|:----------------------------------------------------|
-| invoice_id | int  | yes      | id from the invoice to be set as `awaiting_process` |
+| Parameter  | Type | Required | Description                                              |
+|:-----------|:-----|:---------|:---------------------------------------------------------|
+| invoice_id | int  | yes      | The ID of the invoice to have the payment method updated |
+
+**Permitted Parameters:**
+
+| Parameter         | Type    | Required | Description                                                                                                                                                         |
+|:------------------|:--------|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| payment_method_id | string  | yes      | The payment method token ID obtained from the Gateway API. It must not contain sensitive card details.                                                              |
+| preferred_method  | boolean | no       | If `true`, all payable invoices from the same payment plan will have their payment method updated to match the provided `payment_method_id`.                        |
+| process_queue     | boolean | no       | If `true`, it updates the status of upcoming invoices within the same payment plan to "awaiting_process," ensuring automatic payment processing on their due dates. |
+
+**Payload Example (Updating Payment Method):**
+
+```json
+{
+  "invoice": {
+    "payment_method_id": "pm_card_mastercard"
+  }
+}
+```
+
+**Payload Example (Updating Payment Method as Preferred and Triggering Queue):**
+
+```json
+{
+  "invoice": {
+    "payment_method_id": "pm_card_visa",
+    "preferred_method": true,
+    "process_queue": true
+  }
+}
+```
 
 **Response:**
 
 ```http
-{
-  "id": 1507,
-  "paymentPlanId": 560,
-  "installmentNumber": 2,
-  "paymentMethodId": "pm_card_mastercard",
-  "dueDate": "2023-08-04",
-  "status": "awaiting_process",
-  "amount": "500.0",
-  "interest": "22.5",
-  "discount": "50.0",
-  "finalAmount": "472.5",
-  "dueAmount": "472.5",
-  "refundedAmount": "0.0",
-  "total": "472.5",
-  "paidWith": ",
-  "payments": [],
-  "paidAt": "",
-  "createdAt": "2023-06-04T13:28:05.548-04:00",
-  "updatedAt": "2023-06-04T13:28:11.332-04:00"
-}
+200 OK
 ```
 
 **Errors:**
 
-> If invoice due_date is today we cannot sent it to the queue for future payment
-> process
+- If there are no payable invoices to be updated from the payment plan scoped to
+  the invoice, the response will be:
 
 ```json
 {
-   error: "due_date needs to be further than today."
+   "error": "Payment method can't be updated."
 }
 ```
 
-> If invoice isn't awaiting_payment we cannot move it to `awaiting_process`
+**Important Note:**
 
-```json
-{
-   error: "status needs to be 'awaiting_payment' in order to move it to process queue."
-}
-```
+Sensitive card details should never be included in the `payment_method_id`
+field, as this API does not handle card details. Ensure that you obtain
+the `payment_method_id` from a secure source, such as the Gateway API.
 
-> If invoice payment_method_id is null we don't have how to process it's payment
-> as the job runs over every invoice `awaiting_process`
+**Explanation of `process_queue` flag:**
 
-```json
-{
-   error: "payment_method_id can't be undefined."
-}
-```
+The `process_queue` flag, when set to `true` in the payload, updates the status
+of upcoming invoices within the same payment plan to "awaiting_process." This
+action ensures that these invoices will be queued for processing by a scheduled
+job on their respective due dates. Each day, the job collects all invoices
+marked as "awaiting_process" that are due on the current date and initiates
+their payment processing. Setting the `process_queue` flag is a convenient way
+to guarantee that invoices will be processed automatically on their due dates,
+streamlining the payment collection process.

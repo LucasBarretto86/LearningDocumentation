@@ -1,34 +1,75 @@
-{
-  "id": 1507,
-  "paymentPlanId": 560,
-  "installmentNumber": 2,
-  "paymentMethodId": "pm_card_mastercard",
-  "dueDate": "2023-08-04",
-  "status": "payment_confirmed",
-  "amount": "500.0",
-  "interest": "22.5",
-  "discount": "50.0",
-  "finalAmount": "472.5",
-  "dueAmount": "0.0",
-  "refundedAmount": "0.0",
-  "total": "472.5",
-  "paidWith": {
-    "id": 560,
-    "invoiceId": 1507,
-    "paymentMethod": "credit_card",
-    "status": "processed",
-    "gateway": "stripe",
-    "amountOwned": "458.5",
-    "paymentIntentId": "pi_3NQE73Pxzyir129V0augjBIs",
-    "paymentMethodId": "pm_card_mastercard",
-    "receiptUrl": "https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xTHhkQklQeHp5aXIxMjlWKJLOkaUGMgb6WJvKzUE6LBZ4DYFDWtroIOUQ9rzeCO-dUMZuhduuN8ow6RxkLDQbFh7Ve_2bKLcYjchn",
-    "createdAt": "2023-07-04T14:38:09.069-04:00",
-    "updatedAt": "2023-07-04T14:38:11.528-04:00",
-    "last4": "4444",
-    "amountCharged": "472.5",
-    "lastErrorMessage": ""
+InputObject 'CreatePaymentPlanInput' doesn't accept argument 'sendPaymentLink': {
+  "response": {
+    "errors": [
+      {
+        "message": "InputObject 'CreatePaymentPlanInput' doesn't accept argument 'sendPaymentLink'",
+        "locations": [
+          {
+            "line": 3,
+            "column": 227
+          }
+        ],
+        "path": [
+          "mutation CreatePaymentPlan",
+          "createPaymentPlan",
+          "input",
+          "sendPaymentLink"
+        ],
+        "extensions": {
+          "code": "argumentNotAccepted",
+          "name": "CreatePaymentPlanInput",
+          "typeName": "InputObject",
+          "argumentName": "sendPaymentLink"
+        }
+      },
+      {
+        "message": "Variable $sendPaymentLink is declared by CreatePaymentPlan but not used",
+        "locations": [
+          {
+            "line": 1,
+            "column": 1
+          }
+        ],
+        "path": [
+          "mutation CreatePaymentPlan"
+        ],
+        "extensions": {
+          "code": "variableNotUsed",
+          "variableName": "sendPaymentLink"
+        }
+      }
+    ],
+    "status": 200,
+    "headers": {
+      "map": {
+        "cache-control": "max-age=0, private, must-revalidate",
+        "content-type": "application/json; charset=utf-8",
+        "etag": "W/\"c84073d5a95e23dbc2b6bbe8f4a5b343\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "transfer-encoding": "chunked",
+        "vary": "Accept",
+        "x-content-type-options": "nosniff",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-request-id": "795b8e9e-05c0-49d3-95aa-59419e225ec4",
+        "x-runtime": "0.035278",
+        "x-xss-protection": "1; mode=block"
+      }
+    }
   },
-  "paidAt": "2023-07-04T14:38:11.535-04:00",
-  "createdAt": "2023-07-04T14:38:05.903-04:00",
-  "updatedAt": "2023-07-04T14:38:11.539-04:00"
+  "request": {
+    "query": "mutation CreatePaymentPlan($patientId: ID!, $contractId: ID, $description: String!, $amount: Float!, $interestRate: Float!, $discountRate: Float!, $installments: Int!, $paymentMethodId: String, $sendPaymentLink: Boolean) {\n createPaymentPlan(\n input: {patientId: $patientId, contractId: $contractId, description: $description, amount: $amount, installments: $installments, interestRate: $interestRate, discountRate: $discountRate, paymentMethodId: $paymentMethodId, sendPaymentLink: $sendPaymentLink}\n ) {\n paymentPlan {\n id\n description\n classification\n status\n amount\n amountOwned\n installments\n installmentsProcessed\n invoices {\n id\n installmentNumber\n amount\n dueDate\n }\n }\n errors\n lastErrorMessage\n }\n}",
+    "variables": {
+      "patientId": "28655",
+      "contractId": null,
+      "description": "Teste",
+      "amount": 1000,
+      "interestRate": 0,
+      "discountRate": 0,
+      "paymentMethodId": null,
+      "sendPaymentLink": false,
+      "installments": 1
+    }
+  }
 }
