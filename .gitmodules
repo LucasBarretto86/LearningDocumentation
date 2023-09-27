@@ -7,9 +7,6 @@
 [submodule "specifics/LearningMarkdown"]
 	path = specifics/LearningMarkdown
 	url = git@github.com:LucasBarretto86/LearningMarkdown.git
-[submodule "specifics/LearningLua"]
-	path = specifics/LearningLua
-	url = git@github.com:LucasBarretto86/LearningLua.git
 [submodule "specifics/LearningLOVE"]
 	path = specifics/LearningLOVE
 	url = git@github.com:LucasBarretto86/LearningLOVE.git

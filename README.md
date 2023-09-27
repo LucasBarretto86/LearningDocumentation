@@ -15,6 +15,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Tree options](#tree-options)
   - [SSH](#ssh)
     - [Create SSH](#create-ssh)
+      - [SSH-keygen Options](#ssh-keygen-options)
     - [Validate SSH](#validate-ssh)
     - [Check SSH public key](#check-ssh-public-key)
   - [ASDF](#asdf)
@@ -59,14 +60,27 @@ This project hold all the information and knowledge I gathered through my experi
     - [Git commands table](#git-commands-table)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
+  - [Awesome Fonts](#awesome-fonts)
+    - [Ruby on Rails install](#ruby-on-rails-install)
+      - [Usage on Rails](#usage-on-rails)
   - [Languages Learning](#languages-learning)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
     - [ImageMagick convert](#imagemagick-convert)
       - [SVG TO PNG](#svg-to-png)
       - [PSD TO PNG](#psd-to-png)
+      - [Common ImageMagick issue](#common-imagemagick-issue)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
+  - [Digital Ocean](#digital-ocean)
+    - [Adding you SSH public key to Digital Ocean](#adding-you-ssh-public-key-to-digital-ocean)
+    - [Adding SSH public key manually for existing Droplets](#adding-ssh-public-key-manually-for-existing-droplets)
+    - [Paste SSH key to the `authorized_keys` file](#paste-ssh-key-to-the-authorized_keys-file)
+    - [Access Droplet with SSH](#access-droplet-with-ssh)
+    - [Copying files from a droplet](#copying-files-from-a-droplet)
+    - [Running server from droplet](#running-server-from-droplet)
+  - [AWS CLI](#aws-cli)
+  - [MinIO](#minio)
   - [Issues](#issues)
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
@@ -79,6 +93,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
   - [Concepts](#concepts)
+    - [Daemon processes](#daemon-processes)
     - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
     - [User Story Framework](#user-story-framework)
       - [Workflow](#workflow)
@@ -94,12 +109,14 @@ This project hold all the information and knowledge I gathered through my experi
       - [Calendar versioning](#calendar-versioning)
       - [Semantic versioning](#semantic-versioning)
         - [Milestone version](#milestone-version)
+    - [File permissions](#file-permissions)
     - [Readme](#readme)
     - [Changelog](#changelog)
       - [Cron jobs](#cron-jobs)
       - [Keep a Changelog](#keep-a-changelog)
     - [What is a Slug?](#what-is-a-slug)
     - [Absolute and Relative paths](#absolute-and-relative-paths)
+    - [Public Page No Index](#public-page-no-index)
   - [References](#references)
   - [Gists](#gists)
 
@@ -143,9 +160,19 @@ files/
 
 ### Create SSH
 
+**Basic:**
+
+```shell
+ssh-keygen
+```
+
+**With options:**
+
 ```shell
 ssh-keygen -t rsa -b 4096 -C "joe@example.com"
 ```
+
+#### SSH-keygen Options
 
 ### Validate SSH
 
@@ -574,6 +601,72 @@ jobs:
 
 ### Staging Deployment
 
+## Awesome Fonts
+
+- Create profile to generate the snippet we gonna use to trigger the lib
+<https://www.w3schools.com/icons/fontawesome5_intro.asp#:~:text=To%20use%20the%20Free%20Font>,Awesome%20to%20your%20web%20page.
+
+### Ruby on Rails install
+
+First add on the gemfile
+
+```gemfile
+gem "font-awesome-sass", "~> 6.3.0"
+```
+
+```mono
+bundle install
+```
+
+After we need to add the import line on the `application.scss`
+
+```scss
+// app/assets/stylesheets/application.scss
+
+@import "font-awesome";
+```
+
+> If you are using importmaps don't forget to run: `rails assets:precompile`
+
+Depending on where you want to use FontAwesome, you will need to add the script tag generated on your profile to link the lib, this can be found at
+
+```html
+<!-- app/views/layouts/application.html.erb -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patients Intermediary App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/323h4jk32h4l2j123.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    ...
+  </body>
+</html>
+
+```
+
+#### Usage on Rails
+
+**Example:**
+
+```rb
+<%= icon("fa-solid", "note-sticky", class: "fa-1x") %>
+```
+
+but you still can use with html on .erb
+
+```html
+<i class="fa-solid fa-x1 fa-note-sticky"></i>
+```
+
 ## Languages Learning
 
 - [Learning Assembly](https://github.com/LucasBarretto86/LearningAssembly)
@@ -599,7 +692,7 @@ jobs:
 ### Installing ImageMagick
 
 ```shell
-sudo apt install Imagemagick
+sudo apt install imagemagick
 ```
 
 ### ImageMagick convert
@@ -615,6 +708,46 @@ convert -background -quality 100 *.svg -set filename:base "%[basename]" "%[filen
 ```shell
 convert  *.psd -set filename:base "%[basename]" -quality 100 "%[filename:base].png"
 convert cover.ai cover.png
+```
+
+#### Common ImageMagick issue
+
+ImageMagick is very demanding so you gonna find some problems if you attempt to convert many files
+
+```mono
+convert-im6.q16: cache resources exhausted `301612577831.png' @ error/cache.c/OpenPixelCache/4095.
+```
+
+In that ca you might need to adjust policy.xml
+
+Find the policy.xml, commonly you find here `/etc/ImageMagick-6/policy.xml`
+
+```shell
+find / -name "policy.xml"
+```
+
+> In case you need to search for the correct path
+
+Withing the xml file find and change this two lines below:
+
+```xml
+<!-- /etc/ImageMagick-6/policy.xml -->
+
+<!-- FROM -->
+<policy domain="resource" name="disk" value="1GiB"/>
+
+<!-- TO -->
+<policy domain="resource" name="disk" value="8GiB"/>
+```
+
+You can edit on nano or any other text editor
+
+```shell
+# Nano
+nano /etc/ImageMagick-6/policy.xml
+
+# Sublime
+subl /etc/ImageMagick-6/policy.xml
 ```
 
 ### Installing Potrace
@@ -633,6 +766,87 @@ potrace example.bmp -s -o example.svg
 
 ![original BMP](assets/images/example.bmp)
 ![Converted](assets/images/example.svg)
+
+## Digital Ocean
+
+### Adding you SSH public key to Digital Ocean
+
+1. First generate or copy your id_rsa.pub
+2. Navigate on DO dashboard and add your id_rsa.pub, you will find here: settings/security
+
+> Notice that adding SSH public only new droplets will be creating with you public key, if the droplet you are trying access was created prior to the SSH definition you will have to add your key manually as below:
+
+### Adding SSH public key manually for existing Droplets
+
+1. Access the droplet you want to add your SSH key through the browser console
+2. Within the droplet you will have to paste your SSH public key to the `authorized_keys` file
+3. From you local console access the droplet
+
+### Paste SSH key to the `authorized_keys` file
+
+```shell
+mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys
+```
+
+> After open the file on nano, paste your public key and save it and that's it
+
+### Access Droplet with SSH
+
+```shell
+ssh -i root@vm-ip
+```
+
+### Copying files from a droplet
+
+To copy files we basically will use `SCP` command
+
+```shell
+scp -r root@droplet_ip:/file/path/ /where/to/save/file
+```
+
+**Example:**
+
+```shell
+scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
+```
+
+### Running server from droplet
+
+```shell
+ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
+```
+
+## AWS CLI
+
+<https://softhints.com/download-files-s3-bucket-aws-cli-linux-mint/>
+
+Simple install for aws CLI using root credentials
+
+```shell
+sudo pip install aws CLI
+```
+
+```shell
+aws configure
+```
+
+```mono
+AWS Access Key ID [****************SB5M]: 
+AWS Secret Access Key [****************efwC]: 
+Default region name [sa-east-1]: 
+Default output format [json]: 
+```
+
+```shell
+aws s3 cp s3://bolt-gf-development/quicksilver_v2/patients/ ~/Downloads/AWS/bolt-gf-development --recursive
+```
+
+## MinIO
+
+<https://saveincloud.com/pt/blog/armazenamento/saiba-o-que-e-e-como-funciona-o-minio/>
+
+<https://linuxhint.com/installing_minio_ubuntu/>
 
 ## Issues
 
@@ -746,6 +960,14 @@ sudo do-release-upgrade
 ```
 
 ## Concepts
+
+### Daemon processes
+
+Daemon process in a nutshell is a process that runs on the background, daemon processes can be trigger by the OS silently, an example of daemon process is the Network Time Protocol (NTP) daemon is used to measure time differences between the clock on the computer it runs on and those of all other computers on the network.
+
+**Read more:**
+
+<https://www.techtarget.com/whatis/definition/daemon>
 
 ### Product Manager vs Product Owner
 
@@ -861,6 +1083,10 @@ Semantic version can also use suffixes to describe if a release is in  `pre-alph
 
 Basically is a version number or a name given at random or decided arbitrarily, mostly for marketing reasons
 
+### File permissions
+
+<https://www.magenteiro.com/blog/para-magenteiros/permissoes-um-jeito-simples-de-entender/>
+
 ### Readme
 
 A README file it's the first file you should create for a project, this file should contain the most important information to assist consumers and developers about your application, a good README also provide a better understanding from the current state, goals and progress from your project
@@ -917,6 +1143,10 @@ An absolute, or full, path begins with a drive letter followed by a colon, such 
 A relative path refers to a location that is relative to a current directory. Relative paths make use of two special symbols, a dot (.) and a double-dot (..), which translate into the current directory and the parent directory. Double dots are used for moving up in the hierarchy. A single dot represents the current directory itself.
 
 In the example directory structure below, assume you used Windows Explorer to navigate to `D:\Data\Shapefiles\Soils`. After navigating to this directory, a relative path will use `D:\Data\Shapefiles\Soils` as the current directory (until you navigate to a new directory, at which point the new directory becomes the current directory). The current directory is sometimes referred to as the root directory.
+
+### Public Page No Index
+
+<https://www.siteguru.co/seo-academy/when-to-use-meta-robots-noindex-tags>
 
 ## References
 

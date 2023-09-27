@@ -1,20 +1,6 @@
 # Random
 
 - [Random](#random)
-  - [Checking Computer Hostname](#checking-computer-hostname)
-  - [Local Web Servers](#local-web-servers)
-    - [Building Server with python3](#building-server-with-python3)
-    - [Killing Server from a specific port](#killing-server-from-a-specific-port)
-  - [Testing REST API](#testing-rest-api)
-  - [Adding custom display resolutions ubuntu](#adding-custom-display-resolutions-ubuntu)
-    - [Checking displays and resolutions](#checking-displays-and-resolutions)
-    - [Checking compatibility and specs](#checking-compatibility-and-specs)
-    - [Adding resolution](#adding-resolution)
-    - [Setting new resolution](#setting-new-resolution)
-    - [Ubuntu PPA's](#ubuntu-ppas)
-      - [List PPA](#list-ppa)
-    - [Adding PPA](#adding-ppa)
-    - [Removing PPA](#removing-ppa)
   - [Emojis by Code](#emojis-by-code)
   - [Unicode Cards](#unicode-cards)
     - [Mixed](#mixed)
@@ -23,6 +9,7 @@
     - [Diamonds](#diamonds)
     - [Clubs](#clubs)
   - [Geometric shapes](#geometric-shapes)
+  - [Phone numbers from US](#phone-numbers-from-us)
   - [References](#references)
 
 ## Emojis by Code
@@ -272,6 +259,10 @@
 |  ◽   | `&#9725` | `&#x25FD` | WHITE MEDIUM SMALL SQUARE                     |
 |  ◾   | `&#9726` | `&#x25FE` | BLACK MEDIUM SMALL SQUARE                     |
 |  ◿   | `&#9727` | `&#x25FF` | LOWER RIGHT TRIANGLE                          |
+
+## Phone numbers from US
+
+<https://www.bennetyee.org/ucsd-pages/area.html>
 
 ## References
 

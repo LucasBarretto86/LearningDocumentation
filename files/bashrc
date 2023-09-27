@@ -1,0 +1,191 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+
+export RAILS_SERVE_STATIC_FILES=true
+export RAILS_LOG_TO_STDOUT=true
+export RAILS_MAX_THREADS=5
+export WEB_CONCURRENCY=2
+
+# Frameworks
+export ACTIVE_STORAGE_S3_BUCKET=festalab-development-active-storage
+
+# Festalab
+export DEPENDENCIES_S3_BUCKET_URL=https://s3.amazonaws.com/festalab-development-dependencies
+export NOT_PRODUCTION=enabled
+export S3_INVITATION_IMAGES_BUCKET=festalab-development-invitation-images
+export S3_WEBSITE_IMAGES_BUCKET=festalab-development-website-images
+export LOAD_PROFILER=true
+export FESTALAB_API_SENDGRID_ACCESS_KEY=123456
+export FESTALAB_API_TYPEFORM_ACCESS_KEY=123456
+export FESTALAB_API_POSTMARK_ACCESS_KEY=123456
+
+# Facebook
+export FACEBOOK_APP_ID=592047394471395
+export FACEBOOK_APP_SECRET=2dfadcaf797d222512256e305591699f
+
+# Google
+export GOOGLE_CLIENT_ID=795219371103-qql8g1a480iaonjnnk4r5n9mjefv4cf5.apps.googleusercontent.com
+export GOOGLE_CLIENT_SECRET=TloLJEik5vmpCAlipMXGegQO
+export GOOGLE_MAPS_KEY=AIzaSyAX-TOIKi4Y06WPqTuuq4nXKhcObotnoYM
+
+# Redis
+export REDIS_URL=redis://localhost:6379
+export REDIS_CACHE_URL=redis://localhost:6379
+
+# Postmark
+export POSTMARK_SERVER_PRODUCTION_KEY=c67cc95f-a142-45ee-b720-99dbcc0e6541
+
+# Sendgrid
+export SENDGRID_USERNAME=tecnologia@festalab.com
+export SENDGRID_PASSWORD=d1rsifgw4952
+export SENDGRID_GUEST_CAMPAIGN_PARTNER_WITHOUT_CHILDREN_ID=28394448-2c76-4815-855f-c2dfc12e58f5
+export SENDGRID_GUEST_CAMPAIGN_NOT_PARTNER_ID=b880e5df-c3eb-427d-9cc1-aa51b7e67623
+export SENDGRID_GUEST_CAMPAIGN_NOT_PARTNER_WITH_CHILDREN_ID=d5187e27-c953-41a5-b2a9-48a8af72c708
+export SENDGRID_GUEST_CAMPAIGN_NOT_PARTNER_WITHOUT_CHILDREN_ID=4abfcc50-e144-4e94-9bba-17d66f53bc13
+export SENDGRID_GUEST_CAMPAIGN_NOT_BUFFET_ID=466e4fe4-0d4f-4192-8518-d99b692e01a5
+export SENDGRID_USER_CAMPAIGN_PARTNER_ID=ec946a9f-410b-4a95-84c0-704d25e8b678
+export SENDGRID_USER_CAMPAIGN_NOT_PARTNER_ID=98b6c6cb-4b25-4a56-badb-ecc6a5535deb
+export SENDGRID_USER_CAMPAIGN_NOT_PUBLISHED_ID=2aa352db-f7b4-4bab-8195-928660d0b5b4
+export SENDGRID_USER_CAMPAIGN_WITHOUT_WEBSITE_ID=46f7c7a3-3cba-4bdd-85ab-1c8433b47880
+export SENDGRID_USER_CREATE_WEBSITE_CAMPAIGN_START_ID=178b8fd1-64a7-4b30-b554-30c4d92e704b
+export SENDGRID_USER_CREATE_WEBSITE_FIRST_FUP_ID=4bf3ed99-cd98-432c-bebd-c4893ce23598
+export SENDGRID_USER_CREATE_WEBSITE_LAST_FUP_ID=7b5df1ac-a046-422d-9646-fd88069a7a46
+export SENDGRID_USER_PUBLISH_WEBSITE_CAMPAIGN_START_ID=b45a5e4b-dadf-4daf-aba5-cb7c54ee0f91
+export SENDGRID_USER_PUBLISH_WEBSITE_FIRST_FUP_ID=b45a5e4b-dadf-4daf-aba5-cb7c54ee0f91
+export SENDGRID_USER_PUBLISH_WEBSITE_LAST_FUP_ID=b45a5e4b-dadf-4daf-aba5-cb7c54ee0f91
+export SENDGRID_USER_RENTAL_DECORATION_ID=535de8b9-2060-49db-90f5-6267b5aaea64
+
+# Sidekiq
+export SIDEKIQ_CONCURRENCY=10
+export SIDEKIQ_CLIENT_REDIS_POOL=2
+export SIDEKIQ_SERVER_REDIS_POOL=12
+
+# Pagarme
+export PAGARME_API_KEY=ak_test_mMlCUG9VmavjBBXJ0UZst3aZfuJc4I
+export PAGARME_CRYPTO_KEY=ek_test_SmN30GcV9WU6j4YaK1l280WDIzqfNk
+
+# Paypal
+export PAYPAL_CLIENT_ID=AYF_taMYiedKAiqzFBZymj9Yp4rqw49mxuQq_iE-JUChONPEBxdoKnU9oUDDIBWLHGZdyYorDERH4yK4
+export PAYPAL_SECRET=EEADfZwijxg-83s_T-zU7FGTbPqwOrEbBJsnyxUPf_K7OoheRHVyUDQ8dBTqck1lBUtGtGRWVM5gkM7T
+
+# Sentry
+export SENTRY_DSN=https://4b29a79f45eb45f7ad0feb0a9062c530:ccb43ed816b24e84a96967976d282efa@sentry.io/300412
+
