@@ -58,6 +58,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Events](#events)
       - [Workflows](#workflows)
     - [Git commands table](#git-commands-table)
+    - [Advanced `diff`](#advanced-diff)
   - [Heroku](#heroku)
     - [Staging Deployment](#staging-deployment)
   - [Awesome Fonts](#awesome-fonts)
@@ -596,6 +597,30 @@ jobs:
 |`git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To add a subtree to the project |
 |`git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To pull changes from original repo |
 |`git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To push changes to a specific repo |
+
+### Advanced `diff`
+
+**Diff to external file:**
+
+```sh
+git diff --staged > diff.txt
+```
+
+> `>` to create a file `>>` to add to an existing file
+
+**Diff between branches:**
+
+```sh
+git diff branch_name..another_branch
+```
+
+**Diff truncate:**
+
+```sh
+git diff -U5 -w branch_name..another_branch
+```
+
+> In this example, `-U5` specifies that only 5 lines of unified context should be included for each change, and `-w` ignores whitespace changes.
 
 ## Heroku
 

@@ -37,3 +37,6 @@
 [submodule "specifics/LearningLinux"]
 	path = specifics/LearningLinux
 	url = git@github.com:LucasBarretto86/LearningLinux.git
+[submodule "specifics/LearningDocker"]
+	path = specifics/LearningDocker
+	url = git@github.com:LucasBarretto86/LearningDocker.git
