@@ -1,5 +1,0 @@
-Ricardo;12200.0
-Lucas;51000.0
-Julio;400000.0
-Allan Kardec;500000.0
-Carlos;1000000.0
