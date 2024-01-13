@@ -59,8 +59,6 @@ This project hold all the information and knowledge I gathered through my experi
       - [Workflows](#workflows)
     - [Git commands table](#git-commands-table)
     - [Advanced `diff`](#advanced-diff)
-  - [Heroku](#heroku)
-    - [Staging Deployment](#staging-deployment)
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
@@ -621,10 +619,6 @@ git diff -U5 -w branch_name..another_branch
 ```
 
 > In this example, `-U5` specifies that only 5 lines of unified context should be included for each change, and `-w` ignores whitespace changes.
-
-## Heroku
-
-### Staging Deployment
 
 ## Awesome Fonts
 
