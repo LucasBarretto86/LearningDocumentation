@@ -22,9 +22,6 @@
 [submodule "specifics/LearningHTML"]
 	path = specifics/LearningHTML
 	url = git@github.com:LucasBarretto86/LearningHTML.git
-[submodule "specifics/LearningReactJS"]
-	path = specifics/LearningReactJS
-	url = git@github.com:LucasBarretto86/LearningReactJS.git
 [submodule "specifics/LearningCPP"]
 	path = specifics/LearningCPP
 	url = git@github.com:LucasBarretto86/LearningCPP.git
