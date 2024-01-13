@@ -64,7 +64,7 @@ This project hold all the information and knowledge I gathered through my experi
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
-  - [Languages Learning](#languages-learning)
+  - [Learning Projects](#learning-projects)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
     - [ImageMagick convert](#imagemagick-convert)
@@ -148,7 +148,7 @@ files/
 ### Tree options
 
 |    Option     | Description                           |
-|:-------------:|:--------------------------------------|
+| :-----------: | :------------------------------------ |
 |      -a       | list all files, hidden files included |
 |      -d       | list only subdirectories              |
 |      -f       | list file absolute path               |
@@ -572,31 +572,31 @@ jobs:
 
 ### Git commands table
 
-| Command|Description |
-| :--- |:---- |
-|`git rm -r --cached .`| Clear git cache for all files |
-|`git branch | grep -v "main" | xargs git branch -D`| Clean git branches |
-|`git branch -M NEW_NAME`| Renaming branch and origin
-|`git branch -m NEW_NAME`| Renaming branch locally |
-|`git reset --soft HEAD~1`| Retrieve one commit `~1`  and return it to stage |
-|`git reset --hard`| Undo every change not committed, also allow you to undo commits with flag `HEAD~1` |
-|`git push --force`| Force push in case it diverge from origin - Careful, no rollback |
-|`git push --set-upstream origin BRANCH_NAME`| Push and set upstream |
-|`git fetch --prune`| Updates existing branches|
-|`git branch -vv`| Branch status|
-|`git config --global user.name USER_NAME`| Set global user name|
-|`git config --global user.email USER_EMAIL`| Set global user email|
-|`git config --global user.password PASSWORD`| Set global user password|
-|`git config --global init.defaultBranch BRANCH_NAME`| To redefine initial branch name globally |
-|`git revert -m 1 COMMIT_SHA`| Revert changes from a commit|
-|`git rebase BRANCH`| Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful!|
-|`git remote add origin git@github.com:USER_NAME/REPO_NAME.git`| Add repo as remote|
-|`git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`| Add repo as submodule|
-|`git submodule update`| To make pull in every submodule |
-|`git submodule update MODULE_PATH`| To make pull in specific submodule |
-|`git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To add a subtree to the project |
-|`git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To pull changes from original repo |
-|`git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| To push changes to a specific repo |
+| Command                                                                    | Description                                                                                                         |
+| :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| `git rm -r --cached .`                                                     | Clear git cache for all files                                                                                       |
+| `git branch                                                                | grep -v "main"                                                                                                      | xargs git branch -D` | Clean git branches |
+| `git branch -M NEW_NAME`                                                   | Renaming branch and origin                                                                                          |
+| `git branch -m NEW_NAME`                                                   | Renaming branch locally                                                                                             |
+| `git reset --soft HEAD~1`                                                  | Retrieve one commit `~1`  and return it to stage                                                                    |
+| `git reset --hard`                                                         | Undo every change not committed, also allow you to undo commits with flag `HEAD~1`                                  |
+| `git push --force`                                                         | Force push in case it diverge from origin - Careful, no rollback                                                    |
+| `git push --set-upstream origin BRANCH_NAME`                               | Push and set upstream                                                                                               |
+| `git fetch --prune`                                                        | Updates existing branches                                                                                           |
+| `git branch -vv`                                                           | Branch status                                                                                                       |
+| `git config --global user.name USER_NAME`                                  | Set global user name                                                                                                |
+| `git config --global user.email USER_EMAIL`                                | Set global user email                                                                                               |
+| `git config --global user.password PASSWORD`                               | Set global user password                                                                                            |
+| `git config --global init.defaultBranch BRANCH_NAME`                       | To redefine initial branch name globally                                                                            |
+| `git revert -m 1 COMMIT_SHA`                                               | Revert changes from a commit                                                                                        |
+| `git rebase BRANCH`                                                        | Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful! |
+| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`             | Add repo as remote                                                                                                  |
+| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`          | Add repo as submodule                                                                                               |
+| `git submodule update`                                                     | To make pull in every submodule                                                                                     |
+| `git submodule update MODULE_PATH`                                         | To make pull in specific submodule                                                                                  |
+| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`  | To add a subtree to the project                                                                                     |
+| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To pull changes from original repo                                                                                  |
+| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To push changes to a specific repo                                                                                  |
 
 ### Advanced `diff`
 
@@ -692,16 +692,18 @@ but you still can use with html on .erb
 <i class="fa-solid fa-x1 fa-note-sticky"></i>
 ```
 
-## Languages Learning
+## Learning Projects
 
 - [Learning Assembly](https://github.com/LucasBarretto86/LearningAssembly)
 - [Learning C++](https://github.com/LucasBarretto86/LearningCPP)
 - [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
-- [Learning SCSS](https://github.com/LucasBarretto86/LearningCSS/LearningSCSS)
+- [Learning Docker](https://github.com/LucasBarretto86/LearningDocker)
+- [Learning ExpressJS](https://github.com/LucasBarretto86/LearningJS/LearningExpressJS/README.md)
 - [Learning HTML](https://github.com/LucasBarretto86/LearningHTML)
+- [Learning Java](https://github.com/LucasBarretto86/LearningJava)
 - [Learning JS](https://github.com/LucasBarretto86/LearningJS)
 - [Learning LINUX](https://github.com/LucasBarretto86/LearningLinux)
-- [Learning LÖVE](https://github.com/LucasBarretto86/LearningLOVE)
+- [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
 - [Learning Lua](https://github.com/LucasBarretto86/LearningLua)
 - [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
 - [Learning Mermaid](https://github.com/LucasBarretto86/LearningMermaid)
@@ -710,6 +712,7 @@ but you still can use with html on .erb
 - [Learning ReactJS](https://github.com/LucasBarretto86/LearningReactJS)|
 - [Learning Ruby](https://github.com/LucasBarretto86/LearningRubyOnRails/LearningRuby/README.md)
 - [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
+- [Learning SCSS](https://github.com/LucasBarretto86/LearningCSS/LearningSCSS)
 - [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
 
 ## Handling Images
@@ -903,7 +906,7 @@ sudo nano /etc/systemd/logind.conf
 Change the line `HandleLidSwitch=suspend` for one of the following
 
 | Value     | Description           |
-|:----------|:----------------------|
+| :-------- | :-------------------- |
 | lock      | lock when lid closed. |
 | ignore    | do nothing.           |
 | poweroff  | shutdown.             |
