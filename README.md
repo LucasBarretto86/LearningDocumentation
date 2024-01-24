@@ -62,6 +62,15 @@ This project hold all the information and knowledge I gathered through my experi
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
+  - [MongoDB](#mongodb)
+    - [Create and setup MongoDB account](#create-and-setup-mongodb-account)
+    - [Install MongoDB](#install-mongodb)
+      - [Start MongoDB service](#start-mongodb-service)
+      - [Check installation](#check-installation)
+    - [Connect to Mongo using CLI](#connect-to-mongo-using-cli)
+      - [Alias to connect](#alias-to-connect)
+    - [Connect App to Mongo](#connect-app-to-mongo)
+    - [MongoDB NonSQL basic operations](#mongodb-nonsql-basic-operations)
   - [Learning Projects](#learning-projects)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
@@ -687,6 +696,164 @@ but you still can use with html on .erb
 ```html
 <i class="fa-solid fa-x1 fa-note-sticky"></i>
 ```
+
+## MongoDB
+
+### Create and setup MongoDB account
+
+First we need to go to and create account and free cluster `M0` through their website [MongoDB](https://cloud.mongodb.com/)
+
+Secondly we create a database and a collection also through their website
+
+### Install MongoDB
+
+[Mongo CLI reference](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#import-the-public-key-used-by-the-package-management-system)
+
+```sh
+# Import the public key used by the package management system
+sudo apt-get install gnupg curl
+
+# To import the MongoDB public GPG key from https://pgp.mongodb.com/server-7.0.asc, run the following command:
+
+curl -fsSL https://pgp.mongodb.com/server-7.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
+   --dearmor
+
+# Create a list file for MongoDB
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+# Update the package list
+sudo apt-get update
+
+# Install MongoDB Shell
+sudo apt-get install -y mongodb-org
+```
+
+#### Start MongoDB service
+
+```sh
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
+
+#### Check installation
+
+```sh
+sudo systemctl status mongod
+```
+
+**Output:**
+
+```mono
+● mongod.service - MongoDB Database Server
+     Loaded: loaded (/lib/systemd/system/mongod.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2024-01-22 13:37:29 -03; 5min ago
+       Docs: https://docs.mongodb.org/manual
+   Main PID: 26568 (mongod)
+     Memory: 74.1M
+        CPU: 6.219s
+     CGroup: /system.slice/mongod.service
+             └─26568 /usr/bin/mongod --config /etc/mongod.conf
+```
+
+### Connect to Mongo using CLI
+
+On the mongoDB website, connect to the cluster created and create a databaseUser, then in your terminal use the following command to connect:
+
+```sh
+mongosh "mongodb+srv://<cluster_name>.<host_id>.mongodb.net/" --apiVersion 1 --username <username>
+```
+
+> **Notice:** `<cluster_name>` is the name you gave to your on cluster, `<host_id>` is the randomly generated host_id and `<username>` is the username you created
+> Be sure to check on your account and cluster the correct values, or the correct url to be able to connect
+
+**Output:**
+
+```mono
+Current Mongosh Log ID: 65ae9cd4d6ee091a23dbcded
+Connecting to:  mongodb+srv://<credentials>@free0.6xstial.mongodb.net/?appName=mongosh+2.1.1
+Using MongoDB:  6.0.12 (API Version 1)
+Using Mongosh:  2.1.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+Atlas atlas-2urtgo-shard-0 [primary] test>
+```
+
+#### Alias to connect
+
+You could also add an alias in case you don't want keep repeating this line all the time:
+
+```sh
+alias connect-mongodb='mongosh "mongodb+srv://<cluster_name>.<host_id>.mongodb.net/" --apiVersion 1 --username <username>'
+```
+
+After that you can just call the `connect-mongodb` to connect.
+
+### Connect App to Mongo
+
+To be able to connect to mongo using a application we use the database url, you can find it on the mongoDB website, looks like this:
+
+```mono
+mongodb+srv://<username>:<password>@<cluster>.<host_id>.mongodb.net/
+```
+
+Since we gonna use application we should create a ENV to store our database_url, something like that:
+
+```.env
+DATABASE_URL="mongodb+srv://<username>:<password>@<cluster>.<host_id>.mongodb.net/"
+```
+
+### MongoDB NonSQL basic operations
+
+Keep in mind that MongoDB shell primarily uses a JavaScript-like syntax, and the data is represented in a JSON-like format.
+
+1. **Insert Document:**
+   To insert a document into a collection, you use the `insertOne()` or `insertMany()` method. Here's an example of inserting a single document:
+
+   ```mono
+   db.collectionName.insertOne({ key: 'value' });
+   ```
+
+2. **Query Documents:**
+   MongoDB supports flexible queries using a rich set of operators. Here's an example of finding documents in a collection:
+
+   ```mono
+   db.collectionName.find({ key: 'value' });
+   ```
+
+   You can also use various query operators for more complex conditions.
+
+3. **Update Document:**
+   To update a document, you can use the `updateOne()` or `updateMany()` method:
+
+   ```mono
+   db.collectionName.updateOne({ key: 'value' }, { $set: { newKey: 'updatedValue' } });
+   ```
+
+4. **Delete Document:**
+   To delete a document, you can use the `deleteOne()` or `deleteMany()` method:
+
+   ```mono
+   db.collectionName.deleteOne({ key: 'value' });
+   ```
+
+5. **Indexing:**
+   Indexing can improve the performance of queries. To create an index, you can use the `createIndex()` method:
+
+   ```mono
+   db.collectionName.createIndex({ key: 1 }); // 1 for ascending, -1 for descending
+   ```
+
+6. **Aggregation:**
+   MongoDB provides an aggregation framework for performing data transformations. Here's an example of using the aggregation pipeline:
+
+   ```mono
+   db.collectionName.aggregate([
+     { $match: { key: 'value' } },
+     { $group: { _id: '$category', total: { $sum: '$quantity' } } }
+   ]);
+   ```
 
 ## Learning Projects
 
