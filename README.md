@@ -18,6 +18,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [SSH-keygen Options](#ssh-keygen-options)
     - [Validate SSH](#validate-ssh)
     - [Check SSH public key](#check-ssh-public-key)
+    - [Using existing SHH key](#using-existing-shh-key)
   - [ASDF](#asdf)
     - [ASDF Install](#asdf-install)
     - [ASDF Plugins](#asdf-plugins)
@@ -196,6 +197,37 @@ eval "$(ssh-agent -s)"
 cat ~/.ssh/id_rsa.pub
 ```
 
+### Using existing SHH key
+
+First you need to copy and move the files into the new machine
+
+```shell
+ssh-add ~/.ssh/id_rsa
+```
+
+If you get this output:
+
+```mono
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0777 for '/home/user_name/.ssh/id_rsa' are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+```
+
+It means you will need to adjust the `chmod` and repeat the command to add the ssh agent
+
+```shell
+chmod 600 ~/.ssh/id_rsa
+```
+
+If it persists use:
+
+```shell
+chmod 700 ~/.ssh
+```
+
 ## ASDF
 
 ### ASDF Install
@@ -306,7 +338,7 @@ git cherry-pick COMMIT_A^..COMMIT_B
 
 ### Submodules
 
-Git also allow you to link dependencies as submodules does you can manage  your repos with a project structure
+Git also allow you to link dependencies as submodules does you can manage your repos with a project structure
 
 To add a submodule first you need to have a remote repo to be attached as submodule
 
@@ -503,7 +535,7 @@ To automatically trigger a workflow, use on to define which events can cause the
 ```yml
 on:
   schedule:
-  - cron: 0 12 * * 1 
+    - cron: 0 12 * * 1
 ```
 
 **`label` trigger example:**
@@ -518,7 +550,8 @@ on:
 It's also possible to define multiple triggers
 
 ```yml
-on: [push, fork]
+on:
+  [push, fork]
   # - do something
 ```
 
@@ -581,31 +614,31 @@ jobs:
 
 ### Git commands table
 
-| Command                                                                                                                                                                                                                 | Description                                                                                                         |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| `git rm -r --cached .`                                                                                                                                                                                                  | Clear git cache for all files                                                                                       |
-| `git branch                                                                | grep -v "main"                                                                                                      | xargs git branch -D` | Clean git branches                                                                                                  |
-| `git branch -M NEW_NAME`                                                                                                                                                                                                | Renaming branch and origin                                                                                          |
-| `git branch -m NEW_NAME`                                                                                                                                                                                                | Renaming branch locally                                                                                             |
-| `git reset --soft HEAD~1`                                                                                                                                                                                               | Retrieve one commit `~1`  and return it to stage                                                                    |
-| `git reset --hard`                                                                                                                                                                                                      | Undo every change not committed, also allow you to undo commits with flag `HEAD~1`                                  |
-| `git push --force`                                                                                                                                                                                                      | Force push in case it diverge from origin - Careful, no rollback                                                    |
-| `git push --set-upstream origin BRANCH_NAME`                                                                                                                                                                            | Push and set upstream                                                                                               |
-| `git fetch --prune`                                                                                                                                                                                                     | Updates existing branches                                                                                           |
-| `git branch -vv`                                                                                                                                                                                                        | Branch status                                                                                                       |
-| `git config --global user.name USER_NAME`                                                                                                                                                                               | Set global user name                                                                                                |
-| `git config --global user.email USER_EMAIL`                                                                                                                                                                             | Set global user email                                                                                               |
-| `git config --global user.password PASSWORD`                                                                                                                                                                            | Set global user password                                                                                            |
-| `git config --global init.defaultBranch BRANCH_NAME`                                                                                                                                                                    | To redefine initial branch name globally                                                                            |
-| `git revert -m 1 COMMIT_SHA`                                                                                                                                                                                            | Revert changes from a commit                                                                                        |
-| `git rebase BRANCH`                                                                                                                                                                                                     | Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful! |
-| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`                                                                                                                                                          | Add repo as remote                                                                                                  |
-| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`                                                                                                                                                       | Add repo as submodule                                                                                               |
-| `git submodule update`                                                                                                                                                                                                  | To make pull in every submodule                                                                                     |
-| `git submodule update MODULE_PATH`                                                                                                                                                                                      | To make pull in specific submodule                                                                                  |
-| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`                                                                                                                                               | To add a subtree to the project                                                                                     |
-| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`                                                                                                                                              | To pull changes from original repo                                                                                  |
-| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`                                                                                                                                              | To push changes to a specific repo                                                                                  |
+| Command                                                                    | Description                                                                                                         |
+| :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ | -------------------- | ------------------ |
+| `git rm -r --cached .`                                                     | Clear git cache for all files                                                                                       |
+| `git branch                                                                | grep -v "main"                                                                                                      | xargs git branch -D` | Clean git branches |
+| `git branch -M NEW_NAME`                                                   | Renaming branch and origin                                                                                          |
+| `git branch -m NEW_NAME`                                                   | Renaming branch locally                                                                                             |
+| `git reset --soft HEAD~1`                                                  | Retrieve one commit `~1` and return it to stage                                                                     |
+| `git reset --hard`                                                         | Undo every change not committed, also allow you to undo commits with flag `HEAD~1`                                  |
+| `git push --force`                                                         | Force push in case it diverge from origin - Careful, no rollback                                                    |
+| `git push --set-upstream origin BRANCH_NAME`                               | Push and set upstream                                                                                               |
+| `git fetch --prune`                                                        | Updates existing branches                                                                                           |
+| `git branch -vv`                                                           | Branch status                                                                                                       |
+| `git config --global user.name USER_NAME`                                  | Set global user name                                                                                                |
+| `git config --global user.email USER_EMAIL`                                | Set global user email                                                                                               |
+| `git config --global user.password PASSWORD`                               | Set global user password                                                                                            |
+| `git config --global init.defaultBranch BRANCH_NAME`                       | To redefine initial branch name globally                                                                            |
+| `git revert -m 1 COMMIT_SHA`                                               | Revert changes from a commit                                                                                        |
+| `git rebase BRANCH`                                                        | Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful! |
+| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`             | Add repo as remote                                                                                                  |
+| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`          | Add repo as submodule                                                                                               |
+| `git submodule update`                                                     | To make pull in every submodule                                                                                     |
+| `git submodule update MODULE_PATH`                                         | To make pull in specific submodule                                                                                  |
+| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`  | To add a subtree to the project                                                                                     |
+| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To pull changes from original repo                                                                                  |
+| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To push changes to a specific repo                                                                                  |
 
 ### Advanced `diff`
 
@@ -634,7 +667,7 @@ git diff -U5 -w branch_name..another_branch
 ## Awesome Fonts
 
 - Create profile to generate the snippet we gonna use to trigger the lib
-<https://www.w3schools.com/icons/fontawesome5_intro.asp#:~:text=To%20use%20the%20Free%20Font>,Awesome%20to%20your%20web%20page.
+  <https://www.w3schools.com/icons/fontawesome5_intro.asp#:~:text=To%20use%20the%20Free%20Font>,Awesome%20to%20your%20web%20page.
 
 ### Ruby on Rails install
 
@@ -667,20 +700,20 @@ Depending on where you want to use FontAwesome, you will need to add the script 
 <html>
   <head>
     <title>Patients Intermediary App</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <script src="https://kit.fontawesome.com/323h4jk32h4l2j123.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= stylesheet_link_tag
+    "application", "data-turbo-track": "reload" %> <%= javascript_importmap_tags
+    %>
+    <script
+      src="https://kit.fontawesome.com/323h4jk32h4l2j123.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
     ...
   </body>
 </html>
-
 ```
 
 #### Usage on Rails
@@ -1025,10 +1058,10 @@ aws configure
 ```
 
 ```mono
-AWS Access Key ID [****************SB5M]: 
-AWS Secret Access Key [****************efwC]: 
-Default region name [sa-east-1]: 
-Default output format [json]: 
+AWS Access Key ID [****************SB5M]:
+AWS Secret Access Key [****************efwC]:
+Default region name [sa-east-1]:
+Default output format [json]:
 ```
 
 ```shell
@@ -1209,7 +1242,7 @@ Basically it defines how to set unique sequential identification for a software,
 - Calendar versioning
 - Semantic versioning
 - Milestone versioning
-  
+
 #### Build versioning
 
 Simple V1, V2, V3
@@ -1241,25 +1274,28 @@ But there's some rules, whenever a MINOR version is implemented the PATCH versio
 
 ```md
 **Patch change**
+
 - 1.0.1
 - 1.0.2
 - ...
 - 1.0.20
 
 **Minor change**
+
 - 1.1.0
 - 1.2.0
 - ...
 - 1.15.0
 
 **Major change**
+
 - 2.0.0
 - 3.0.0
 - ...
 - 10.0.0
 ```
 
-Semantic version can also use suffixes to describe if a release is in  `pre-alpha`, `alpha`, `beta`, `close-beta` phases, it normally means that this releases are mostly available for testing purposes
+Semantic version can also use suffixes to describe if a release is in `pre-alpha`, `alpha`, `beta`, `close-beta` phases, it normally means that this releases are mostly available for testing purposes
 
 ```md
 1.0.1b

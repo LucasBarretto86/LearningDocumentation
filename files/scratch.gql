@@ -1,0 +1,113 @@
+fragment DayScheduleInfo on DaySchedule {
+  id
+  hasDoctor
+  dateAsString
+  fulfillmentRate
+  hours {
+    isOpen
+    opensAt
+    closesAt
+    hasBreak
+    breakFrom
+    breakTo
+  }
+  roomsDay {
+    room {
+      id
+      title
+    }
+    hours {
+      isOpen
+      opensAt
+      closesAt
+      hasBreak
+      breakFrom
+      breakTo
+    }
+
+    fulfillmentRate
+  }
+  doctorsDay {
+    doctor {
+      id
+      fullName
+    }
+    hours {
+      isOpen
+      opensAt
+      closesAt
+      hasBreak
+      breakFrom
+      breakTo
+    }
+    fulfillmentRate
+  }
+  appointments {
+    id
+    isConfirmed
+    startsAt
+    endsAt
+    duration
+    notes
+    virtual
+    seated
+    seatedTime
+    checkedInTime
+    checkedIn
+    completed
+    reschedule
+    noShow
+    appointmentType {
+      id
+      title
+      color
+    }
+    room {
+      id
+      title
+    }
+    patient {
+      id
+      fullName
+      phoneNumber
+      email
+      contactMethod
+      conversation {
+        id
+      }
+    }
+    doctor {
+      id
+      fullName
+    }
+    events {
+      label
+      time
+      past
+    }
+    labels {
+      id
+      name
+      color
+    }
+  }
+  timeOffs {
+    id
+    startsAt
+    endsAt
+    duration
+    notes
+    virtual
+    room {
+      id
+      title
+    }
+    doctor {
+      id
+      fullName
+    }
+    clinic {
+      id
+    }
+  }
+}
