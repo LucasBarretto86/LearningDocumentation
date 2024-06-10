@@ -1,34 +1,17 @@
-# Billing Fixes
+# Members
 
-- Added various TODO comments for future changes that need to be discussed
-- Fix rspec_helper for system tests, coz it was breaking locally on Chrome 115 and above
-- `Billing::PaymentPlan`: Removed `remaining_balance`, because isn't used today and I didn't understand what info it brings (amount - amount_owned).
-- `Billing::PaymentPlan`: Removed ledger relation through the clinic, since now the clinic has Many ledgers
-- `Billing::PaymentPlan`: Removed transactions relation through the ledger
-- `Billing::PaymentPlan`: Added option dependent to destroy Invoices relation, to allow destroying plans and its invoices if there's none paid
-- `Billing::PaymentPlan`: Changed scope `.active` to return only `on_going` plans
-- `Billing::PaymentPlan`: Added scope `.valid` to filter `denied` plans
-- `Billing::PaymentPlan`: Added mandatory validations for `payment_plan`
-- `Billing::PaymentPlan::Invoicer`: Added method to set plan initial values
-- `Billing::PaymentPlan::Invoicer`: Added a new method to deny all plan invoices if the plan status changes to denied, it occurs when a payment updates the plan to denied when the first invoice payment gets declined through payment_plan creation flow
-- `Billing::PaymentPlan::LifeCycle`: Removed method calculate move all calculations to `recalculate` every time payment touches payment plan  on `Billing::PaymentPlan::Calculable`
-- `Billing::PaymentPlan::LifeCycle`: Changed case of status Removed redundancy and shattered validations, added comments to make it clear to be understood
-- `Billing::PaymentPlan::Calculable`: Changed recalculate method to make it recalculate all necessary attributes after a payment touches its related payment_plan
-- `Billing::PaymentPlan::Calculable`: Added method to return refunded amount based on invoices to find out how much has been refunded on a plan (Should become a column in the future to avoid calculation)
-- `Billing::PaymentPlan::Calculable`: Added method to return debt amount based on overdue invoices to find out how much patient is in debt (Should become a column in the future to avoid calculation)
-- `Billing::Invoice`: Added mandatory validations
-- `Billing::Invoice`: Changed scope `paid` for `processed`
-- `Billing::Invoice`: Added scope `capturable` to allow easier get from all invoices `awaiting_payment` and `awaiting_process`
-- `Billing::Invoice::LifeCycle`: Remove case redundancy
-- `Billing::Invoice::FullFiller`: Moved logic for plans denied to `Billing::Invoice::Capturable` and `Billing::PaymentPlan::Invoicer`
-- `Billing::Invoice::Capturable`: Changed the create_and_capture_payment method
-- `Billing::Invoice::Capturable`: Added new method `capturable?` that evaluates if an invoice is `awaiting_payment || awaiting_process`
-- `Billing::Invoice::Capturable`: Changed exception conditions to use new method `capturable?`
-- `Billing::Invoice::Capturable`: Added new method  `build_payment` to simplify payment creation based on invoice and adjust places where payments was created to use this new method, like `V2::Private::Rest::Billing::Invoices::PaymentsController`
-- `Billing::Invoice::Calculable`: Create new concern to concentrate basic calculations from invoice like amount_paid etc.. 
-- `Patient::HasBilling`: Changed methods to gather data from payment_plans through patient, like totals, debts, days overdue and etc...
-- `Patient::HasBilling`: Changed methods naming and update GQL types and queries
-- `Patient::HasBilling`: Changed total paid method to return total paid from all patients plans minus total refunded from all patients plans
-- `Thorn::Stripe::Payment`: Changed capture method to save last4 for declines
-- `Billing::ReportMailer`: Changed e-mail of daily reports to show declined cards last4
-- `ClinicUser`: Add `delegate_missing_to :user` to simplify clinic_user navigation
+[Back to home](/docs/rest.md)
+
+- [Members](#members)
+  - [List insurance members](#list-insurance-members)
+  - [Create / Add new members](#create--add-new-members)
+  - [Update members](#update-members)
+  - [Remove members](#remove-members)
+
+## List insurance members
+
+## Create / Add new members
+
+## Update members
+
+## Remove members
