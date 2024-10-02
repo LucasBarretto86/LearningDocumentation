@@ -88,7 +88,16 @@ This project hold all the information and knowledge I gathered through my experi
     - [Access Droplet with SSH](#access-droplet-with-ssh)
     - [Copying files from a droplet](#copying-files-from-a-droplet)
     - [Running server from droplet](#running-server-from-droplet)
-  - [AWS CLI](#aws-cli)
+  - [AWS](#aws)
+    - [Setup AWS CLI](#setup-aws-cli)
+      - [Install AWS CLI](#install-aws-cli)
+      - [Checking AWS credentials on CLI](#checking-aws-credentials-on-cli)
+      - [Removing unknown existing data](#removing-unknown-existing-data)
+      - [Adding new profile credentials](#adding-new-profile-credentials)
+      - [CLI basic usage](#cli-basic-usage)
+      - [Making assets bucket public](#making-assets-bucket-public)
+      - [Setup bucket CORS access](#setup-bucket-cors-access)
+  - [Setup Credentials](#setup-credentials)
   - [MinIO](#minio)
   - [Issues](#issues)
     - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
@@ -1043,29 +1052,207 @@ scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
 ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
 ```
 
-## AWS CLI
+## AWS
 
-<https://softhints.com/download-files-s3-bucket-aws-cli-linux-mint/>
+### Setup AWS CLI
 
-Simple install for aws CLI using root credentials
+Keep in mind that to be able to use the CLI you will need to setup IAM Role that allows you to use CLI
 
-```shell
-sudo pip install aws CLI
+1. Installing AWS-cli (Skip if you already have it installed)
+2. Check pre AWS credentials on CLI
+3. Removing unknown existing data (Skip if setup has never been done before)
+4. Adding new AWS credential profile to avoid problems
+5. Basic usage of CLI
+6. Making assets bucket public
+7. Setup bucket CORS access
+
+#### Install AWS CLI
+
+```sh
+sudo snap install aws-cli
 ```
 
-```shell
-aws configure
+OR
+
+```sh
+curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 ```
 
-```mono
-AWS Access Key ID [****************SB5M]:
-AWS Secret Access Key [****************efwC]:
-Default region name [sa-east-1]:
-Default output format [json]:
+#### Checking AWS credentials on CLI
+
+```sh
+aws configure list
 ```
 
-```shell
-aws s3 cp s3://bolt-gf-development/quicksilver_v2/patients/ ~/Downloads/AWS/bolt-gf-development --recursive
+**Output:**
+
+```sh
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile                <not set>             None    None
+access_key                <not set>             None    None
+secret_key                <not set>             None    None
+    region                <not set>             None    None
+
+```
+
+> In case there is some credentials and you are unsure what is that all about you can completely remove all credentials
+
+#### Removing unknown existing data
+
+```sh
+rm -rf ~/.aws
+
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+```
+
+#### Adding new profile credentials
+
+```sh
+aws configure --profile lucasbarretto.com
+
+AWS Access Key ID [None]: ****************XR3X
+AWS Secret Access Key [None]: ****************0LDi
+Default region name [None]: sa-east-1
+Default output format [None]: JSON
+```
+
+Now to link the created profile:
+
+```sh
+export AWS_PROFILE=lucasbarretto.com
+```
+
+Then checking the configuration
+
+```sh
+aws configure list
+```
+
+**Output:**
+
+```sh
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile        lucasbarretto.com              env    ['AWS_DEFAULT_PROFILE', 'AWS_PROFILE']
+access_key     ****************XR3X shared-credentials-file
+secret_key     ****************0LDi shared-credentials-file
+    region                sa-east-1      config-file    ~/.aws/config
+```
+
+#### CLI basic usage
+
+Certainly! Here's the list of commands converted into a Markdown table:
+
+ | Command                                                                   | Description                    |
+ | :------------------------------------------------------------------------ | :----------------------------- |
+ | `aws configure`                                                           | Configuring AWS CLI            |
+ | `aws s3 ls`                                                               | Listing S3 Buckets             |
+ | `aws s3 cp my-local-file.txt s3://my-bucket/`                             | Copying a Local File to S3     |
+ | `aws s3 cp s3://my-bucket/my-s3-file.txt my-local-directory/`             | Copying from S3 to Local       |
+ | `aws s3 cp . s3://my-bucket/ --recursive --exclude "*" --include "*.jpg"` | Uploading Multiple Files to S3 |
+ | `aws s3 ls s3://my-bucket/`                                               | Listing S3 Objects in a Bucket |
+ | `aws s3 mb s3://my-new-bucket-name`                                       | Creating an S3 Bucket          |
+ | `aws s3 rb s3://my-bucket-to-delete`                                      | Deleting an S3 Bucket          |
+ | `aws s3 sync my-local-directory s3://my-bucket/`                          | Syncing Local Files with S3    |
+ | `aws ec2 describe-instances`                                              | Describing EC2 Instances       |
+
+You can copy and paste this table into your Markdown file.
+
+#### Making assets bucket public
+
+To make or bucket public we need to add a bucket-policy and also add CORS policy
+
+**Using CLI:**
+
+```sh
+aws s3api put-bucket-policy --bucket assets.lucasbarretto.com --policy '{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::assets.lucasbarretto.com/*"
+    }
+  ]
+}'
+```
+
+**Direct on S3 dashboard:**
+
+In that case we just need to add the JSON on the bucket-policy field under permissions
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::assets.lucasbarretto.com/*"
+    }
+  ]
+}
+```
+
+#### Setup bucket CORS access
+
+On my bucket `assets.lucasbarretto.com` I added CORS policy to allow GET requests for my assets
+
+> Keep in mind that since I will only do gets I don't need IAM role and credentials configs, only CORS config
+> on the bucket must be sufficient
+
+```json
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "https://*.lucasbarretto.com",
+            "http://localhost:5500"
+            "http://127.0.1.0:5500"
+        ],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+
+## Setup Credentials
+
+First we need to add our env file
+
+```sh
+touch .env
+```
+
+> very important to add this to `.gitignore` to avoid push credentials to the repository
+
+As we add credentials we will use it like this:
+
+```js
+// Setup S3 credential example
+
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+});
+
 ```
 
 ## MinIO
