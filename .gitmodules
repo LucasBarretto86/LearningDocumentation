@@ -40,3 +40,6 @@
 [submodule "specifics/LearningJava"]
 	path = specifics/LearningJava
 	url = git@github.com:LucasBarretto86/LearningJava.git
+[submodule "specifics/LearningNGINX"]
+	path = specifics/LearningNGINX
+	url = git@github.com:LucasBarretto86/LearningNGINX.git
