@@ -1,293 +1,305 @@
-## Class Diagram
+# Claims
 
-```mermaid
-classDiagram
-    class Patient {
-        +id: Integer
-        +name: String
-        +dateOfBirth: Date
-        +ssn: String
-        +address: String
-        +phone: String
-        +email: String
-        +healthHistory: String
-        +insuranceInfo: Insurance
-        +consentFormSigned: Boolean
-    }
+[Back to home](/docs/rest.md)
 
-    class Clinic {
-        +id: Integer
-        +name: String
-        +address: String
-        +phone: String
-        +email: String
-        +doctors: Doctor[]
-        +patients: Patient[]
-        +treatments: Treatment[]
-    }
+- [Claims](#claims)
+  - [List Claims](#list-claims)
+  - [Create New Claim](#create-new-claim)
+  - [Show a Claim](#show-a-claim)
 
-    class Doctor {
-        +id: Integer
-        +name: String
-        +specialization: String
-        +licenseNumber: String
-        +phone: String
-        +email: String
-        +clinic: Clinic
-    }
+---
 
-    class Treatment {
-        +id: Integer
-        +name: String
-        +description: String
-        +cost: Decimal
-        +treatmentPlan: String
-        +doctor: Doctor
-        +patient: Patient
-        +appointments: Appointment[]
-        +preAuthorization: InsuranceEligibility
-    }
+## List Claims
 
-    class Appointment {
-        +id: Integer
-        +date: Date
-        +time: Time
-        +status: String
-        +notes: String
-        +treatment: Treatment
-        +doctor: Doctor
-        +patient: Patient
-    }
+Listing existing claims from a specific eligibility record.
 
-    class Insurance {
-        +id: Integer
-        +companyName: String
-        +policyNumber: String
-        +groupNumber: String
-        +subscriberName: String
-        +subscriberDOB: Date
-        +subscriberSSN: String
-        +coverageDetails: String
-        +patients: Patient[]
-    }
+**Request:**
 
-    class InsuranceEligibility {
-        +id: Integer
-        +insurance: Insurance
-        +patient: Patient
-        +isEligible: Boolean
-        +eligibleAmount: Decimal
-        +preAuthRequired: Boolean
-    }
-
-    class ClaimForm {
-        +id: Integer
-        +claimNumber: String
-        +insurance: Insurance
-        +patient: Patient
-        +treatment: Treatment
-        +amountBilled: Decimal
-        +amountPaid: Decimal
-        +status: String
-        +submissionDate: Date
-        +responseDate: Date
-    }
-
-    Patient "1" -- "0..*" Insurance: has
-    Clinic "1" -- "0..*" Doctor: employs
-    Clinic "1" -- "0..*" Patient: serves
-    Clinic "1" -- "0..*" Treatment: offers
-    Doctor "1" -- "0..*" Treatment: performs
-    Doctor "1" -- "0..*" Appointment: schedules
-    Patient "1" -- "0..*" Treatment: receives
-    Patient "1" -- "0..*" Appointment: attends
-    Treatment "1" -- "0..*" Appointment: consists of
-    Treatment "1" -- "1" InsuranceEligibility: requires
-    Insurance "1" -- "0..*" Patient: covers
-    InsuranceEligibility "1" -- "1" Insurance: verifies
-    InsuranceEligibility "1" -- "1" Patient: verifies for
-    Treatment "1" -- "1" ClaimForm: results in
-    ClaimForm "1" -- "1" Insurance: billed to
-    ClaimForm "1" -- "1" Patient: billed for
-
+```http request
+GET /v2/rest/insurances/:insurance_id/claims.json
 ```
 
-## Flow chart
+**Scope parameters:**
 
-```mermaid
-flowchart TD
-    subgraph Patient
-        PatientInfo["Patient: Provide Personal Information"]
-        HealthHistory["Patient: Provide Health History"]
-        InsuranceInfo["Patient: Provide Insurance Information"]
-        ConsentForm["Patient: Sign Consent Form"]
-        PatientInfo --> HealthHistory
-        HealthHistory --> InsuranceInfo
-        InsuranceInfo --> ConsentForm
-    end
+| Parameter     | Type    | Required | Description                                    |
+|:--------------|:--------|:---------|:-----------------------------------------------|
+| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
 
-    subgraph Clinic
-        InitialConsult["Clinic/Doctor: Initial Consultation"]
-        TreatmentPlan["Doctor: Create Treatment Plan"]
-        PreAuth["Clinic: Submit Pre-Authorization Request"]
-        ScheduleAppointments["Clinic: Schedule Appointments"]
-        PerformAppointment["Clinic/Doctor: Perform Appointment"]
-        DocAppointment["Clinic: Document Appointment Details"]
-        CollectDocs["Clinic: Collect Supporting Documentation"]
-        FillClaimForm["Clinic: Fill Claim Form"]
-        AttachDocs["Clinic: Attach Supporting Documents"]
-        SubmitClaim["Clinic: Submit Claim"]
-        TrackStatus["Clinic: Track Claim Status"]
-        AddressIssues["Clinic: Address Denials/Underpayments"]
-        ReceivePayment["Clinic: Receive Payment"]
-        BillPatient["Clinic: Bill Patient"]
-    end
+**Response:**
 
-    subgraph Insurance
-        InsuranceEligibility["Insurance: Verify Eligibility"]
-        ReviewPreAuth["Insurance: Review Pre-Authorization"]
-        ProcessClaim["Insurance: Process Claim"]
-        DenialReview["Insurance: Review Denials/Underpayments"]
-    end
-
-    Patient --> Clinic
-    Clinic --> Insurance
-
-    %% Patient Flow
-    PatientInfo --> HealthHistory
-    HealthHistory --> InsuranceInfo
-    InsuranceInfo --> ConsentForm
-    ConsentForm --> InitialConsult
-
-    %% Clinic Flow
-    InitialConsult --> TreatmentPlan
-    TreatmentPlan --> PreAuth
-    PreAuth -->|Submit| InsuranceEligibility
-    InsuranceEligibility -->|Verified| ReviewPreAuth
-    ReviewPreAuth -->|Approved| ScheduleAppointments
-    ScheduleAppointments --> PerformAppointment
-    PerformAppointment --> DocAppointment
-    DocAppointment --> CollectDocs
-    CollectDocs --> FillClaimForm
-    FillClaimForm --> AttachDocs
-    AttachDocs --> SubmitClaim
-    SubmitClaim --> TrackStatus
-    TrackStatus --> AddressIssues
-    AddressIssues -->|Resolved| ReceivePayment
-    ReceivePayment --> BillPatient
-
-    %% Insurance Flow
-    ReviewPreAuth -->|Denied| AddressIssues
-    ProcessClaim -->|Denied| AddressIssues
-    AddressIssues -->|Resolved| ProcessClaim
-    DenialReview -->|Resolved| ProcessClaim
-
-    style PatientInfo fill:#f9f,stroke:#333,stroke-width:2px
-    style HealthHistory fill:#ff9,stroke:#333,stroke-width:2px
-    style InsuranceInfo fill:#9f9,stroke:#333,stroke-width:2px
-    style ConsentForm fill:#9ff,stroke:#333,stroke-width:2px
-    style InitialConsult fill:#f99,stroke:#333,stroke-width:2px
-    style TreatmentPlan fill:#99f,stroke:#333,stroke-width:2px
-    style PreAuth fill:#9ff,stroke:#333,stroke-width:2px
-    style ScheduleAppointments fill:#f9f,stroke:#333,stroke-width:2px
-    style PerformAppointment fill:#ff9,stroke:#333,stroke-width:2px
-    style DocAppointment fill:#9f9,stroke:#333,stroke-width:2px
-    style CollectDocs fill:#9ff,stroke:#333,stroke-width:2px
-    style FillClaimForm fill:#f99,stroke:#333,stroke-width:2px
-    style AttachDocs fill:#99f,stroke:#333,stroke-width:2px
-    style SubmitClaim fill:#9ff,stroke:#333,stroke-width:2px
-    style TrackStatus fill:#f9f,stroke:#333,stroke-width:2px
-    style AddressIssues fill:#ff9,stroke:#333,stroke-width:2px
-    style ReceivePayment fill:#9f9,stroke:#333,stroke-width:2px
-    style BillPatient fill:#9ff,stroke:#333,stroke-width:2px
-    style InsuranceEligibility fill:#f99,stroke:#333,stroke-width:2px
-    style ReviewPreAuth fill:#99f,stroke:#333,stroke-width:2px
-    style ProcessClaim fill:#9ff,stroke:#333,stroke-width:2px
-    style DenialReview fill:#f9f,stroke:#333,stroke-width:2px
+```json
+[
+  {
+    "id": 115,
+    "status": "pending",
+    "items": [
+      {
+        "id": 57,
+        "quantity": 1,
+        "fee": 5.00,
+        "procedureCode": "D0120"
+      },
+      {
+        "id": 58,
+        "quantity": 1,
+        "fee": 5.00,
+        "procedureCode": "D0120"
+      }
+    ],
+    "createdAt": "2024-07-17T17:57:34.331-04:00",
+    "updatedAt": "2024-07-17T17:57:34.331-04:00"
+  },
+  {
+    "id": 116,
+    "status": "pending",
+    "items": [
+      {
+        "id": 59,
+        "quantity": 1,
+        "fee": 5.00,
+        "procedureCode": "D0120"
+      },
+      {
+        "id": 60,
+        "quantity": 1,
+        "fee": 5.00,
+        "procedureCode": "D0120"
+      }
+    ],
+    "createdAt": "2024-07-17T17:57:34.334-04:00",
+    "updatedAt": "2024-07-17T17:57:34.334-04:00"
+  }
+]
 ```
 
-### Claim Form Diagram
+## Create New Claim
 
-```mermaid
-flowchart TD
-    subgraph Clinic
-        Start["Start: Document Treatment Details"]
-        CollectDocs["Collect Supporting Documentation"]
-        FillClaimForm["Fill Claim Form"]
-        AttachDocs["Attach Supporting Documents"]
-        SubmitClaim["Submit Claim"]
-        TrackStatus["Track Claim Status"]
-        AddressIssues["Address Denials/Underpayments"]
-        ReceivePayment["Receive Payment"]
-        BillPatient["Bill Patient"]
-    end
+Create a new claim given an insurance eligibility.
 
-    subgraph Insurance
-        ReviewClaim["Review Claim"]
-        ApproveClaim["Approve Claim"]
-        DenyClaim["Deny Claim"]
-        UnderpayClaim["Underpay Claim"]
-        ProcessPayment["Process Payment"]
-    end
+**Request:**
 
-    %% Clinic Flow
-    Start --> CollectDocs
-    CollectDocs --> FillClaimForm
-    FillClaimForm --> AttachDocs
-    AttachDocs --> SubmitClaim
-    SubmitClaim --> TrackStatus
-    TrackStatus --> ReviewClaim
-    AddressIssues --> TrackStatus
-    ReceivePayment --> BillPatient
-
-    %% Insurance Flow
-    ReviewClaim --> ApproveClaim
-    ReviewClaim --> DenyClaim
-    ReviewClaim --> UnderpayClaim
-    ApproveClaim --> ProcessPayment
-    ProcessPayment --> ReceivePayment
-    DenyClaim --> AddressIssues
-    UnderpayClaim --> AddressIssues
-
-    %% Styling
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style CollectDocs fill:#ff9,stroke:#333,stroke-width:2px
-    style FillClaimForm fill:#9f9,stroke:#333,stroke-width:2px
-    style AttachDocs fill:#9ff,stroke:#333,stroke-width:2px
-    style SubmitClaim fill:#f99,stroke:#333,stroke-width:2px
-    style TrackStatus fill:#99f,stroke:#333,stroke-width:2px
-    style AddressIssues fill:#9ff,stroke:#333,stroke-width:2px
-    style ReceivePayment fill:#f9f,stroke:#333,stroke-width:2px
-    style BillPatient fill:#ff9,stroke:#333,stroke-width:2px
-    style ReviewClaim fill:#9f9,stroke:#333,stroke-width:2px
-    style ApproveClaim fill:#9ff,stroke:#333,stroke-width:2px
-    style DenyClaim fill:#f99,stroke:#333,stroke-width:2px
-    style UnderpayClaim fill:#99f,stroke:#333,stroke-width:2px
-    style ProcessPayment fill:#9ff,stroke:#333,stroke-width:2px
-
+```http request
+POST /v2/rest/insurances/:insurance_id/claims.json
 ```
 
-### State diagram for Claim
+**Scope parameters:**
 
-```mermaid
-stateDiagram
-    [*] --> Created
-    Created --> Filled: Fill out claim form
-    Filled --> SupportingDocsAttached: Attach supporting documents
-    SupportingDocsAttached --> Submitted: Submit claim form to insurance
-    Submitted --> UnderReview: Insurance reviews the claim
-    UnderReview --> Approved: Claim approved by insurance
-    UnderReview --> Denied: Claim denied by insurance
-    UnderReview --> Underpaid: Claim underpaid by insurance
-    Approved --> PaymentProcessed: Payment processed by insurance
-    PaymentProcessed --> Paid: Payment received by clinic
-    Denied --> Resubmitted: Issues addressed and claim resubmitted
-    Underpaid --> Resubmitted: Issues addressed and claim resubmitted
-    Resubmitted --> UnderReview: Insurance reviews the resubmitted claim
-    Paid --> [*]
+| Parameter     | Type    | Required | Description                                    |
+|:--------------|:--------|:---------|:-----------------------------------------------|
+| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
 
+**Permitted Parameters:**
+
+| Parameter            | Type   | Required | Description                              |
+|----------------------|--------|----------|------------------------------------------|
+| subscriberAttributes | object | yes      | Object containing subscriber information.|
+| itemsAttributes      | array  | no       | Array of item objects.                   |
+| providersAttributes  | array  | yes      | Array of provider objects.               |
+
+**Subscriber Object:**
+
+| Parameter    | Type                | Required | Description                                      |
+|--------------|---------------------|----------|--------------------------------------------------|
+| dob          | string (YYYY-MM-DD) | true     | Date of birth of the subscriber.                 |
+| firstName    | string              | true     | First name of the subscriber.                    |
+| lastName     | string              | true     | Last name of the subscriber.                     |
+| gender       | string              | true     | Gender of the subscriber (e.g., "male", "female"). |
+| relationship | string              | true     | Relationship to the patient (e.g., "self", "spouse"). |
+| sequenceCode | string              | true     | Sequence code for the subscriber (e.g., "primary"). |
+| memberId     | string              | true     | Unique member ID for the subscriber.             |
+
+**Item Object:**
+
+| Parameter      | Type    | Description                                      |
+|----------------|---------|--------------------------------------------------|
+| quantity       | integer | Number of items for the claim.                   |
+| fee            | decimal | Fee associated with the item (e.g., `5.00`).     |
+| procedureCode   | string  | Code for the procedure (e.g., "D0180").          |
+
+**Provider Object:**
+
+| Parameter           | Type   | Required | Description                                          |
+|---------------------|--------|----------|------------------------------------------------------|
+| kind                | string | true     | Type of provider (e.g., "RENDERING").                |
+| npi                 | string | true     | National Provider Identifier of the provider.        |
+| npiType             | string | true     | Type of NPI (e.g., "individual").                    |
+| specialty           | string | true     | Provider's specialty (e.g., "ORTHO").                |
+| taxonomy            | string | true     | Taxonomy code for the provider (e.g., "1223X0400X"). |
+| taxId               | string | true     | Tax identification number of the provider.           |
+| addressesAttributes | array  | true     | Array of address objects for the provider.           |
+
+**Address Object:**
+
+| Parameter  | Type    | Required | Description                                       |
+|------------|---------|----------|---------------------------------------------------|
+| address1   | string  | true     | Primary address line.                             |
+| address2   | string  | false    | Secondary address line (optional).                |
+| city       | string  | true     | City of the provider's address.                   |
+| state      | string  | true     | State of the provider's address.                  |
+| zipcode    | string  | true     | Zip code of the provider's address.               |
+| kind       | string  | true     | Type of address (e.g., "primary").                |
+
+**Payload:**
+
+```json
+{
+  "insuranceId": 1,
+  "claim": {
+    "subscriberAttributes": {
+      "dob": "1990-01-01",
+      "firstName": "John",
+      "lastName": "Doe",
+      "gender": "male",
+      "relationship": "self",
+      "sequenceCode": "primary",
+      "memberId": "123456789"
+    },
+    "providersAttributes": [
+      {
+        "kind": "RENDERING",
+        "npi": "0123456789",
+        "npiType": "individual",
+        "specialty": "ORTHO",
+        "taxonomy": "1223X0400X",
+        "taxId": "123456789",
+        "addressesAttributes": [
+          {
+            "address1": "303 Groovy Street",
+            "address2": "Apartment 2",
+            "city": "Boston",
+            "state": "MA",
+            "zipcode": "021789",
+            "kind": "primary"
+          }
+        ]
+      }
+    ],
+    "itemsAttributes": [
+      {
+        "quantity": 1,
+        "fee": 5.00,
+        "procedureCode": "D0180"
+      }
+    ]
+  }
+}
 ```
 
-- Payer can be the InsuranceCompany, it covers most cases
-- Provider can be the Doctor, it covers most cases
-- Can AppointmentTypes be considered as ProcedureIDs?
+**Response:**
+
+```json
+{
+  "id": 23,
+  "status": "pending",
+  "items": [
+    { 
+      "id": 17, 
+      "quantity": 1, 
+      "fee": 5.00, 
+      "procedureCode": "D0180" 
+    }
+  ],
+  "subscriber": {
+    "id": 23,
+    "dob": "1990-01-01",
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "male",
+    "relationship": "self",
+    "sequenceCode": "primary",
+    "memberId": "123456789"
+  },
+  "providers": [
+    {
+      "id": 28,
+      "kind": "RENDERING",
+      "npi": "0123456789",
+      "npiType": "individual",
+      "specialty": "ORTHO",
+      "taxonomy": "1223X0400X",
+      "taxId": "123456789",
+      "addresses": [
+        {
+          "id": 80,
+          "address1": "303 Groovy Street",
+          "address2": "Apartment 2",
+          "city": "Boston",
+          "state": "MA",
+          "zipcode": "021789",
+          "kind": "primary"
+        }
+      ]
+    }
+  ],
+  "createdAt": "2024-10-14T16:39:34.169-04:00",
+  "updatedAt": "2024-10-14T16:39:34.169-04:00"
+}
+```
+
+## Show a Claim
+
+Get a Claim record by ID.
+
+**Request:**
+
+```http request
+GET /v2/rest/insurances/:insurance_id/claims/:id.json
+```
+
+**Scope parameters:**
+
+| Parameter     | Type    | Required | Description                                    |
+|:--------------|:--------|:---------|:-----------------------------------------------|
+| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
+| id            | integer | yes      | ID of the claim.                              |
+
+**Response:**
+
+```json
+{
+  "id": 23,
+  "status": "pending",
+  "items": [
+    { 
+      "id": 17, 
+      "quantity": 1, 
+      "fee": 5.00, 
+      "procedureCode": "D0180" 
+    }
+  ],
+  "subscriber": {
+    "id": 23,
+    "dob": "1990-01-01",
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "male",
+    "relationship": "self",
+    "sequenceCode": "primary",
+    "memberId": "123456789"
+  },
+  "providers": [
+    {
+      "id": 28,
+      "kind": "RENDERING",
+      "npi": "0123456789",
+      "npiType": "individual",
+      "specialty": "ORTHO",
+      "taxonomy": "1223X0400X",
+      "taxId": "123456789",
+      "addresses": [
+        {
+          "id": 80,
+          "address1": "303 Groovy Street",
+          "address2": "Apartment 2",
+          "city": "Boston",
+          "state": "MA",
+          "zipcode": "021789",
+          "kind": "primary"
+        }
+      ]
+    }
+  ],
+  "createdAt": "2024-10-14T16:39:34.169-04:00",
+  "updatedAt": "2024-10-14T16:39:34.169-04:00"
+}
+```

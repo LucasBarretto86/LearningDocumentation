@@ -1,90 +1,44 @@
-[
-  {
-    "id": 291,
-    "narrative": "First attachment",
-    "claimId": 107,
-    "vendorId": "DXC000012356",
-    "createdAt": "2024-10-04T19:59:31.328-04:00",
-    "images": [
+{
+  "claim": {
+    "providers": [
       {
-        "id": 793,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 794,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 795,
-        "filename": "foo bar baz"
+        "type": "BILLING",
+        "specialty": "ORTHO",
+        "taxId": "123456789",
+        "addresses": [
+          {
+            "address1": "303 Groovy Street",
+            "city": "Boston",
+            "state": "MA",
+            "zipCode": "021789",
+            "entityType": "1"
+          }
+        ]
       }
     ],
-    "status": "synced"
-  },
-  {
-    "id": 292,
-    "narrative": "FoobarBaz",
-    "claimId": 107,
-    "vendorId": "",
-    "createdAt": "2024-10-04T19:59:31.390-04:00",
-    "images": [
-      {
-        "id": 796,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 797,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 798,
-        "filename": "foo bar baz"
-      }
-    ],
-    "status": "submitted"
-  },
-  {
-    "id": 293,
-    "narrative": "FoobarBaz",
-    "claimId": 107,
-    "vendorId": "",
-    "createdAt": "2024-10-04T19:59:31.405-04:00",
-    "images": [
-      {
-        "id": 799,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 800,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 801,
-        "filename": "foo bar baz"
-      }
-    ],
-    "status": "submitted"
-  },
-  {
-    "id": 294,
-    "narrative": "FoobarBaz",
-    "claimId": 107,
-    "vendorId": "",
-    "createdAt": "2024-10-04T19:59:31.418-04:00",
-    "images": [
-      {
-        "id": 802,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 803,
-        "filename": "foo bar baz"
-      },
-      {
-        "id": 804,
-        "filename": "foo bar baz"
-      }
-    ],
-    "status": "submitted"
+    "payer": { "payerIdCode": "04614" },
+    "patient": {
+      "memberType": "PATIENT",
+      "gender": "F",
+      "memberId": "915792612",
+      "dateOfBirth": "1989-02-16",
+      "sequenceCode": "P",
+      "relationship": "18"
+    },
+    "subscriber": {
+      "memberType": "SUBSCRIBER",
+      "firstName": "John",
+      "lastName": "Doe",
+      "gender": "M",
+      "memberId": "CM123456789",
+      "dateOfBirth": "1980-01-01",
+      "sequenceCode": "P",
+      "relationship": "18"
+    },
+    "items": [],
+    "type": "CL",
+    "providerClaimId": "24",
+    "infoSign": false,
+    "benefitSign": false
   }
-]
+}

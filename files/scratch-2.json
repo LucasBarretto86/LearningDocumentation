@@ -1,0 +1,32 @@
+{
+  "subscriberAttributes": {
+    "dob": "1990-01-01",
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": "male",
+    "relationship": "self",
+    "sequenceCode": "primary",
+    "memberId": "123456789"
+  },
+  "providersAttributes": [
+    {
+      "kind": "RENDERING",
+      "npi": "0123456789",
+      "npiType": "individual",
+      "specialty": "ORTHO",
+      "taxonomy": "1223X0400X",
+      "taxId": "123456789",
+      "addressesAttributes": [
+        {
+          "address_1": "303 Groovy Street",
+          "address_2": "Apartment 2",
+          "city": "Boston",
+          "state": "MA",
+          "zipcode": "021789",
+          "kind": "primary"
+        }
+      ]
+    }
+  ],
+  "itemsAttributes": [{ "quantity": 1, "fee": 5, "procedureCode": "D0180" }]
+}

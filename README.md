@@ -88,6 +88,12 @@ This project hold all the information and knowledge I gathered through my experi
     - [Access Droplet with SSH](#access-droplet-with-ssh)
     - [Copying files from a droplet](#copying-files-from-a-droplet)
     - [Running server from droplet](#running-server-from-droplet)
+  - [Cloud Storage](#cloud-storage)
+    - [B2 Cloud Storage](#b2-cloud-storage)
+      - [Setup B2 Cloud Storage](#setup-b2-cloud-storage)
+        - [Create a B2 Bucket](#create-a-b2-bucket)
+        - [Setting CORS](#setting-cors)
+        - [Accessing and using B2](#accessing-and-using-b2)
   - [AWS](#aws)
     - [Setup AWS CLI](#setup-aws-cli)
       - [Install AWS CLI](#install-aws-cli)
@@ -1050,6 +1056,47 @@ scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
 
 ```shell
 ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
+```
+
+## Cloud Storage
+
+### B2 Cloud Storage
+
+#### Setup B2 Cloud Storage
+
+Since AWS is costly I decided to use a cheaper service, Cloudinary it's also expensive, so I'm decided to use B2 Cloud Storage
+
+##### Create a B2 Bucket
+
+Sign in to your Backblaze B2 account and create a new bucket.
+
+> Choose "Public" if you want the content to be publicly accessible.
+
+I will choose go public because first I want to keep my assets accessible
+
+References: <https://www.backblaze.com/docs>
+
+##### Setting CORS
+
+After create my private Bucket, I updated the CORS configuration for `https://*.lucasbarretto.com`
+
+##### Accessing and using B2
+
+Since I set up CORS directly I'll have to use the URL provided by the B2, something like: `https://f000.backblazeb2.com/file/your-bucket/folder-name/filename.extension`
+
+In case I want to use a custom URL I would have to setup Cloudflare, for now I will keep B2 url
+
+Then on my css to use the fonts are on the cloud storage I will have to do something like:
+
+```css
+@font-face {
+  font-family: "Manjari";
+  src: url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.woff2") format("woff2"),
+    url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.woff") format("woff"),
+    url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.ttf") format("truetype");
+    
+  font-weight: 300;
+}
 ```
 
 ## AWS
