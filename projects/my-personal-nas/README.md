@@ -6,7 +6,8 @@
     - [Hardware](#hardware)
     - [Install](#install)
   - [Samba setup](#samba-setup)
-    - [Adding NAS Network (share folder) to Ubuntu](#adding-nas-network-share-folder-to-ubuntu)
+    - [Connect to NAS Network (share folder) in Ubuntu](#connect-to-nas-network-share-folder-in-ubuntu)
+    - [Keep NAS Network (share folder) always mounted](#keep-nas-network-share-folder-always-mounted)
   - [Add SSH access to the NAS](#add-ssh-access-to-the-nas)
   
 ## What I want?
@@ -213,7 +214,9 @@ Try "help" to get a list of possible commands.
 smb: \>
 ```
 
-### Adding NAS Network (share folder) to Ubuntu
+> In some cases ufw permission might be required `sudo ufw allow samba`
+
+### Connect to NAS Network (share folder) in Ubuntu
 
 To have a single access to the share folder, we need to add a new network using GNOME GUI
 
@@ -223,6 +226,44 @@ To have a single access to the share folder, we need to add a new network using 
    - ![Anonymous user](./src/images/ubuntu-add-nas-network-2.png)
 3. Ensure successful connection
    - ![Successful connection](./src/images/ubuntu-add-nas-network-3.png)
+
+### Keep NAS Network (share folder) always mounted
+
+To keep your Samba share always mounted use `fstab` to set up an automatic mount:
+
+1. **Create a Mount Directory:**
+
+   ```sh
+   sudo mkdir -p /mnt/nas/share
+
+   <!-- I created `nas` as directory to allow multiple mounts within nas, like `/mnt/nas/projects` -->
+   ```
+
+2. **Edit the fstab File:**
+
+   ```sh
+   sudo nano /etc/fstab
+   ```
+
+   Add the Mount Entry:
+   Add this line to the end of the file to mount the share at boot:
+
+   ```mono
+   //192.168.0.151/share /mnt/nas/share cifs guest,uid=1000,iocharset=utf8 0 0
+   ```
+
+   - `//192.168.0.151/share` is the network path.
+   - `/mnt/nas/share` is the mount point.
+   - `cifs` specifies the type.
+   - `guest` allows connection without a password. Adjust `uid=1000` to match your user ID if needed.
+
+3. **Mount the Share** Immediately:
+
+   ```sh
+   sudo mount -a
+   ```
+
+  To check and add the mounted shared folder to the bookmarks from Files you just visit the path created `/mnt/nas/`
 
 ## Add SSH access to the NAS
 
