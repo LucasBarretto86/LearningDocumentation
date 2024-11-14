@@ -362,24 +362,29 @@ To add a submodule first you need to have a remote repo to be attached as submod
 **Through https - OLD:**
 
 ```shell
-git submodule add https://github.com/LucasBarretto86/LearningLOVE.git
+git submodule add https://github.com/LucasBarretto86/MyApp.git
 ```
 
 **Through SSH:**
 
 ```shell
-git submodule add git@github.com:LucasBarretto86/LearningLOVE.git
+git submodule add git@github.com:LucasBarretto86/MyApp.git
 ```
 
-As added a submodule you can control it's versions within the specific module directory
+**Submodule renaming root folder:**
 
 ```shell
-cd LearningLove
+git submodule add git@github.com:LucasBarretto86/MyApp.git frontend
+```
 
-touch test.txt
-git add test.txt
-git commit -m"Committing directly with a submodule"
-git push
+> In that example above we will create the submodule with the repo content directly inside a frontend folder
+
+```tree
+/frontend
+  ├── package.json
+  ├── src/
+  ├── public/
+  └── (other files from MyApp)
 ```
 
 #### Pull for all submodules for the first time
