@@ -8,7 +8,11 @@
   - [Samba setup](#samba-setup)
     - [Connect to NAS Network (share folder) in Ubuntu](#connect-to-nas-network-share-folder-in-ubuntu)
     - [Keep NAS Network (share folder) always mounted](#keep-nas-network-share-folder-always-mounted)
-  - [Add SSH access to the NAS](#add-ssh-access-to-the-nas)
+  - [Setup SSH](#setup-ssh)
+    - [SSH to allow access to the NAS](#ssh-to-allow-access-to-the-nas)
+    - [SSH to authenticate on Github](#ssh-to-authenticate-on-github)
+  - [Setup Docker and Docker compose](#setup-docker-and-docker-compose)
+  - [Setup Monitoring with Glances](#setup-monitoring-with-glances)
   
 ## What I want?
 
@@ -245,7 +249,7 @@ To keep your Samba share always mounted use `fstab` to set up an automatic mount
    sudo nano /etc/fstab
    ```
 
-   Add the Mount Entry:
+   Add the NAS Network mount entry:
    Add this line to the end of the file to mount the share at boot:
 
    ```mono
@@ -257,15 +261,19 @@ To keep your Samba share always mounted use `fstab` to set up an automatic mount
    - `cifs` specifies the type.
    - `guest` allows connection without a password. Adjust `uid=1000` to match your user ID if needed.
 
-3. **Mount the Share** Immediately:
+3. **Mount all entries:**:
 
    ```sh
    sudo mount -a
    ```
 
+   > flag `-a` means all to mount all entries from fstab
+
   To check and add the mounted shared folder to the bookmarks from Files you just visit the path created `/mnt/nas/`
 
-## Add SSH access to the NAS
+## Setup SSH
+
+### SSH to allow access to the NAS
 
 **Setup SSH:**
 
@@ -389,4 +397,132 @@ See https://ubuntu.com/esm or run: sudo pro status
 
 
 Last login: Thu Nov 14 18:48:56 2024 from 192.168.0.128
+```
+
+### SSH to authenticate on Github
+
+To be able to work with Github directly on has we will have to setup SSH keys
+
+**Creating SSH key:**
+
+```sh
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+**Testing Key:**
+
+```sh
+eval "$(ssh-agent -s)"
+```
+
+**Add your SSH key:**
+
+```sh
+ssh-add ~/.ssh/id_ed25519
+```
+
+> The command ssh-add is used to add your private key to the SSH agent (ssh-agent), which is a background process that manages your SSH keys.
+
+**Setup on Github:**
+
+Now that you have an SSH key, you need to add it to your GitHub account, through settings, to be able to copy and past the key use the following command:
+
+```sh
+cat ~/.ssh/id_ed25519.pub
+```
+
+**Test SSH:**
+
+```sh
+ssh -T git@github.com
+```
+
+## Setup Docker and Docker compose
+
+**Install Docker:**
+
+```sh
+cd ~
+
+# Install dependencies
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+# Adding official repo
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Setup docker source.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Installing Docker
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# To test
+sudo docker --version
+
+# Starting services
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# To test
+sudo systemctl status docker
+
+# Allow Docker to Run Without Sudo
+sudo usermod -aG docker $USER
+newgrp docker
+
+# To test
+docker run hello-world
+```
+
+**Install docker-compose:**
+
+```sh
+# Adding official repo
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# Grant permission
+sudo chmod +x /usr/local/bin/docker-compose
+
+# To test
+docker-compose --version
+```
+
+## Setup Monitoring with Glances
+
+To be able to monitor the NAS I decided to setup Glance due to simplicity
+
+**Create monitor project:**
+
+```sh
+sudo mkdir cd ~/monitor
+cd ~/monitor
+```
+
+**Setup docker-compose.yml for Glance:**
+
+```sh
+sudo nano docker-compose.yml
+```
+
+```yml
+version: '3.8'
+
+services:
+  glances:
+    image: nicolargo/glances:latest
+    container_name: glances
+    ports:
+      - "61208:61208" # Web interface
+    restart: unless-stopped
+    environment:
+      - GLANCES_OPT=-w # Enable web server mode
+```
+
+**Glances usage:**
+
+To access glances:
+
+```http
+http://192.168.0.151:61208/
 ```

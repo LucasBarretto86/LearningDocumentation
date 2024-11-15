@@ -1,305 +1,147 @@
-# Claims
+# Monitoring my NAS
 
-[Back to home](/docs/rest.md)
+The first thing I decided is that I want to be able to monitoring my NAS, by doing that I want to improve my skills in Devops and Orchestration areas, so theres few steps to take:
 
-- [Claims](#claims)
-  - [List Claims](#list-claims)
-  - [Create New Claim](#create-new-claim)
-  - [Show a Claim](#show-a-claim)
+- [Monitoring my NAS](#monitoring-my-nas)
+  - [1. Install Docker](#1-install-docker)
+  - [2. Install docker-compose](#2-install-docker-compose)
+  - [3. Create monitor project](#3-create-monitor-project)
+  - [4. Setup docker-compose.yml](#4-setup-docker-composeyml)
+  - [5. Setup prometheus.yml](#5-setup-prometheusyml)
+  - [7. Testing Prometheus and Grafana](#7-testing-prometheus-and-grafana)
 
 ---
 
-## List Claims
+## 1. Install Docker
 
-Listing existing claims from a specific eligibility record.
+```sh
+cd ~
 
-**Request:**
+# Install dependencies
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 
-```http request
-GET /v2/rest/insurances/:insurance_id/claims.json
+# Adding official repo
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Setup docker source.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Installing Docker
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+# To test
+sudo docker --version
+
+# Starting services
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# To test
+sudo systemctl status docker
+
+# Allow Docker to Run Without Sudo
+sudo usermod -aG docker $USER
+newgrp docker
+
+# To test
+docker run hello-world
 ```
 
-**Scope parameters:**
+## 2. Install docker-compose
 
-| Parameter     | Type    | Required | Description                                    |
-|:--------------|:--------|:---------|:-----------------------------------------------|
-| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
+```sh
+# Adding official repo
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-**Response:**
+# Grant permission
+sudo chmod +x /usr/local/bin/docker-compose
 
-```json
-[
-  {
-    "id": 115,
-    "status": "pending",
-    "items": [
-      {
-        "id": 57,
-        "quantity": 1,
-        "fee": 5.00,
-        "procedureCode": "D0120"
-      },
-      {
-        "id": 58,
-        "quantity": 1,
-        "fee": 5.00,
-        "procedureCode": "D0120"
-      }
-    ],
-    "createdAt": "2024-07-17T17:57:34.331-04:00",
-    "updatedAt": "2024-07-17T17:57:34.331-04:00"
-  },
-  {
-    "id": 116,
-    "status": "pending",
-    "items": [
-      {
-        "id": 59,
-        "quantity": 1,
-        "fee": 5.00,
-        "procedureCode": "D0120"
-      },
-      {
-        "id": 60,
-        "quantity": 1,
-        "fee": 5.00,
-        "procedureCode": "D0120"
-      }
-    ],
-    "createdAt": "2024-07-17T17:57:34.334-04:00",
-    "updatedAt": "2024-07-17T17:57:34.334-04:00"
-  }
-]
+# To test
+docker-compose --version
 ```
 
-## Create New Claim
+## 3. Create monitor project
 
-Create a new claim given an insurance eligibility.
-
-**Request:**
-
-```http request
-POST /v2/rest/insurances/:insurance_id/claims.json
+```sh
+sudo mkdir cd ~/monitor
+cd ~/monitor
 ```
 
-**Scope parameters:**
+## 4. Setup docker-compose.yml
 
-| Parameter     | Type    | Required | Description                                    |
-|:--------------|:--------|:---------|:-----------------------------------------------|
-| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
-
-**Permitted Parameters:**
-
-| Parameter            | Type   | Required | Description                              |
-|----------------------|--------|----------|------------------------------------------|
-| subscriberAttributes | object | yes      | Object containing subscriber information.|
-| itemsAttributes      | array  | no       | Array of item objects.                   |
-| providersAttributes  | array  | yes      | Array of provider objects.               |
-
-**Subscriber Object:**
-
-| Parameter    | Type                | Required | Description                                      |
-|--------------|---------------------|----------|--------------------------------------------------|
-| dob          | string (YYYY-MM-DD) | true     | Date of birth of the subscriber.                 |
-| firstName    | string              | true     | First name of the subscriber.                    |
-| lastName     | string              | true     | Last name of the subscriber.                     |
-| gender       | string              | true     | Gender of the subscriber (e.g., "male", "female"). |
-| relationship | string              | true     | Relationship to the patient (e.g., "self", "spouse"). |
-| sequenceCode | string              | true     | Sequence code for the subscriber (e.g., "primary"). |
-| memberId     | string              | true     | Unique member ID for the subscriber.             |
-
-**Item Object:**
-
-| Parameter      | Type    | Description                                      |
-|----------------|---------|--------------------------------------------------|
-| quantity       | integer | Number of items for the claim.                   |
-| fee            | decimal | Fee associated with the item (e.g., `5.00`).     |
-| procedureCode   | string  | Code for the procedure (e.g., "D0180").          |
-
-**Provider Object:**
-
-| Parameter           | Type   | Required | Description                                          |
-|---------------------|--------|----------|------------------------------------------------------|
-| kind                | string | true     | Type of provider (e.g., "RENDERING").                |
-| npi                 | string | true     | National Provider Identifier of the provider.        |
-| npiType             | string | true     | Type of NPI (e.g., "individual").                    |
-| specialty           | string | true     | Provider's specialty (e.g., "ORTHO").                |
-| taxonomy            | string | true     | Taxonomy code for the provider (e.g., "1223X0400X"). |
-| taxId               | string | true     | Tax identification number of the provider.           |
-| addressesAttributes | array  | true     | Array of address objects for the provider.           |
-
-**Address Object:**
-
-| Parameter  | Type    | Required | Description                                       |
-|------------|---------|----------|---------------------------------------------------|
-| address1   | string  | true     | Primary address line.                             |
-| address2   | string  | false    | Secondary address line (optional).                |
-| city       | string  | true     | City of the provider's address.                   |
-| state      | string  | true     | State of the provider's address.                  |
-| zipcode    | string  | true     | Zip code of the provider's address.               |
-| kind       | string  | true     | Type of address (e.g., "primary").                |
-
-**Payload:**
-
-```json
-{
-  "insuranceId": 1,
-  "claim": {
-    "subscriberAttributes": {
-      "dob": "1990-01-01",
-      "firstName": "John",
-      "lastName": "Doe",
-      "gender": "male",
-      "relationship": "self",
-      "sequenceCode": "primary",
-      "memberId": "123456789"
-    },
-    "providersAttributes": [
-      {
-        "kind": "RENDERING",
-        "npi": "0123456789",
-        "npiType": "individual",
-        "specialty": "ORTHO",
-        "taxonomy": "1223X0400X",
-        "taxId": "123456789",
-        "addressesAttributes": [
-          {
-            "address1": "303 Groovy Street",
-            "address2": "Apartment 2",
-            "city": "Boston",
-            "state": "MA",
-            "zipcode": "021789",
-            "kind": "primary"
-          }
-        ]
-      }
-    ],
-    "itemsAttributes": [
-      {
-        "quantity": 1,
-        "fee": 5.00,
-        "procedureCode": "D0180"
-      }
-    ]
-  }
-}
+```sh
+sudo nano docker-compose.yml
 ```
 
-**Response:**
+```yml
+version: "3"
 
-```json
-{
-  "id": 23,
-  "status": "pending",
-  "items": [
-    { 
-      "id": 17, 
-      "quantity": 1, 
-      "fee": 5.00, 
-      "procedureCode": "D0180" 
-    }
-  ],
-  "subscriber": {
-    "id": 23,
-    "dob": "1990-01-01",
-    "firstName": "John",
-    "lastName": "Doe",
-    "gender": "male",
-    "relationship": "self",
-    "sequenceCode": "primary",
-    "memberId": "123456789"
-  },
-  "providers": [
-    {
-      "id": 28,
-      "kind": "RENDERING",
-      "npi": "0123456789",
-      "npiType": "individual",
-      "specialty": "ORTHO",
-      "taxonomy": "1223X0400X",
-      "taxId": "123456789",
-      "addresses": [
-        {
-          "id": 80,
-          "address1": "303 Groovy Street",
-          "address2": "Apartment 2",
-          "city": "Boston",
-          "state": "MA",
-          "zipcode": "021789",
-          "kind": "primary"
-        }
-      ]
-    }
-  ],
-  "createdAt": "2024-10-14T16:39:34.169-04:00",
-  "updatedAt": "2024-10-14T16:39:34.169-04:00"
-}
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - monitoring
+
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped 
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:
+
+networks:
+  monitoring:
+    driver: bridge
 ```
 
-## Show a Claim
+> Directive `restart` ensure that container will be automatically restarted unless it gets expressly stopped
 
-Get a Claim record by ID.
+## 5. Setup prometheus.yml
 
-**Request:**
-
-```http request
-GET /v2/rest/insurances/:insurance_id/claims/:id.json
+```sh
+sudo nano prometheus.yml
 ```
 
-**Scope parameters:**
+```yml
+global:
+  scrape_interval: 15s
 
-| Parameter     | Type    | Required | Description                                    |
-|:--------------|:--------|:---------|:-----------------------------------------------|
-| insuranceId   | integer | yes      | ID of the insurance for the patient.          |
-| id            | integer | yes      | ID of the claim.                              |
-
-**Response:**
-
-```json
-{
-  "id": 23,
-  "status": "pending",
-  "items": [
-    { 
-      "id": 17, 
-      "quantity": 1, 
-      "fee": 5.00, 
-      "procedureCode": "D0180" 
-    }
-  ],
-  "subscriber": {
-    "id": 23,
-    "dob": "1990-01-01",
-    "firstName": "John",
-    "lastName": "Doe",
-    "gender": "male",
-    "relationship": "self",
-    "sequenceCode": "primary",
-    "memberId": "123456789"
-  },
-  "providers": [
-    {
-      "id": 28,
-      "kind": "RENDERING",
-      "npi": "0123456789",
-      "npiType": "individual",
-      "specialty": "ORTHO",
-      "taxonomy": "1223X0400X",
-      "taxId": "123456789",
-      "addresses": [
-        {
-          "id": 80,
-          "address1": "303 Groovy Street",
-          "address2": "Apartment 2",
-          "city": "Boston",
-          "state": "MA",
-          "zipcode": "021789",
-          "kind": "primary"
-        }
-      ]
-    }
-  ],
-  "createdAt": "2024-10-14T16:39:34.169-04:00",
-  "updatedAt": "2024-10-14T16:39:34.169-04:00"
-}
+scrape_configs:
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node_exporter:9100']
 ```
+
+**6. Start container:**
+
+```sh
+docker-compose up -d
+```
+
+## 7. Testing Prometheus and Grafana
