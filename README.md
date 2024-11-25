@@ -716,31 +716,31 @@ jobs:
 
 ### Git commands table
 
-| Command                                                                    | Description                                                                                                         |
-| :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ | -------------------- | ------------------ |
-| `git rm -r --cached .`                                                     | Clear git cache for all files                                                                                       |
-| `git branch                                                                | grep -v "main"                                                                                                      | xargs git branch -D` | Clean git branches |
-| `git branch -M NEW_NAME`                                                   | Renaming branch and origin                                                                                          |
-| `git branch -m NEW_NAME`                                                   | Renaming branch locally                                                                                             |
-| `git reset --soft HEAD~1`                                                  | Retrieve one commit `~1` and return it to stage                                                                     |
-| `git reset --hard`                                                         | Undo every change not committed, also allow you to undo commits with flag `HEAD~1`                                  |
-| `git push --force`                                                         | Force push in case it diverge from origin - Careful, no rollback                                                    |
-| `git push --set-upstream origin BRANCH_NAME`                               | Push and set upstream                                                                                               |
-| `git fetch --prune`                                                        | Updates existing branches                                                                                           |
-| `git branch -vv`                                                           | Branch status                                                                                                       |
-| `git config --global user.name USER_NAME`                                  | Set global user name                                                                                                |
-| `git config --global user.email USER_EMAIL`                                | Set global user email                                                                                               |
-| `git config --global user.password PASSWORD`                               | Set global user password                                                                                            |
-| `git config --global init.defaultBranch BRANCH_NAME`                       | To redefine initial branch name globally                                                                            |
-| `git revert -m 1 COMMIT_SHA`                                               | Revert changes from a commit                                                                                        |
-| `git rebase BRANCH`                                                        | Sync local branch with another specific branch, conflicts may happen and `git push --force` might be need !Careful! |
-| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`             | Add repo as remote                                                                                                  |
-| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`          | Add repo as submodule                                                                                               |
-| `git submodule update`                                                     | To make pull in every submodule                                                                                     |
-| `git submodule update MODULE_PATH`                                         | To make pull in specific submodule                                                                                  |
-| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`  | To add a subtree to the project                                                                                     |
-| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To pull changes from original repo                                                                                  |
-| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | To push changes to a specific repo                                                                                  |
+| Command                                                                   | Description                                                                                                         |
+| :------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------ |
+| `git rm -r --cached .`                                                    | Clear git cache for all files                                                                                       |
+| `git branch | grep -v "main" | xargs git branch -D`                        | Clean git branches                                                                                                  |
+| `git branch -M NEW_NAME`                                                  | Rename branch and set new name for origin                                                                           |
+| `git branch -m NEW_NAME`                                                  | Rename branch locally                                                                                               |
+| `git reset --soft HEAD~1`                                                 | Retrieve one commit (`~1`) and return it to the staging area                                                        |
+| `git reset --hard`                                                        | Undo every uncommitted change; can also undo commits using `HEAD~1` flag                                            |
+| `git push --force`                                                        | Force push in case of divergence from origin (careful, no rollback)                                                 |
+| `git push --set-upstream origin BRANCH_NAME`                              | Push and set upstream branch                                                                                        |
+| `git fetch --prune`                                                       | Remove stale remote-tracking branches                                                                               |
+| `git branch -vv`                                                          | Show branch status with upstream tracking                                                                           |
+| `git config --global user.name USER_NAME`                                 | Set global user name                                                                                                |
+| `git config --global user.email USER_EMAIL`                               | Set global user email                                                                                               |
+| `git config --global user.password PASSWORD`                              | Set global user password                                                                                            |
+| `git config --global init.defaultBranch BRANCH_NAME`                      | Redefine the default initial branch name globally                                                                   |
+| `git revert -m 1 COMMIT_SHA`                                              | Revert changes from a specific commit                                                                               |
+| `git rebase BRANCH`                                                       | Sync local branch with another branch (conflicts may occur; use `git push --force` carefully if needed)             |
+| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`            | Add remote repository                                                                                               |
+| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`         | Add a repository as a submodule                                                                                     |
+| `git submodule update`                                                    | Pull updates for all submodules                                                                                     |
+| `git submodule update MODULE_PATH`                                        | Pull updates for a specific submodule                                                                               |
+| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | Add a subtree to the project                                                                                        |
+| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| Pull changes from the original repository for a subtree                                                             |
+| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`| Push changes from the subtree to the original repository                                                            |
 
 ### Advanced `diff`
 
