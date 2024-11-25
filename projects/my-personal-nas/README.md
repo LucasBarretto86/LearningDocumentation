@@ -13,6 +13,7 @@
     - [SSH to authenticate on Github](#ssh-to-authenticate-on-github)
   - [Setup Docker and Docker compose](#setup-docker-and-docker-compose)
   - [Setup Monitoring with Glances](#setup-monitoring-with-glances)
+  - [Adding new SSD to expand Storage](#adding-new-ssd-to-expand-storage)
   
 ## What I want?
 
@@ -87,8 +88,8 @@ After installing samba we need to create the directories we will use as shared s
 
 ```sh
 cd ~
-mkdir -p /<nas-username>/share/
-sudo chmod 777 /<nas-username>/share
+sudo mkdir -p /home/barretto86/share
+sudo chmod 777 /home/barretto86/share
 ```
 
 > Replace the nas-username for the name of the user you created with the installation
@@ -106,8 +107,9 @@ Here’s the correct setup for your Samba configuration:
 
 ```ini
 [share]
-  path = /<nas-username>/share
+  path = /home/<nas-username>/share
   browseable = yes
+  writeable = yes
   read only = no
   guest ok = yes
 
@@ -125,8 +127,8 @@ sudo systemctl restart smbd nmbd
 To check if smbd params are correct:
 
 ```sh
-sudo testparm
-```
+   sudo testparm
+   ```
 
 **Output:**
 
@@ -525,4 +527,228 @@ To access glances:
 
 ```http
 http://192.168.0.151:61208/
+```
+
+![Glances example](./src/images/glances-monitoring.png)
+
+## Adding new SSD to expand Storage
+
+**Install, list and Wipe new SSD:**
+
+First thing to do after install the new SSD, is to list the existing disks to check if the ssd was read correctly
+
+```sh
+sudo fdisk -l
+```
+
+The new SSD was read as /dev/sda
+
+```mono
+Disk /dev/sda: 894.25 GiB, 960197124096 bytes, 1875385008 sectors
+Disk model: KingstonSA400S37
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 345BC2A9-F87C-4908-AF9C-13542D82E0D9
+
+Device     Start        End    Sectors   Size Type
+/dev/sda1     34       2081       2048     1M Microsoft LDM metadata
+/dev/sda2   2082      32767      30686    15M Microsoft reserved
+/dev/sda3  32768 1875384974 1875352207 894.2G Microsoft LDM data
+```
+
+Notice that the device already have some partitions (sda1, sda2, sda3)
+
+So we will have to wipe the disk before using it.
+
+```sh
+sudo wipefs -a /dev/sda
+```
+
+After wiped you will noticed some difference if you check again the disks `sudo fdisk -l`, there's no partitions:
+
+```mono
+Disk /dev/sda: 894.25 GiB, 960197124096 bytes, 1875385008 sectors
+Disk model: KingstonSA400S37
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+```
+
+**Create LVM compatible partition:**
+
+```sh
+sudo gdisk /dev/sda
+```
+
+Then we will have a prompt that we will need to add specific responses to create a compatible LVM partition
+
+- Type `o` to create a new GPT partition table.
+- `Y` to confirm this action.
+- Type `n` to create a new partition.
+- Choose the default partition number (typically `1`).
+- Set the starting sector (default is usually fine, so just press enter).
+- Set the size of the partition to use the entire disk (default, so just press enter).
+- Type `8e00` to set the partition type to Linux LVM.
+- Type `w` to confirm setup and write the partition
+
+That's how it will looks like:
+
+```mono
+$ sudo gdisk /dev/sda
+GPT fdisk (gdisk) version 1.0.10
+
+Partition table scan:
+  MBR: not present
+  BSD: not present
+  APM: not present
+  GPT: not present
+
+Creating new GPT entries in memory.
+
+Command (? for help): o
+This option deletes all partitions and creates a new protective MBR.
+Proceed? (Y/N): Y
+
+Command (? for help): n
+Partition number (1-128, default 1): 
+First sector (34-1875384974, default = 2048) or {+-}size{KMGTP}: 
+Last sector (2048-1875384974, default = 1875384319) or {+-}size{KMGTP}: 
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300): 8e00
+Changed type of partition to 'Linux LVM'
+
+Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): Y
+OK; writing new GUID partition table (GPT) to /dev/sda.
+The operation has completed successfully.
+```
+
+After written if you list once again the disk you will notice a sda1 partition, that has been created:
+
+```mono
+Disk /dev/sda: 894.25 GiB, 960197124096 bytes, 1875385008 sectors
+Disk model: KingstonSA400S37
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: B6409F6B-9793-47B0-831B-9C2A06FB3AAD
+
+Device     Start        End    Sectors   Size Type
+/dev/sda1   2048 1875384319 1875382272 894.3G Linux LVM
+
+```
+
+**Initialize DISK for LVM:**
+
+```sh
+sudo pvcreate /dev/sda1
+```
+
+**Check existing volume groups:**
+
+Next step is to add our new disk to the existing volume group, but first let's check what groups we got:
+
+```sh
+sudo vgs
+```
+
+In my case I only have one volume group labelled `ubuntu-vg`
+
+```mono
+  VG        #PV #LV #SN Attr   VSize    VFree 
+  ubuntu-vg   1   1   0 wz--n- <116.19g 58.09g
+```
+
+Lets deplay the details of our group:
+
+```sh
+sudo vgdisplay ubuntu-vg
+```
+
+Prior to the storage extension thats the current situation:
+
+```mono
+  --- Volume group ---
+  VG Name               ubuntu-vg
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <116.19 GiB
+  PE Size               4.00 MiB
+  Total PE              29744
+  Alloc PE / Size       14872 / 58.09 GiB
+  Free  PE / Size       14872 / 58.09 GiB
+  VG UUID               NLsn3q-XQr2-cewP-Qq1Q-VN3t-LN4L-LGa8iM
+```
+
+Now let's add the new SSD to the existing group:
+
+```sh
+sudo vgextend ubuntu-vg /dev/sda1
+```
+
+After getting success message lets check how our volume group looks now:
+
+```mono
+--- Volume group ---
+  VG Name               ubuntu-vg
+  System ID             
+  Format                lvm2
+  Metadata Areas        2
+  Metadata Sequence No  3
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                2
+  Act PV                2
+  VG Size               <1010.44 GiB
+  PE Size               4.00 MiB
+  Total PE              258672
+  Alloc PE / Size       14872 / 58.09 GiB
+  Free  PE / Size       243800 / 952.34 GiB
+  VG UUID               NLsn3q-XQr2-cewP-Qq1Q-VN3t-LN4L-LGa8iM
+```
+
+The next step is to resize the LV space for the filesystem, meaning, adjust available partition size, for that first we need to the current LV details:
+
+```sh
+sudo lvdisplay
+```
+
+```mono
+  --- Logical volume ---
+  LV Path                /dev/ubuntu-vg/ubuntu-lv
+  LV Name                ubuntu-lv
+  VG Name                ubuntu-vg
+  LV UUID                OvB0ki-oia0-WrpG-mQX5-NhxK-ORkP-1pcX4F
+  LV Write Access        read/write
+  LV Creation host, time ubuntu-server, 2024-11-13 14:44:52 +0000
+  LV Status              available
+  # open                 1
+  LV Size                58.09 GiB
+  Current LE             14872
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           252:0
 ```

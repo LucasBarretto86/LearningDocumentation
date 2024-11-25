@@ -1,44 +1,37 @@
-{
-  "claim": {
-    "providers": [
+[
+  {
+    "index": 0,
+    "group_name": "Pending",
+    "records": [
       {
-        "type": "BILLING",
-        "specialty": "ORTHO",
-        "taxId": "123456789",
-        "addresses": [
-          {
-            "address1": "303 Groovy Street",
-            "city": "Boston",
-            "state": "MA",
-            "zipCode": "021789",
-            "entityType": "1"
-          }
-        ]
+        "id": 2,
+        "name": "Scrape url",
+        "description": "Scrape specified url for Product name and price",
+        "kind": "web_scrapping",
+        "state": "pending",
+        "url": "www.lucasbarretto.com",
+        "created_at": "2024-11-19T21:28:15.568Z",
+        "updated_at": "2024-11-19T21:28:15.568Z",
+        "user": {
+          "id": 1,
+          "email": "test@test.com",
+          "name": "Joe",
+          "surname": "Doe",
+          "full_name": "Joe Doe"
+        }
+      },
+      {
+        "id": 1,
+        "name": "Check email",
+        "description": "Check incoming emails",
+        "kind": "emails",
+        "state": "pending",
+        "url": null,
+        "created_at": "2024-11-19T21:28:15.559Z",
+        "updated_at": "2024-11-19T21:28:15.559Z",
+        "user": null
       }
     ],
-    "payer": { "payerIdCode": "04614" },
-    "patient": {
-      "memberType": "PATIENT",
-      "gender": "F",
-      "memberId": "915792612",
-      "dateOfBirth": "1989-02-16",
-      "sequenceCode": "P",
-      "relationship": "18"
-    },
-    "subscriber": {
-      "memberType": "SUBSCRIBER",
-      "firstName": "John",
-      "lastName": "Doe",
-      "gender": "M",
-      "memberId": "CM123456789",
-      "dateOfBirth": "1980-01-01",
-      "sequenceCode": "P",
-      "relationship": "18"
-    },
-    "items": [],
-    "type": "CL",
-    "providerClaimId": "24",
-    "infoSign": false,
-    "benefitSign": false
+    "count": 2
   }
-}
+]

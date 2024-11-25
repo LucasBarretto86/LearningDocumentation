@@ -34,6 +34,8 @@ This project hold all the information and knowledge I gathered through my experi
     - [cherry-pick](#cherry-pick)
       - [cherry-pick single commit](#cherry-pick-single-commit)
       - [cherry-pick multiple commits](#cherry-pick-multiple-commits)
+    - [Squashing / Rebasing](#squashing--rebasing)
+    - [Commit message](#commit-message)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
       - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
@@ -350,6 +352,86 @@ git cherry-pick COMMIT_A^..COMMIT_B
 - A must be older than B
 - If you want get all commits but ignore A, you only `A..B`
 - in `ZSH` needs to use `'A^..B` or `'A..B`
+
+### Squashing / Rebasing
+
+**Specific commit:**
+
+```sh
+git rebase -i <commit hash>
+```
+
+**Output:**
+
+```mono
+pick 01d5859 feat: Implement Rspec and other test gems (#2)
+pick c200190 feat: Setup docker for development (#1)
+
+# Rebase 8ad5442..c200190 onto 8ad5442 (2 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+# .       create a merge commit using the original merge commit's
+# .       message (or the oneline, if no original merge commit was
+# .       specified); use -c <commit> to reword the commit message
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+
+```
+
+> to change the commit we just modify the place where it states `pick` for one of the listed options like, "squash", "reword"
+
+**Since first commit:**
+
+Squashing all commits since the first
+
+```sh
+git rebase -i --root
+```
+
+**Prior to merge:**
+
+If you haven't merged yet and want to squash everything into a single commit, use:
+
+```sh
+git merge --squash <branch-name>
+```
+
+**Rebase merge commits:**
+
+```sh
+git rebase -i --rebase-merges <commit hash>
+```
+
+### Commit message
+
+**Amending:**
+
+If you want to change the commit message from the latest commit:
+
+```sh
+git commit --amend
+```
+
+> To change message from older commits you will need to do a rebase with options `reword`
 
 ### Submodules
 
