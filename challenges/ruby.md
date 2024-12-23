@@ -304,6 +304,109 @@ end
 
 ---
 
+## Challenge 5
+
+Write a function that takes a string of braces, and determines if the order of the braces is valid. It should return true if the string is valid, and false if it's invalid.
+
+This Kata is similar to the Valid Parentheses Kata, but introduces new characters: brackets [], and curly braces {}. Thanks to @arnedag for the idea!
+
+All input strings will be nonempty, and will only consist of parentheses, brackets and curly braces: ()[]{}.
+
+What is considered Valid?
+A string of braces is considered valid if all braces are matched with the correct brace.
+
+**Example:**
+
+```sh
+"(){}[]"   =>  True
+"([{}])"   =>  True
+"(}"       =>  False
+"[(])"     =>  False
+"[({})](]" =>  False
+```
+
+**Tests:**
+
+```rb
+describe 'tests' do
+    def do_test(input, expected)
+    # previous method name was in camelCase
+        actual = method(defined?(valid_braces) ? :valid_braces : :validBraces).call(input.dup)
+        message = "expected #{expected} but got #{actual} for input #{input.inspect}"
+        expect(actual).to be(expected), message
+    end
+
+    it 'sample tests' do
+        do_test( "()" , true)
+        do_test( "[]" , true)
+        do_test( "(}" , false)
+        do_test( "(((({{" , false)
+    end
+end
+```
+
+**My Solution:**
+
+```rb
+VALID_BRACES = [81, 184, 248]
+
+def valid_braces(braces) 
+  ordered_chars = braces.chars.map { |char| char.ord}.sort
+  ordered_chars.each_slice(2).all? {|a, b| VALID_BRACES.include?(a + b)}
+end  
+```
+
+**Clever solution:**
+
+```rb
+```
+
+**Most readable solution:**
+
+```rb
+```
+
+---
+
+## Challenge 7
+
+The challenge is to make a array of strings with pattern `key:value`, to return a ordered string of unique keys and summed values
+
+**Tests:**
+
+```rb
+it 'sample tests' do
+  do_test(my_method(["B:-1", "A:1", "B:3", "A:5"])) , "A:6,B:2")
+  do_test(my_method(["B:-1", "C:3" "A:1", "B:2", "A:-3", "C:2"])) , "A:-2,B:1,C:5")
+end
+```
+
+**My Solution:**
+
+```rb
+def my_method(str_array)
+  split_result = str_array.map {|str| str.split(":")}
+  hashes = {}
+  split_result.each {|key, value| hashes.merge!({key => value})}
+
+  hashes.sort.map {|hash| "%s:%d" % hash}.join(",")
+end
+```
+
+**Clever solution:**
+
+```rb
+```
+
+**Most readable solution:**
+
+```rb
+```
+
+---
+
+---
+
 ## Challenge ?
 
 **Tests:**

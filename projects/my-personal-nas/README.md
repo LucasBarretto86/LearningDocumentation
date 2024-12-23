@@ -14,6 +14,7 @@
   - [Setup Docker and Docker compose](#setup-docker-and-docker-compose)
   - [Setup Monitoring with Glances](#setup-monitoring-with-glances)
   - [Adding new SSD to expand Storage](#adding-new-ssd-to-expand-storage)
+    - [Making my NAS have a fixed IP](#making-my-nas-have-a-fixed-ip)
   
 ## What I want?
 
@@ -752,3 +753,53 @@ sudo lvdisplay
   - currently set to     256
   Block device           252:0
 ```
+
+### Making my NAS have a fixed IP
+
+For that we will need to use `netplan` which comes already installed on Ubuntu server
+
+```sh
+ls /etc/netplan/
+````
+
+> If a file exists (e.g., 50-cloud-init.yaml), use it
+
+```sh
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+
+> If it doesnt exists create one `sudo nano /etc/netplan/01-netcfg.yaml`
+
+**Configuration example:**
+
+```sh
+network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlo1:
+      dhcp4: no
+      addresses:
+        - 192.168.0.151/24  # Your desired static IP
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+      routes:
+        - to: default
+          via: 192.168.0.1  # Your router's IP (replaces `gateway4`)
+      access-points:
+        "WIFI_NETWORK_NAME":
+          password: "WIFI_PASSWORD"
+
+```
+
+> To get your nas IP info use `ip addr`
+
+After saved the configurations run:
+
+```sh
+sudo netplan apply
+```
+
+And check `ip addr` again
