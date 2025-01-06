@@ -18,7 +18,7 @@ Complete the solution so that it splits the string into pairs of two characters.
 ```rb
 describe "Split Strings" do
   it "Basic tests" do
-    expect(solution("abcdef")).to eq(["ab", "cd", "ef"])
+    expect(solution("abcef")).to eq(["ab", "cd", "ef"])
     expect(solution("abcdefg")).to eq(["ab", "cd", "ef", "g_"])
     expect(solution("")).to eq([])
   end
