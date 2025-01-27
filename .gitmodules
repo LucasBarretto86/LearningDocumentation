@@ -43,3 +43,9 @@
 [submodule "specifics/LearningNGINX"]
 	path = specifics/LearningNGINX
 	url = git@github.com:LucasBarretto86/LearningNGINX.git
+[submodule "specifics/LearningHanami"]
+	path = specifics/LearningHanami
+	url = git@github.com:LucasBarretto86/LearningHanami.git
+[submodule "specifics/LearningRuby"]
+	path = specifics/LearningRuby
+	url = git@github.com:LucasBarretto86/LearningRuby.git
