@@ -29,7 +29,6 @@ This project hold all the information and knowledge I gathered through my experi
     - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Tableplus](#tableplus)
-    - [Tableplus Linux installation](#tableplus-linux-installation)
   - [Git and Github](#git-and-github)
     - [cherry-pick](#cherry-pick)
       - [cherry-pick single commit](#cherry-pick-single-commit)
@@ -320,13 +319,27 @@ asdf local nodejs X.X.X
 
 ## Tableplus
 
-### Tableplus Linux installation
+**Installation:**
 
 ```shell
-wget -qO - http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
+# Add TablePlus gpg key
+wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
+
+# Add TablePlus repo
+sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/24 tableplus main"
+
+# Install
 sudo apt update
 sudo apt install tableplus
+```
+
+**Remove tableplus:**
+
+```sh
+sudo apt-get purge tableplus -y
+sudo rm -rf /opt/tableplus
+sudo apt autoremove
+sudo apt autoclean
 ```
 
 ## Git and Github
