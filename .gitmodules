@@ -1,3 +1,6 @@
+[submodule "specifics/LearningAndroid"]
+	path = specifics/LearningAndroid
+	url = git@github.com:LucasBarretto86/LearningAndroid.git
 [submodule "specifics/LearningAssembly"]
 	path = specifics/LearningAssembly
 	url = git@github.com:LucasBarretto86/LearningAssembly.git

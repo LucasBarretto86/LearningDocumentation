@@ -30,6 +30,8 @@ This project hold all the information and knowledge I gathered through my experi
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Tableplus](#tableplus)
   - [Git and Github](#git-and-github)
+    - [Configurations](#configurations)
+      - [.gitignore globally](#gitignore-globally)
     - [cherry-pick](#cherry-pick)
       - [cherry-pick single commit](#cherry-pick-single-commit)
       - [cherry-pick multiple commits](#cherry-pick-multiple-commits)
@@ -73,15 +75,6 @@ This project hold all the information and knowledge I gathered through my experi
       - [Alias to connect](#alias-to-connect)
     - [Connect App to Mongo](#connect-app-to-mongo)
     - [MongoDB NonSQL basic operations](#mongodb-nonsql-basic-operations)
-  - [Learning Projects](#learning-projects)
-  - [Handling Images](#handling-images)
-    - [Installing ImageMagick](#installing-imagemagick)
-    - [ImageMagick convert](#imagemagick-convert)
-      - [SVG TO PNG](#svg-to-png)
-      - [PSD TO PNG](#psd-to-png)
-      - [Common ImageMagick issue](#common-imagemagick-issue)
-    - [Installing Potrace](#installing-potrace)
-      - [BMP to SVG](#bmp-to-svg)
   - [Digital Ocean](#digital-ocean)
     - [Adding you SSH public key to Digital Ocean](#adding-you-ssh-public-key-to-digital-ocean)
     - [Adding SSH public key manually for existing Droplets](#adding-ssh-public-key-manually-for-existing-droplets)
@@ -106,8 +99,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Setup bucket CORS access](#setup-bucket-cors-access)
   - [Setup Credentials](#setup-credentials)
   - [MinIO](#minio)
-  - [Issues](#issues)
-    - [Ubuntu sharing entire screen](#ubuntu-sharing-entire-screen)
+  - [Zed](#zed)
     - [Note shutdown with lid down even in power](#note-shutdown-with-lid-down-even-in-power)
     - [Increasing-the-amount-of-inotify-watchers](#increasing-the-amount-of-inotify-watchers)
     - [Error](#error)
@@ -117,6 +109,14 @@ This project hold all the information and knowledge I gathered through my experi
       - [Backup source list](#backup-source-list)
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
+  - [Handling Images](#handling-images)
+    - [Installing ImageMagick](#installing-imagemagick)
+    - [ImageMagick convert](#imagemagick-convert)
+      - [SVG TO PNG](#svg-to-png)
+      - [PSD TO PNG](#psd-to-png)
+      - [Common ImageMagick issue](#common-imagemagick-issue)
+    - [Installing Potrace](#installing-potrace)
+      - [BMP to SVG](#bmp-to-svg)
   - [Concepts](#concepts)
     - [Daemon processes](#daemon-processes)
     - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
@@ -343,6 +343,71 @@ sudo apt autoclean
 ```
 
 ## Git and Github
+
+### Configurations
+
+#### .gitignore globally
+
+**Setup .gitignore_global:**
+
+In some instances we want have files that needs to be excluded globally avoid committing it by accident there's when `.gitignore_global` como into play
+
+**Create global ignore:**
+
+```sh
+touch ~/.gitignore_global
+```
+
+**Set global ignore config:**
+
+```sh
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+**Add ignores:**
+
+```sh
+nano ~/.gitignore_global
+```
+
+**Basic ignore template:**
+
+```mono
+# macOS files
+.DS_Store
+
+# Editor files
+*.swp
+*~ 
+.vscode/
+.idea/
+
+# Logs
+log/
+*.log
+
+# Node.js
+node_modules/
+
+# Ruby & Rails
+*.gem
+.bundle/
+log/
+tmp/
+
+# Hidden files
+*.hid
+*.hide
+*.hidden
+ ```
+
+**Check configuration:**
+
+```sh
+git config --global core.excludesfile
+```
+
+---
 
 ### cherry-pick
 
@@ -1003,111 +1068,6 @@ Keep in mind that MongoDB shell primarily uses a JavaScript-like syntax, and the
    ]);
    ```
 
-## Learning Projects
-
-- [Learning Assembly](https://github.com/LucasBarretto86/LearningAssembly)
-- [Learning C++](https://github.com/LucasBarretto86/LearningCPP)
-- [Learning CSS](https://github.com/LucasBarretto86/LearningCSS)
-  - [Learning SCSS](https://github.com/LucasBarretto86/LearningCSS/tree/main/LearningSCSS/README.md)
-- [Learning Docker](https://github.com/LucasBarretto86/LearningDocker)
-- [Learning HTML](https://github.com/LucasBarretto86/LearningHTML)
-- [Learning Java](https://github.com/LucasBarretto86/LearningJava)
-- [Learning JS](https://github.com/LucasBarretto86/LearningJS)
-  - [Learning ExpressJS](https://github.com/LucasBarretto86/LearningJS/tree/main/LearningExpressJS/README.md)
-  - [Learning MochaAndChai](https://github.com/LucasBarretto86/LearningJS/tree/main/LearningMochaAndChai/README.md)
-  - [Learning ReactJS](https://github.com/LucasBarretto86/LearningJS/tree/main/LearningReactJS/README.md)
-- [Learning LINUX](https://github.com/LucasBarretto86/LearningLinux)
-- [Learning LOVE](https://github.com/LucasBarretto86/LearningLOVE)
-  - [Learning Lua](https://github.com/LucasBarretto86/LearningLOVE/tree/main/LearningLua/README.md)
-- [Learning Markdown](https://github.com/LucasBarretto86/LearningMarkdown)
-- [Learning Mermaid](https://github.com/LucasBarretto86/LearningMermaid)
-- [Learning Python](https://github.com/LucasBarretto86/LearningPython)
-- [Learning Ruby on Rails](https://github.com/LucasBarretto86/LearningRubyOnRails)
-  - [Learning Ruby](https://github.com/LucasBarretto86/LearningRubyOnRails/tree/main/LearningRuby/README.md)
-    - [Learning Gosu](https://github.com/LucasBarretto86/LearningRubyOnRails/tree/main/LearningGosu/README.md)
-- [Learning SQL](https://github.com/LucasBarretto86/LearningSQL)
-  - [Learning Postgres](https://github.com/LucasBarretto86/LearningSQL/tree/main/LearningPostgresSQL/README.md)
-
-## Handling Images
-
-### Installing ImageMagick
-
-```shell
-sudo apt install imagemagick
-```
-
-### ImageMagick convert
-
-#### SVG TO PNG
-
-```shell
-convert -background -quality 100 *.svg -set filename:base "%[basename]" "%[filename:base].png"
-```
-
-#### PSD TO PNG
-
-```shell
-convert  *.psd -set filename:base "%[basename]" -quality 100 "%[filename:base].png"
-convert cover.ai cover.png
-```
-
-#### Common ImageMagick issue
-
-ImageMagick is very demanding so you gonna find some problems if you attempt to convert many files
-
-```mono
-convert-im6.q16: cache resources exhausted `301612577831.png' @ error/cache.c/OpenPixelCache/4095.
-```
-
-In that ca you might need to adjust policy.xml
-
-Find the policy.xml, commonly you find here `/etc/ImageMagick-6/policy.xml`
-
-```shell
-find / -name "policy.xml"
-```
-
-> In case you need to search for the correct path
-
-Withing the xml file find and change this two lines below:
-
-```xml
-<!-- /etc/ImageMagick-6/policy.xml -->
-
-<!-- FROM -->
-<policy domain="resource" name="disk" value="1GiB"/>
-
-<!-- TO -->
-<policy domain="resource" name="disk" value="8GiB"/>
-```
-
-You can edit on nano or any other text editor
-
-```shell
-# Nano
-nano /etc/ImageMagick-6/policy.xml
-
-# Sublime
-subl /etc/ImageMagick-6/policy.xml
-```
-
-### Installing Potrace
-
-Potrace(TM) is a tool for tracing a bitmap, which means, transforming a bitmap into a smooth, scalable image. It only traces black and white input images
-
-```shell
-sudo apt install potrace
-```
-
-#### BMP to SVG
-
-```shell
-potrace example.bmp -s -o example.svg
-```
-
-![original BMP](assets/images/example.bmp)
-![Converted](assets/images/example.svg)
-
 ## Digital Ocean
 
 ### Adding you SSH public key to Digital Ocean
@@ -1404,9 +1364,155 @@ const s3 = new AWS.S3({
 
 ## MinIO
 
-<https://saveincloud.com/pt/blog/armazenamento/saiba-o-que-e-e-como-funciona-o-minio/>
+MinIO uses the same protocols from AWS S3, therefore this is a excellent alternative to handle cloud storage on local environments avoid the boring AWS configs
 
-<https://linuxhint.com/installing_minio_ubuntu/>
+**Container installation:**
+
+```yml
+services:
+  minio:
+    image: bitnami/minio
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=admin123
+      - MINIO_ROOT_PASSWORD=admin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio:/bitnami/minio/data
+
+volumes:
+  minio:
+```
+
+If you are using the docker-compose template, and you have services up and running, you already have minIO
+environment working at `http://localhost:9001/`
+
+1. Login
+   - Use `admin123` or any `username/password` defined on the compose file as `MINIO_ROOT_USER`,
+       `MINIO_ROOT_PASSWORD`
+
+2. Create bucket
+   - Soon as you get in you can create a bucket, normally called `development`
+
+3. Create Access key
+   - After bucket is created go to `Access Key` option and add a new key and save your access key and it's secret
+   - Setup AWS `.envrc` credentials
+     - With bucket name, access_key and secret add AWS ENV update your ENVS like so:
+
+       ```mono
+       # Replace values `<>` with the correct MinIO values
+       export AWS_S3_ACCESS_KEY_ID=<MINIO_ACCESS_KEY>
+       export AWS_S3_SECRET=<MINIO_ACCESS_KEY_SECRET>
+       export AWS_S3_REGION=us-east-1
+       export AWS_S3_BUCKET=<MINIO_BUCKET_NAME>
+       export AWS_S3_ENDPOINT=<MINIO_LOCALHOST_URL>
+       
+        ```
+
+## Zed
+
+I start using Zed due to speed, so here how to install it on Linux:
+
+```sh
+curl -f https://zed.dev/install.sh | sh
+```
+
+**Keymaps bindings to replicate RubyMine:**
+
+Save it on the: 'Open key Bindings', the `keymaps.json`
+
+```json
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-n": "file_finder::Toggle",                  // Search file
+      "ctrl-shift-a": "command_palette::Toggle"               // Open command palette
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "escape": "editor::Cancel",                             // Cancel action
+      "shift-backspace": "editor::Backspace",                 // Backspace
+      "backspace": "editor::Backspace",                       // Backspace
+      "delete": "editor::Delete",                             // Delete
+      "tab": "editor::Tab",                                   // Tab
+      "shift-tab": "editor::TabPrev",                         // Previous Tab
+      "ctrl-k": "editor::CutToEndOfLine",                     // Cut to the end of line
+      "ctrl-k ctrl-q": "editor::Rewrap",                      // Rewrap
+      "ctrl-k q": "editor::Rewrap",                           // Rewrap
+      "ctrl-backspace": "editor::DeleteToPreviousWordStart",  // Delete previous word
+      "ctrl-delete": "editor::DeleteToNextWordEnd",           // Delete next word
+      "cut": "editor::Cut",                                   // Cut
+      "shift-delete": "editor::Cut",                          // Cut
+      "ctrl-x": "editor::Cut",                                // Cut
+      "copy": "editor::Copy",                                 // Copy
+      "ctrl-insert": "editor::Copy",                          // Copy
+      "ctrl-c": "editor::Copy",                               // Copy
+      "paste": "editor::Paste",                               // Paste
+      "shift-insert": "editor::Paste",                        // Paste
+      "ctrl-v": "editor::Paste",                              // Paste
+      "undo": "editor::Undo",                                 // Undo
+      "ctrl-z": "editor::Undo",                               // Undo
+      "redo": "editor::Redo",                                 // Redo
+      "ctrl-y": "editor::Redo",                               // Redo
+      "ctrl-shift-z": "editor::Redo",                         // Redo
+      "up": "editor::MoveUp",                                 // Move up
+      "ctrl-up": "editor::LineUp",                            // Move up by line
+      "ctrl-down": "editor::LineDown",                        // Move down by line
+      "pageup": "editor::MovePageUp",                         // Move page up
+      "alt-pageup": "editor::PageUp",                         // Page up
+      "shift-pageup": "editor::SelectPageUp",                 // Select page up
+      "home": "editor::MoveToBeginningOfLine",                // Move to the beginning of line
+      "down": "editor::MoveDown",                             // Move down
+      "pagedown": "editor::MovePageDown",                     // Move page down
+      "alt-pagedown": "editor::PageDown",                     // Page down
+      "shift-pagedown": "editor::SelectPageDown",             // Select page down
+      "end": "editor::MoveToEndOfLine",                       // Move to the end of line
+      "left": "editor::MoveLeft",                             // Move left
+      "right": "editor::MoveRight",                           // Move right
+      "ctrl-left": "editor::MoveToPreviousWordStart",         // Move to previous word start
+      "ctrl-right": "editor::MoveToNextWordEnd",              // Move to next word end
+      "ctrl-home": "editor::MoveToBeginning",                 // Move to beginning
+      "ctrl-end": "editor::MoveToEnd",                        // Move to end
+      "shift-up": "editor::SelectUp",                         // Select up
+      "shift-down": "editor::SelectDown",                     // Select down
+      "shift-left": "editor::SelectLeft",                     // Select left
+      "shift-right": "editor::SelectRight",                   // Select right
+      "ctrl-shift-left": "editor::SelectToPreviousWordStart", // Select to previous word
+      "ctrl-shift-right": "editor::SelectToNextWordEnd",      // Select to next word
+      "ctrl-shift-home": "editor::SelectToBeginning",         // Select to beginning
+      "ctrl-shift-end": "editor::SelectToEnd",                // Select to end
+      "ctrl-a": "editor::SelectAll",                          // Select all
+      "ctrl-l": "editor::SelectLine",                         // Select line
+      "ctrl-shift-i": "editor::Format",                       // Format
+      "shift-home": [
+        "editor::SelectToBeginningOfLine",                    // Select to beginning of line
+        { "stop_at_soft_wraps": true }
+      ],
+      "shift-end": [
+        "editor::SelectToEndOfLine",                          // Select to end of line
+        { "stop_at_soft_wraps": true }
+      ],
+      "ctrl-alt-space": "editor::ShowCharacterPalette",       // Show character palette
+      "ctrl-;": "editor::ToggleLineNumbers",                  // Toggle line numbers
+      "ctrl-k ctrl-r": "editor::RevertSelectedHunks",         // Revert selected hunks
+      "ctrl-'": "editor::ToggleHunkDiff",                     // Toggle hunk diff
+      "ctrl-\"": "editor::ExpandAllHunkDiffs",                // Expand all hunk diffs
+      "ctrl-i": "editor::ShowSignatureHelp",                  // Show signature help
+      "alt-g b": "editor::ToggleGitBlame",                    // Toggle Git blame
+      "menu": "editor::OpenContextMenu",                      // Open context menu
+      "shift-f10": "editor::OpenContextMenu",                 // Open context menu
+      "ctrl-b": "editor::GoToDefinition",                     // Go to definition
+      "ctrl-alt-b": "editor::GoToImplementation"              // Go to implementation
+    }
+  }
+]
+``
+
 
 ## Issues
 
@@ -1518,6 +1624,86 @@ sudo apt autoremove
 sudo apt install update-manager-core
 sudo do-release-upgrade
 ```
+
+## Handling Images
+
+### Installing ImageMagick
+
+```shell
+sudo apt install imagemagick
+```
+
+### ImageMagick convert
+
+#### SVG TO PNG
+
+```shell
+convert -background -quality 100 *.svg -set filename:base "%[basename]" "%[filename:base].png"
+```
+
+#### PSD TO PNG
+
+```shell
+convert  *.psd -set filename:base "%[basename]" -quality 100 "%[filename:base].png"
+convert cover.ai cover.png
+```
+
+#### Common ImageMagick issue
+
+ImageMagick is very demanding so you gonna find some problems if you attempt to convert many files
+
+```mono
+convert-im6.q16: cache resources exhausted `301612577831.png' @ error/cache.c/OpenPixelCache/4095.
+```
+
+In that ca you might need to adjust policy.xml
+
+Find the policy.xml, commonly you find here `/etc/ImageMagick-6/policy.xml`
+
+```shell
+find / -name "policy.xml"
+```
+
+> In case you need to search for the correct path
+
+Withing the xml file find and change this two lines below:
+
+```xml
+<!-- /etc/ImageMagick-6/policy.xml -->
+
+<!-- FROM -->
+<policy domain="resource" name="disk" value="1GiB"/>
+
+<!-- TO -->
+<policy domain="resource" name="disk" value="8GiB"/>
+```
+
+You can edit on nano or any other text editor
+
+```shell
+# Nano
+nano /etc/ImageMagick-6/policy.xml
+
+# Sublime
+subl /etc/ImageMagick-6/policy.xml
+```
+
+### Installing Potrace
+
+Potrace(TM) is a tool for tracing a bitmap, which means, transforming a bitmap into a smooth, scalable image. It only traces black and white input images
+
+```shell
+sudo apt install potrace
+```
+
+#### BMP to SVG
+
+```shell
+potrace example.bmp -s -o example.svg
+```
+
+![original BMP](assets/images/example.bmp)
+![Converted](assets/images/example.svg)
 
 ## Concepts
 
