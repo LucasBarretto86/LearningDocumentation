@@ -1,6 +1,6 @@
-# Cantourage Clinic
+# Cantourage Pharma
 
-- [Cantourage Clinic](#cantourage-clinic)
+- [Cantourage Pharma](#cantourage-pharma)
   - [Getting Started](#getting-started)
     - [1. Install dependencies](#1-install-dependencies)
       - [Install dependencies on linux](#install-dependencies-on-linux)
@@ -120,11 +120,8 @@ This file must be filled initially like this:
 ```mono
 export APP_DOMAIN=localhost
 export APP_ENV=development
-export APP_URL=http://localhost:3001
-export ADMIN_USERNAME=canuk
-export ADMIN_PASSWORD=canuk
-export DATABASE_URL=postgres://postgres@localhost/cantourage_development
-export PHARMA_DATABASE_URL=postgres://postgres@localhost/canuk_development
+export APP_URL=http://localhost:3000
+export DATABASE_URL=postgres://postgres@localhost/canuk_development
 export RACK_ENV=development
 export TZ=UTC
 ```
@@ -142,8 +139,6 @@ docker exec -it postgres psql -U postgres
 **2. Create Databases:**
 
 ```sh
-DATABASE CREATE cantourage_development;
-DATABASE CREATE cantourage_test;
 DATABASE CREATE canuk_development;
 DATABASE CREATE canuk_test;
 ```
@@ -153,13 +148,6 @@ DATABASE CREATE canuk_test;
 ```sh
 rake db:migrate
 ```
-
-**3.1 Additional Pharma app setup:**
-
-Clinic application has a dependency with the Pharma application, therefore we will need to also run migration within
-the pharma application, that's why we created additionally the pharma databases: `canuk_development` and `canuk_test`
-
-Clone repo from pharma app and run `rake db:migrate` to solve it.
 
 ### 4. Setup AWS S3/MinIO Service
 
@@ -203,11 +191,13 @@ export AWS_S3_FORCE_PATH_STYLE=true
 gem install foreman
 ```
 
-**Run foreman for development:**
+**Run Foreman for development:**
 
 ```sh
 foreman start -f Procfile.dev
 ```
+
+Alternatively you can run the application using the [Hivemind](https://github.com/DarthSim/hivemind#installation)
 
 > Keep in mind that you will have to add additional ENVs to make the application works, request them to the
 > Engineering team

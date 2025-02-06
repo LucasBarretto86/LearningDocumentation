@@ -117,6 +117,8 @@ This project hold all the information and knowledge I gathered through my experi
       - [Common ImageMagick issue](#common-imagemagick-issue)
     - [Installing Potrace](#installing-potrace)
       - [BMP to SVG](#bmp-to-svg)
+  - [Bun](#bun)
+    - [Bun Commands and Flags](#bun-commands-and-flags)
   - [Concepts](#concepts)
     - [Daemon processes](#daemon-processes)
     - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
@@ -1705,6 +1707,128 @@ potrace example.bmp -s -o example.svg
 ![original BMP](assets/images/example.bmp)
 ![Converted](assets/images/example.svg)
 
+## Bun
+
+Bun ships as a single executable with no dependencies that can be installed a few different ways.
+
+**Installing Bun:**
+
+```sh
+curl -fsSL https://bun.sh/install | bash
+# OR
+curl -fsSL https://bun.sh/install | bash -s "bun-v1.2.2"
+
+# Resourcing bash
+source /home/barretto86/.bashrc
+```
+
+**Checking version:**
+
+```sh
+bun --version
+```
+
+**Setup Bun on `package.json`:**
+
+```json
+// package.json
+{
+  // ... other fields
+  "scripts": {
+    "clean": "rm -rf dist && echo 'Done.'",
+    "dev": "bun server.ts"
+  }
+}
+```
+
+**With Vite:**
+
+```json
+// package.json
+{
+  // ... other fields
+  "scripts": {
+    "dev": "bunx --bun vite",
+    "build": "vite build"
+  }
+}
+```
+
+### Bun Commands and Flags
+
+**Commands:**
+
+```mono
+Usage: bun <command> [...flags] [...args]
+
+Commands:
+  run       ./my-script.ts       Execute a file with Bun
+            lint                 Run a package.json script
+  test                           Run unit tests with Bun
+  x         prettier             Execute a package binary (CLI), installing if needed (bunx)
+  repl                           Start a REPL session with Bun
+  exec                           Run a shell script directly with Bun
+
+  install                        Install dependencies for a package.json (bun i)
+  add       hono                 Add a dependency to package.json (bun a)
+  remove    left-pad             Remove a dependency from package.json (bun rm)
+  update    react                Update outdated dependencies
+  outdated                       Display latest versions of outdated dependencies
+  link      [<package>]          Register or link a local npm package
+  unlink                         Unregister a local npm package
+  publish                        Publish a package to the npm registry
+  patch <pkg>                    Prepare a package for patching
+  pm <subcommand>                Additional package management utilities
+
+  build     ./a.ts ./b.jsx       Bundle TypeScript & JavaScript into a single file
+
+  init                           Start an empty Bun project from a blank template
+  create    vite                 Create a new project from a template (bun c)
+  upgrade                        Upgrade to latest version of Bun.
+  <command> --help               Print help text for command.
+
+Flags:
+      --watch                    Automatically restart the process on file change
+      --hot                      Enable auto reload in the Bun runtime, test runner, or bundler
+      --no-clear-screen          Disable clearing the terminal screen on reload when --hot or --watch is enabled
+      --smol                     Use less memory, but run garbage collection more often
+  -r, --preload                  Import a module before other modules are loaded
+      --inspect                  Activate Bun's debugger
+      --inspect-wait             Activate Bun's debugger, wait for a connection before executing
+      --inspect-brk              Activate Bun's debugger, set breakpoint on first line of code and wait
+      --if-present               Exit without an error if the entrypoint does not exist
+      --no-install               Disable auto install in the Bun runtime
+      --install                  Configure auto-install behavior. One of "auto" (default, auto-installs when no node_modules), "fallback" (missing packages only), "force" (always).
+  -i                             Auto-install dependencies during execution. Equivalent to --install=fallback.
+  -e, --eval                     Evaluate argument as a script
+  -p, --print                    Evaluate argument as a script and print the result
+      --prefer-offline           Skip staleness checks for packages in the Bun runtime and resolve from disk
+      --prefer-latest            Use the latest matching versions of packages in the Bun runtime, always checking npm
+      --port                     Set the default port for Bun.serve
+      --conditions               Pass custom conditions to resolve
+      --fetch-preconnect         Preconnect to a URL while code is loading
+      --max-http-header-size     Set the maximum size of HTTP headers in bytes. Default is 16KiB
+      --dns-result-order         Set the default order of DNS lookup results. Valid orders: verbatim (default), ipv4first, ipv6first
+      --expose-gc                Expose gc() on the global object. Has no effect on Bun.gc().
+      --no-deprecation           Suppress all reporting of the custom deprecation.
+      --throw-deprecation        Determine whether or not deprecation warnings result in errors.
+      --title                    Set the process title
+      --zero-fill-buffers        Boolean to force Buffer.allocUnsafe(size) to be zero-filled.
+      --silent                   Don't print the script command
+      --elide-lines              Number of lines of script output shown when using --filter (default: 10). Set to 0 to show all lines.
+  -v, --version                  Print version and exit
+      --revision                 Print version with revision and exit
+  -F, --filter                   Run a script in all workspace packages matching the pattern
+  -b, --bun                      Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
+      --shell                    Control the shell used for package.json scripts. Supports either 'bun' or 'system'
+      --env-file                 Load environment variables from the specified file(s)
+      --cwd                      Absolute path to resolve files & entry points from. This just changes the process' cwd.
+  -c, --config                   Specify path to Bun config file. Default $cwd/bunfig.toml
+  -h, --help                     Display this menu and exit
+```
+
+---
+
 ## Concepts
 
 ### Daemon processes
@@ -1907,6 +2031,7 @@ In the example directory structure below, assume you used Windows Explorer to na
 - [User Story Framework](https://en.wikipedia.org/wiki/User_story)
 - [Why the PM and the PO should be the same person](https://www.delibr.com/post/product-manager-vs-product-owner)
 - [Keep a changelog](http://keepachangelog.com/en/1.0.0/)
+- [Bun](https://bun.sh/docs/installation)
 
 ## Gists
 
