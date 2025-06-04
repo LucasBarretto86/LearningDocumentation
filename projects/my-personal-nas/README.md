@@ -7,20 +7,28 @@
     - [Install](#install)
   - [Samba setup](#samba-setup)
     - [Connect to NAS Network (share folder) in Ubuntu](#connect-to-nas-network-share-folder-in-ubuntu)
-    - [Keep NAS Network (share folder) always mounted](#keep-nas-network-share-folder-always-mounted)
+    - [Keep NAS Network (share folder) always mounted as Guest](#keep-nas-network-share-folder-always-mounted-as-guest)
+    - [Keep NAS Network (share folder) always mounted as User](#keep-nas-network-share-folder-always-mounted-as-user)
   - [Setup SSH](#setup-ssh)
     - [SSH to allow access to the NAS](#ssh-to-allow-access-to-the-nas)
     - [SSH to authenticate on Github](#ssh-to-authenticate-on-github)
   - [Setup Docker and Docker compose](#setup-docker-and-docker-compose)
-  - [Setup Monitoring with Glances](#setup-monitoring-with-glances)
+    - [Create a global docker-compose file](#create-a-global-docker-compose-file)
+  - [Setup Monitoring with Glances on Docker](#setup-monitoring-with-glances-on-docker)
   - [Adding new SSD to expand Storage](#adding-new-ssd-to-expand-storage)
     - [Making my NAS have a fixed IP](#making-my-nas-have-a-fixed-ip)
+  - [Setup Cockpit](#setup-cockpit)
+    - [Cockpit navigator](#cockpit-navigator)
+    - [Cockpit podman](#cockpit-podman)
+  - [Replace Docker for Podman](#replace-docker-for-podman)
+  - [Setup Ollama](#setup-ollama)
   
 ## What I want?
 
 1. I want have place where I can save my file so that I can access from any device
-2. I want have a place where I can play around with Docker and Kubernetes on the feature
+2. I want have a place where I can play around with Docker/Podman and Kubernetes on the feature
 3. I want to now more about NAS and metrics
+4. I want be able to deploy my application on my NAS
 
 ## Setup NAS Machine
 
@@ -133,7 +141,7 @@ To check if smbd params are correct:
 
 **Output:**
 
-```mono
+```conf
 sudo testparm
 Load smb config files from /etc/samba/smb.conf
 Loaded services file OK.
@@ -234,9 +242,15 @@ To have a single access to the share folder, we need to add a new network using 
 3. Ensure successful connection
    - ![Successful connection](./src/images/ubuntu-add-nas-network-3.png)
 
-### Keep NAS Network (share folder) always mounted
+### Keep NAS Network (share folder) always mounted as Guest
 
 To keep your Samba share always mounted use `fstab` to set up an automatic mount:
+
+First lets install dependencies:
+
+```sh
+sudo apt install cifs-utils
+```
 
 1. **Create a Mount Directory:**
 
@@ -255,7 +269,7 @@ To keep your Samba share always mounted use `fstab` to set up an automatic mount
    Add the NAS Network mount entry:
    Add this line to the end of the file to mount the share at boot:
 
-   ```mono
+   ```conf
    //192.168.0.151/share /mnt/nas/share cifs guest,uid=1000,iocharset=utf8 0 0
    ```
 
@@ -273,6 +287,50 @@ To keep your Samba share always mounted use `fstab` to set up an automatic mount
    > flag `-a` means all to mount all entries from fstab
 
   To check and add the mounted shared folder to the bookmarks from Files you just visit the path created `/mnt/nas/`
+
+### Keep NAS Network (share folder) always mounted as User
+
+1. **Create a Mount Directory:**
+
+   ```sh
+   sudo mkdir -p /mnt/nas/share
+
+   <!-- I created `nas` as directory to allow multiple mounts within nas, like `/mnt/nas/projects` -->
+   ```
+
+2. **Edit the fstab File:**
+
+   ```sh
+   sudo nano /etc/fstab
+   ```
+
+   Add the NAS Network mount entry:
+   Add this line to the end of the file to mount the share at boot:
+
+   ```init
+   //192.168.0.151/share /mnt/nas/share cifs credentials=/etc/nas_credentials,uid=1000,iocharset=utf8,rw,vers=3.0 0 0
+   ```
+
+3. **Create credentials file:**
+
+```sh
+sudo nano /etc/nas_credentials
+```
+
+```ini
+username=your_username
+password=your_password
+```
+
+```sh
+sudo chmod 600 /etc/nas_credentials
+```
+
+4. **Mount all entries:**
+
+ ```sh
+ sudo mount -a
+ ```
 
 ## Setup SSH
 
@@ -491,44 +549,103 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-## Setup Monitoring with Glances
+### Create a global docker-compose file
 
-To be able to monitor the NAS I decided to setup Glance due to simplicity
-
-**Create monitor project:**
-
-```sh
-sudo mkdir cd ~/monitor
-cd ~/monitor
-```
-
-**Setup docker-compose.yml for Glance:**
-
-```sh
-sudo nano docker-compose.yml
-```
+I have want create a global docker-compose.yml file to hold all the basic services I want to have available all times, like postgres and redis
 
 ```yml
-version: '3.8'
-
 services:
-  glances:
-    image: nicolargo/glances:latest
-    container_name: glances
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
     ports:
-      - "61208:61208" # Web interface
-    restart: unless-stopped
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      - GLANCES_OPT=-w # Enable web server mode
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - local-network 
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  local-network:
+    driver: bridge
+```
+
+## Setup Monitoring with Glances on Docker
+
+To be able to monitor the NAS I decided to try Glances
+
+**Add glance to global docker-compose.yml:**
+
+```yml
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    networks:
+      - local-network 
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    networks:
+      - local-network 
+    restart: unless-stopped
+
+  glances:
+    container_name: glances
+    image: nicolargo/glances:latest
+    pid: "host"
+    network_mode: "host"
+    environment:
+      - GLANCES_OPT=-w
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 61208:61208
+    networks:
+    - local-network 
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  local-network:
+    driver: bridge
 ```
 
 **Glances usage:**
 
-To access glances:
-
-```http
-http://192.168.0.151:61208/
-```
+Put the compose up and access glances in any device in the network from NAS: `http://192.168.0.151:61208/`
 
 ![Glances example](./src/images/glances-monitoring.png)
 
@@ -803,3 +920,180 @@ sudo netplan apply
 ```
 
 And check `ip addr` again
+
+## Setup Cockpit
+
+Cockpit is a service for Linux that provides a web-based interface for managing and monitoring hosts.
+
+Cockpit is a free and open source software project released under the LGPL v2.1+. It is sponsored by Red Hat and included in Red Hat Enterprise Linux as the RHEL Web Console.
+
+**Installation:**
+
+To install cockpit we will use it's [guide](https://cockpit-project.org/running.html#ubuntu)
+
+Within the NAS using SSH:
+
+```sh
+. /etc/os-release
+sudo apt install -t ${VERSION_CODENAME}-backports cockpit
+```
+
+**Enabling:**
+
+```sh
+sudo systemctl enable --now cockpit.socket
+sudo systemctl start --now cockpit.socket
+sudo systemctl status cockpit.socket
+```
+
+If you're planning to manage Docker containers through Cockpit, you need to replace docker in favor of [Podman](#replace-docker-for-podman).
+
+### Cockpit navigator
+
+Cockpit Navigator is application that will allow the cockpit to have a file management service
+
+navigator is a third party app: <https://github.com/45Drives/cockpit-navigator>
+
+**Installation:**
+
+```sh
+curl -sSL https://repo.45drives.com/setup -o setup-repo.sh
+sudo bash setup-repo.sh
+sudo apt install cockpit-navigator
+```
+
+### Cockpit podman
+
+Keep in mind that you will need to install [Podman](#replace-docker-for-podman) first
+
+**Installation:**
+
+```sh
+sudo apt install -y cockpit-podman
+```
+
+**Enabling service:**
+
+```sh
+sudo systemctl enable --now cockpit.socket
+```
+
+## Replace Docker for Podman
+
+Podman (short for pod manager) is an open source tool for developing, managing, and running containers. Developed by Red Hat® engineers along with the open source community, Podman manages the entire container ecosystem using the libpod library.
+
+Podman aims to be a drop-in replacement for Docker, so most commands are identical. However, there are key differences, especially regarding daemonless operation, rootless execution, and container management.
+
+**Stop and Prune docker:**
+
+```sh
+docker ps -q | xargs docker stop
+docker system prune -a --volumes -f
+sudo systemctl stop docker.service
+sudo systemctl stop containerd.service
+sudo systemctl stop docker.socket
+```
+
+**Uninstall docker:**
+
+```sh
+sudo apt purge -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt remove -y docker docker-engine docker.io containerd runc docker-compose
+sudo apt autoremove -y
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
+sudo rm -rf /etc/docker
+sudo rm -rf ~/.docker
+sudo groupdel docker
+```
+
+**Installing Podman:**
+
+```sh
+sudo apt update
+sudo apt install -y podman podman-compose
+```
+
+**Create global service:**
+
+```sh
+sudo nano /etc/systemd/system/podman.service
+```
+
+```init
+[Unit]
+Description=Podman services (redis, postgres, etc..)
+After=podman.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=barretto86
+Group=podman
+Type=simple
+WorkingDirectory=/home/barretto86/.config/podman/services
+ExecStart=/usr/local/bin/podman-compose -f /home/barretto86/.config/podman/services/docker-compose.yml up
+ExecStop=/usr/local/bin/podman-compose -f /home/barretto86/.config/podman/services/docker-compose.yml down && /usr/bin/podman stop --all
+Restart=on-failure
+RestartSec=10s
+StartLimitIntervalSec=300
+StartLimitBurst=3
+TimeoutStopSec=60
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+```
+
+> replace `%USERNAME%` for the correct username
+> replace `%COMPOSE_FILE_ABSOLUTE_PATH%` for the correct folder where the compose.yml stays
+
+**Creating podman group:**
+
+```sh
+sudo groupadd podman
+sudo usermod -aG podman %USERNAME%
+sudo chown root:podman /run/podman/podman.socket
+```
+
+> You can use your own group, but it's a common practice to have a dedicated group for managing specific services like Podman, Docker, and others
+
+**Enable global service:**
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable --now global.service
+sudo systemctl start --now global.service
+sudo systemctl status global.service
+```
+
+**Removing podman service and socket:**
+
+```sh
+# Stop and disable user-level Podman services and sockets
+systemctl --user stop podman.service podman.socket
+systemctl --user disable podman.service podman.socket
+systemctl --user reset-failed
+
+# Remove service and socket files
+rm -f ~/.config/systemd/user/podman.service
+rm -f ~/.config/systemd/user/podman.socket
+
+# Reload systemd to clear references
+systemctl --user daemon-reload
+systemctl --user reset-failed
+
+# Verify removal
+systemctl --user list-units --type=service --all | grep podman
+systemctl --user list-units --type=socket --all | grep podman
+```
+
+## Setup Ollama
+
+```curl
+curl -X POST http://192.168.0.151:11434/api/generate -H "Content-Type: application/json" -d '{
+  "model": "gemma",
+  "prompt": "Tell me a joke."
+}'
+```

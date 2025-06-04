@@ -1,0 +1,7 @@
+Product,appt_type,Today,After May 16th (Non Transfer),After May 16th (Transfer)
+"First Consultation (Psych), (Pain)",initial,149,99,50
+"First Consultation (Psych), (Pain)",medsrec,149 (0 following initial),0,29
+Quarterly Consultation,stable,29,29,29
+"Quarterly Consultation (Psych), (Pain)",stable-spec,74,29,29
+"Follow-up Consultation (Psych), (Pain)",followup,74,29,29
+"Follow-up Consultation (Psych), (Pain)",specfu,74,29,29

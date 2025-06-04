@@ -1,42 +1,51 @@
-name: markdown-linter
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      restart: always
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - "**.md"
-      - .github/workflows/markdown-linter.yml
+  redis:
+    container_name: redis
+    command: redis-server
+    image: redis:7-alpine
+    ports:
+      - '6380:6379'
+    volumes:
+      - redis:/data
+    restart: always
 
-jobs:
-  markdown_lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  minio:
+    image: bitnami/minio
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=admin123
+      - MINIO_ROOT_PASSWORD=admin123
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio:/bitnami/minio/data
+    restart: always
 
-      - name: Markdown Lint
-        uses: ruzickap/action-my-markdown-linter@v1
-        with:
-          exclude: |
-            unorganized_documents/*
-            files/*
-            CHANGELOG.md
-      - name: Markdown Lint using pre-built container
-        uses: docker://peru/my-markdown-linter
-        with:
-          exclude: |
-            unorganized_documents/*
-            files/*
-            CHANGELOG.md
-  markdown-link-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  meilisearch:
+    image: getmeili/meilisearch:v1.12.8
+    container_name: meilisearch
+    environment:
+      - MEILI_MASTER_KEY=meili-master-key
+      - MEILI_NO_ANALYTICS=true
+    ports:
+      - 7700:7700
+    volumes:
+      - meilisearch:/meili_data
 
-      - name: Link Checker
-        uses: ruzickap/action-my-markdown-link-checker@v1
-        with:
-          exclude: |
-            unorganized_documents/*
-            files/*
-            CHANGELOG.md
+volumes:
+  postgres:
+  redis:
+  minio:
+  meilisearch:

@@ -82,6 +82,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Access Droplet with SSH](#access-droplet-with-ssh)
     - [Copying files from a droplet](#copying-files-from-a-droplet)
     - [Running server from droplet](#running-server-from-droplet)
+  - [Heroku](#heroku)
   - [Cloud Storage](#cloud-storage)
     - [B2 Cloud Storage](#b2-cloud-storage)
       - [Setup B2 Cloud Storage](#setup-b2-cloud-storage)
@@ -109,6 +110,13 @@ This project hold all the information and knowledge I gathered through my experi
       - [Backup source list](#backup-source-list)
       - [Remove all source lists](#remove-all-source-lists)
       - [Update and upgrade apts](#update-and-upgrade-apts)
+  - [NeoVim](#neovim)
+    - [Kickstart setup](#kickstart-setup)
+    - [Custom setup](#custom-setup)
+    - [Fix file-explore icons](#fix-file-explore-icons)
+    - [Neovim quick reference](#neovim-quick-reference)
+      - [Basic Plugin Commands](#basic-plugin-commands)
+      - [Bonus: Useful Neovim Shortcuts](#bonus-useful-neovim-shortcuts)
   - [Handling Images](#handling-images)
     - [Installing ImageMagick](#installing-imagemagick)
     - [ImageMagick convert](#imagemagick-convert)
@@ -137,6 +145,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Semantic versioning](#semantic-versioning)
         - [Milestone version](#milestone-version)
     - [File permissions](#file-permissions)
+    - [Magic numbers](#magic-numbers)
     - [Readme](#readme)
     - [Changelog](#changelog)
       - [Cron jobs](#cron-jobs)
@@ -440,6 +449,8 @@ git cherry-pick COMMIT_A^..COMMIT_B
 ```sh
 git rebase -i <commit hash>
 ```
+
+> `HEAD~` works just as git reset
 
 **Output:**
 
@@ -1120,6 +1131,22 @@ scp -r root@167.99.229.118:~/Downloads/production_latest_backup.dump ~/
 ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
 ```
 
+## Heroku
+
+**Installation:**
+
+```sh
+curl https://cli-assets.heroku.com/install.sh | sh
+```
+
+**Adding remove:**
+
+```sh
+git remote add staging https://git.heroku.com/%project-name%.git
+```
+
+> Replace `%project-name%` with effective project name on heroku
+
 ## Cloud Storage
 
 ### B2 Cloud Storage
@@ -1627,6 +1654,216 @@ sudo apt install update-manager-core
 sudo do-release-upgrade
 ```
 
+## NeoVim
+
+**Installation:**
+
+```sh
+sudo snap install nvim --classic
+```
+
+In some cases you have to install:
+
+```sh
+echo 'export PATH="$HOME/snap/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Kickstart setup
+
+Kickstart is a project that bootstrap your vim adding most important plugins and configs out of the box: <https://github.com/nvim-lua/kickstart.nvim/blob/master/README.md>
+
+**Installation:**
+
+```sh
+sudo apt install make gcc ripgrep unzip git xclip
+git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+```
+
+To add file-explore and allow other custom plugins go to `"${XDG_CONFIG_HOME:-$HOME/.config}"/nvim/init.lua` and uncomment the line `{ import = 'custom.plugins' },`:
+
+```lua
+-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
+--    This is the easiest way to modularize your config.
+--
+--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+{ import = 'custom.plugins' },
+```
+
+This will allow you to add custom plugins on `${XDG_CONFIG_HOME:-$HOME/.config}"/nvim/lua/custom/plugins/init.lua`
+
+Update your file for this to add `nvim-tree` file-explorer:
+
+```lua
+- You can add your own plugins here or in other files in this directory!
+--  I promise not to create any merge conflicts in this directory :)
+--
+-- See the kickstart.nvim README for more information
+
+-- disable netrw at the very start of your init.lua
+return {
+  -- File explorer (project sidebar)
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require("nvim-tree").setup()
+    end
+  }
+}
+```
+
+### Custom setup
+
+**Setup custom configuration:**
+
+```sh
+mkdir -p ~/.config/nvim/lua
+touch ~/.config/nvim/init.lua
+```
+
+**Install plugin manager (lazy.nvim):**
+
+```sh
+git clone --depth 1 https://github.com/folke/lazy.nvim.git ~/.config/nvim/lazy
+```
+
+Add manager to the init.lua
+
+```sh
+sudo nano ~/.config/nvim/init.lua
+```
+
+```lua
+-- ~/.config/nvim/init.lua
+
+-- Load lazy.nvim
+vim.opt.rtp:prepend("~/.config/nvim/lazy")
+require("lazy").setup("plugins")
+```
+
+**Create plugin.lua file:**
+
+```sh
+touch ~/.config/nvim/lua/plugins.lua
+```
+
+**Basic plugins:**
+
+```lua
+-- ~/.config/nvim/lua/plugins.lua
+
+return {
+  -- File explorer sidebar
+  { 'nvim-tree/nvim-tree.lua', config = function()
+    require("nvim-tree").setup()
+  end},
+
+  -- Fuzzy finder
+  { 'nvim-telescope/telescope.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
+
+  -- Status line
+  { 'nvim-lualine/lualine.nvim', config = function()
+    require("lualine").setup()
+  end},
+
+  -- Git integration
+  { 'tpope/vim-fugitive' },
+
+  -- Syntax highlighting
+  { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },
+}
+```
+
+After you will need to run `nvim` to install plugins
+
+### Fix file-explore icons
+
+To fix the icons you will have to run the following command in your machine
+
+```sh
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
+unzip FiraCode.zip
+rm FiraCode.zip
+fc-cache -fv
+```
+
+After downloaded and loaded you will go to your terminal and will change the font to any of these Nerd fonts, keep in mind that if you are using ubuntu server you will have to add the font to the ssh client terminal
+
+Run this to test if icons are correct:
+
+```sh
+echo "       "
+```
+
+### Neovim quick reference
+
+| Action                          | Command                                      | Explanation                                                           |
+| :------------------------------ | :------------------------------------------- | :-------------------------------------------------------------------- |
+| Normal Mode (default mode)      | `Esc`                                        | Exit Insert/Visual/Command mode, go to Normal mode.                   |
+| Insert Mode                     | `i`                                          | Enter Insert mode (start typing text).                                |
+| Visual Mode                     | `v`                                          | Enter Visual mode to select text.                                     |
+| Command Mode                    | `:`                                          | Enter Command mode to type commands (e.g., `:w`, `:q`).               |
+| Search                          | `/search_term`                               | Search for `search_term` forward in the text.                         |
+| Find Next                       | `n`                                          | Move to the next search result.                                       |
+| Find Previous                   | `N`                                          | Move to the previous search result.                                   |
+| Go to Line                      | `G`                                          | Jump to the last line of the file.                                    |
+| Go to Specific Line             | `:line_number`                               | Jump to the line number (e.g., `:10` to go to line 10).               |
+| Jump to Beginning of File       | `gg`                                         | Go to the start of the file.                                          |
+| Jump to End of File             | `G`                                          | Go to the end of the file.                                            |
+| Move by Word                    | `w`                                          | Move the cursor to the next word.                                     |
+| Move by Word Backward           | `b`                                          | Move the cursor to the previous word.                                 |
+| Move by Line Start              | `0`                                          | Move the cursor to the start of the current line.                     |
+| Move by Line End                | `$`                                          | Move the cursor to the end of the current line.                       |
+| Scroll Down                     | `Ctrl + f`                                   | Scroll down one page (forward).                                       |
+| Scroll Up                       | `Ctrl + b`                                   | Scroll up one page (backward).                                        |
+| Split Screen Horizontally       | `:split` or `Ctrl + w` then `s`              | Split window horizontally.                                            |
+| Split Screen Vertically         | `:vsplit` or `Ctrl + w` then `v`             | Split window vertically.                                              |
+| Switch Between Splits           | `Ctrl + w` then `w`                          | Switch between open splits.                                           |
+| Close Current Split             | `Ctrl + w` then `q`                          | Close the current split window.                                       |
+| Close All Splits                | `:qa`                                        | Quit all splits and close Neovim.                                     |
+| Save File                       | `:w`                                         | Save the file.                                                        |
+| Quit Neovim                     | `:q`                                         | Quit Neovim.                                                          |
+| Save and Quit                   | `:wq` or `ZZ`                                | Save and quit Neovim.                                                 |
+| Undo                            | `u`                                          | Undo the last change.                                                 |
+| Redo                            | `Ctrl + r`                                   | Redo the last undone change.                                          |
+| Delete Character                | `x`                                          | Delete the character under the cursor.                                |
+| Delete Word                     | `dw`                                         | Delete the word under the cursor.                                     |
+| Delete Line                     | `dd`                                         | Delete the current line.                                              |
+| Copy (Yank) Line                | `yy`                                         | Yank (copy) the current line.                                         |
+| Paste                           | `p`                                          | Paste after the cursor position.                                      |
+| Move to Matching Parenthesis    | `%`                                          | Jump to the matching parenthesis, brace, or bracket.                  |
+
+#### Basic Plugin Commands
+
+- Telescope (File Finder)
+  - `:Telescope find_files` — Find files in the current directory.
+  - `:Telescope live_grep` — Search for text across files.
+  - `:Telescope buffers` — List open buffers.
+
+- Lualine (Status Line)
+  - Automatically loads on startup to show the status line.
+
+- Nvim Tree (File Explorer)
+  - `:NvimTreeToggle` — Toggle the file explorer window.
+  - `:NvimTreeFindFile` — Focus on the currently opened file in the tree.
+
+#### Bonus: Useful Neovim Shortcuts
+
+- Save File and Quit: `:wq` or `ZZ`
+- Undo Changes: `u`
+- Redo Changes: `Ctrl + r`
+- Exit Insert Mode: `Esc`
+- Repeat Last Command: `.` (dot)
+
+You can always access more commands and functions by typing `:help` followed by the topic, like `:help navigation` or `:help command-mode`.
+
+Let me know if you need further clarification or any additional commands!
+
+---
+
 ## Handling Images
 
 ### Installing ImageMagick
@@ -1959,6 +2196,16 @@ Basically is a version number or a name given at random or decided arbitrarily, 
 ### File permissions
 
 <https://www.magenteiro.com/blog/para-magenteiros/permissoes-um-jeito-simples-de-entender/>
+
+### Magic numbers
+
+In computer programming, a magic number is any of the following:
+
+- A unique value with unexplained meaning or multiple occurrences which could (preferably) be replaced with a named constant
+- A constant numerical or text value used to identify a file format or protocol (for files, see List of file signatures)
+- A distinctive unique value that is unlikely to be mistaken for other meanings (e.g., Universally Unique Identifiers)
+
+<https://en.wikipedia.org/wiki/Magic_number_(programming)>
 
 ### Readme
 
