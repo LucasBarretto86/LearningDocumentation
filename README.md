@@ -30,6 +30,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Tableplus](#tableplus)
   - [Git and Github](#git-and-github)
+    - [Branches](#branches)
     - [Configurations](#configurations)
       - [.gitignore globally](#gitignore-globally)
     - [cherry-pick](#cherry-pick)
@@ -51,6 +52,8 @@ This project hold all the information and knowledge I gathered through my experi
       - [Listing tags](#listing-tags)
       - [Creating tags](#creating-tags)
       - [Search tags](#search-tags)
+    - [Git Hooks](#git-hooks)
+      - [pre-push](#pre-push)
     - [Git lfs / Large files on Github](#git-lfs--large-files-on-github)
       - [Extension installation](#extension-installation)
         - [First download the git-lfs file](#first-download-the-git-lfs-file)
@@ -355,6 +358,20 @@ sudo apt autoclean
 
 ## Git and Github
 
+### Branches
+
+**List all remote branches:**
+
+```sh
+git branch -r
+```
+
+**List only existing in remote branches:**
+
+```sh
+git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||'
+```
+
 ### Configurations
 
 #### .gitignore globally
@@ -637,6 +654,65 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 
 #### Search tags
 
+### Git Hooks
+
+#### pre-push
+
+Within every `.git` folder there's a folder called hooks, these hooks are triggered by git to chain other commands, for instance a `pre-push` is trigger before the `push` occur, so that allow you to create rules or restriction to the `push`
+
+**Pre Push example:**
+
+```sh
+# .git/hooks/pre-push
+
+#!/bin/sh
+
+# Rule to guard that only 'main' can be pushed to production
+
+remote="$1"
+url="$2"
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if test "$remote" = "production"; then
+  if test "$current_branch" != "main"; then
+    echo "Current branch: '$current_branch'."
+    echo "Only 'main' can be pushed to 'production'."
+    exit 1
+  fi
+fi
+
+exit 0
+```
+
+> After implemented be sure to give it the necessary permissions `chmod +x .git/hooks/pre-push`
+
+| Hook Name                 | Triggered When / Description                                                                                                                 |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **applypatch-msg**        | After `git am` applies a patch, used to validate or edit the commit message of the patch.                                                    |
+| **pre-applypatch**        | Before applying a patch with `git am`, can be used to inspect the patch and abort if needed.                                                 |
+| **post-applypatch**       | After a patch is applied via `git am`, usually for cleanup or notifications.                                                                 |
+| **pre-commit**            | Before a commit is created (`git commit`). Commonly used to run linters, tests, or validate staged files.                                    |
+| **prepare-commit-msg**    | Before the commit message editor is fired, allows modification of the default commit message.                                                |
+| **commit-msg**            | After writing the commit message, before the commit is finalized. Can be used to enforce commit message format.                              |
+| **post-commit**           | After a commit has been created. Usually for notifications, logging, or triggering CI hooks.                                                 |
+| **pre-rebase**            | Before `git rebase` begins. Can be used to abort or warn about unsafe rebases.                                                               |
+| **post-checkout**         | After `git checkout` or `git switch`. Parameters indicate branch or commit change; often used to update environment or dependencies.         |
+| **post-merge**            | After a successful merge. Often used to run build or update scripts.                                                                         |
+| **pre-push**              | Before `git push`. Can inspect what’s being pushed and abort if necessary (e.g., prevent non-main branches from being pushed to production). |
+| **pre-receive**           | On the remote repository, before any refs are updated. Can reject pushes based on branch, commit message, or other policies.                 |
+| **update**                | On the remote, called once per ref being updated (branch/tag). Similar to `pre-receive` but per-ref.                                         |
+| **post-receive**          | On the remote, after all refs have been updated. Often used to trigger CI/CD pipelines or deployment scripts.                                |
+| **post-update**           | On the remote, after `git push`. Similar to `post-receive` but simpler; often used to update server info.                                    |
+| **pre-auto-gc**           | Before Git’s automatic garbage collection (`git gc --auto`). Can be used to postpone GC under certain conditions.                            |
+| **post-rewrite**          | After commands like `git commit --amend` or `git rebase` that rewrite history. Useful for cleanup or notifications.                          |
+| **fsmonitor-watchman**    | Used by Git’s filesystem monitoring (Watchman) to speed up `git status` and other commands. Triggered when file changes are detected.        |
+| **p4-pre-submit**         | Used in Perforce integration; called before submitting changes from Perforce.                                                                |
+| **applypatch-msg.sample** | Example scripts (not active by default) that demonstrate how to use the hooks.                                                               |
+| **pre-commit.sample**     | Example script provided by Git for pre-commit hooks.                                                                                         |
+| **post-commit.sample**    | Example script provided by Git for post-commit hooks.                                                                                        |
+| **pre-push.sample**       | Example script provided by Git for pre-push hooks.                                                                                           |
+
 ### Git lfs / Large files on Github
 
 Git has an extension to control larger files
@@ -856,6 +932,18 @@ git diff -U5 -w branch_name..another_branch
 ```
 
 > In this example, `-U5` specifies that only 5 lines of unified context should be included for each change, and `-w` ignores whitespace changes.
+
+**Diff unified:**
+
+```sh
+git diff --unified=0
+```
+
+**Listing changed against main:**
+
+```sh
+git diff --diff-filter=MA --name-status main...
+```
 
 ## Awesome Fonts
 
