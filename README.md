@@ -38,6 +38,8 @@ This project hold all the information and knowledge I gathered through my experi
       - [cherry-pick multiple commits](#cherry-pick-multiple-commits)
     - [Squashing / Rebasing](#squashing--rebasing)
     - [Commit message](#commit-message)
+    - [Worktrees](#worktrees)
+    - [Worktree ideal flow](#worktree-ideal-flow)
     - [Submodules](#submodules)
       - [Adding submodule](#adding-submodule)
       - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
@@ -52,6 +54,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Listing tags](#listing-tags)
       - [Creating tags](#creating-tags)
       - [Search tags](#search-tags)
+    - [Git Alias](#git-alias)
     - [Git Hooks](#git-hooks)
       - [pre-push](#pre-push)
     - [Git lfs / Large files on Github](#git-lfs--large-files-on-github)
@@ -66,6 +69,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [Workflows](#workflows)
     - [Git commands table](#git-commands-table)
     - [Advanced `diff`](#advanced-diff)
+    - [Advanced `log`](#advanced-log)
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
@@ -86,6 +90,10 @@ This project hold all the information and knowledge I gathered through my experi
     - [Copying files from a droplet](#copying-files-from-a-droplet)
     - [Running server from droplet](#running-server-from-droplet)
   - [Heroku](#heroku)
+    - [Adding remote](#adding-remote)
+    - [Pushing branches](#pushing-branches)
+    - [Adding bash alias](#adding-bash-alias)
+    - [Running on Dynos](#running-on-dynos)
   - [Cloud Storage](#cloud-storage)
     - [B2 Cloud Storage](#b2-cloud-storage)
       - [Setup B2 Cloud Storage](#setup-b2-cloud-storage)
@@ -130,6 +138,7 @@ This project hold all the information and knowledge I gathered through my experi
       - [BMP to SVG](#bmp-to-svg)
   - [Bun](#bun)
     - [Bun Commands and Flags](#bun-commands-and-flags)
+  - [Biome](#biome)
   - [Concepts](#concepts)
     - [Daemon processes](#daemon-processes)
     - [Product Manager vs Product Owner](#product-manager-vs-product-owner)
@@ -435,6 +444,15 @@ tmp/
 git config --global core.excludesfile
 ```
 
+**Unset local config:**
+
+```sh
+git config --unset --local user.name
+git config --unset --local user.email
+```
+
+> always make sure to use ~/.config/git/
+
 ---
 
 ### cherry-pick
@@ -540,6 +558,70 @@ git commit --amend
 ```
 
 > To change message from older commits you will need to do a rebase with options `reword`
+
+### Worktrees
+
+When we are working in a feature and we have changes uncommitted and needs to go to another branch, for instance the main to make a hotfix, normally we use stash and depends on stash stack to resume the work after get back to the early work branch, worktree could help in those cases because a worktree is a place where you can keep uncommitted changes without having to stash, working with working trees you have a linked copy to the repository therefore working as a virtualization to the main repository, every worktree is linked to a checked out branch, so when you access the worktree dir you will automatically be working in the branch linked instead of the main branch, that makes a clear separation.
+
+**Worktrees placement conventions:**
+
+Regarding working trees developers diverge what is the best way to handle the worktree placement, while some prefer make a worktree sibling to the main project folder `../%branch-name%` others prefer using a nested folder like `.worktrees/%branch-name%`, but both can be messy depending on your environment, for instance if you use IDE it can mess the local changes you see since normally we open the project  in the root folder of the project it, for these cases there's a third alternative which is a global placement for worktrees, so you would use `~/.worktrees/%branch-name%` or you can configure your own IDE to handle
+
+I chose to use the nested for the sake of clarity so the examples will reflect that, and it will require adding the `.worktrees` in the `.gitignore` file or else `git status` will show unstaged changes also from the worktree files
+
+**Adding new worktree:**
+
+```sh
+git worktree add -b %branch-name% .worktrees/%branch-name% 
+```
+
+**Listing worktree:**
+
+```sh
+git worktree list
+```
+
+**Removing worktree:**
+
+```sh
+git worktree remove .worktrees/%branch-name% 
+```
+
+### Worktree ideal flow
+
+Having a clean project using worktree requires a very different way to work with git, ideally is recommended to setup project like
+
+```tree
+my-app-worktrees/
+├── my-app-main/           # Directory = main branch
+├── my-app-feature-xyz/    # Directory = feature-xyz branch  
+└── my-app-hotfix/         # Directory = hotfix branch
+
+```
+
+> my-app-main will always be checkout to main, blocking any other worktree to checkout main, because it raises an error
+
+To access which worktree (checked out branch) we use native `cd`, like:
+
+```sh
+cd my-app-feature-xyz
+```
+
+> This worktree will be always checked out as the `feature-xyz`
+> pull, push and any other command works normally, except `git checkout main` if you already have another worktree for the main
+
+To merge worktree changes to a main you will do
+
+```sh
+cd ../my-app-main
+
+git merge ../my-app-hotfix
+
+# OR
+git merge hotfix
+```
+
+> But you will always have to move to the main worktree
 
 ### Submodules
 
@@ -653,6 +735,29 @@ git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
 ```
 
 #### Search tags
+
+### Git Alias
+
+Syntax to add alias to git commands
+
+```sh
+git config --global alias.wta '!f() { git worktree add -b "$1" "../$1"; }; f'
+git config --global alias.wtr '!f() { git worktree remove "../$1"; }; f'
+git config --global alias.wtl '!f() { git worktree list; }; f'
+```
+
+**Usage:**
+
+```sh
+# List worktrees
+git wtl
+
+# Add a worktree
+git wta name-of-my-worktree
+
+# Remove a worktree
+git wtr name-of-my-worktree
+```
 
 ### Git Hooks
 
@@ -945,6 +1050,12 @@ git diff --unified=0
 git diff --diff-filter=MA --name-status main...
 ```
 
+### Advanced `log`
+
+```sh
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short main..HEAD
+```
+
 ## Awesome Fonts
 
 - Create profile to generate the snippet we gonna use to trigger the lib
@@ -1227,13 +1338,58 @@ ssh -L 3005:localhost:3000 -C -N -l root 146.190.208.106
 curl https://cli-assets.heroku.com/install.sh | sh
 ```
 
-**Adding remove:**
+### Adding remote
 
 ```sh
 git remote add staging https://git.heroku.com/%project-name%.git
+# OR
+
+git remote add production https://git.heroku.com/%project-name%.git
 ```
 
 > Replace `%project-name%` with effective project name on heroku
+
+### Pushing branches
+
+```sh
+git push staging HEAD:main -f
+```
+
+### Adding bash alias
+
+**Create bash alias `staging`:**
+
+Add to the .bashrc:
+
+```sh
+# .bashrc
+# HEROKU
+staging() { 
+  heroku "${@:---help}" -r staging 
+}
+```
+
+then reload source
+
+```sh
+source ~/.bashrc
+```
+
+### Running on Dynos
+
+```sh
+ heroku run bash -r staging
+```
+
+> `-r, --remote=<value>` = git remote of app to use
+
+after adding the alias:
+
+```sh
+staging run bash
+```
+
+---
 
 ## Cloud Storage
 
@@ -2154,6 +2310,118 @@ Flags:
 
 ---
 
+## Biome
+
+Biome is a fast formatter for JavaScript, TypeScript, JSX, TSX, JSON, HTML, CSS and GraphQL that scores 97% compatibility with Prettier, saving CI and developer time.
+
+**Install:**
+
+```sh
+npm i -D -E @biomejs/biome
+
+# OR
+
+bun add -D -E @biomejs/biome
+
+# OR
+
+yarn add -D -E @biomejs/biome
+```
+
+**Config:**
+
+```sh
+npx @biomejs/biome init
+
+# OR
+
+bunx --bun biome init
+
+# OR
+
+yarn exec biome init
+```
+
+**Formatting with npm:**
+
+| Command                                   | Description                                          |
+| ----------------------------------------- | ---------------------------------------------------- |
+| npx @biomejs/biome format --write         | Format all files                                     |
+| npx @biomejs/biome format --write <files> | Format specific files                                |
+| npx @biomejs/biome lint --write           | Lint files and apply safe fixes to all files         |
+| npx @biomejs/biome lint --write <files>   | Lint files and apply safe fixes to specific files    |
+| npx @biomejs/biome check --write          | Format, lint, and organize imports of all files      |
+| npx @biomejs/biome check --write <files>  | Format, lint, and organize imports of specific files |
+
+**Formatting with Bun:**
+
+| Command                           | Description                                          |
+| --------------------------------- | ---------------------------------------------------- |
+| bunx biome format --write         | Format all files                                     |
+| bunx biome format --write <files> | Format specific files                                |
+| bunx biome lint --write           | Lint and apply safe fixes to all files               |
+| bunx biome lint --write <files>   | Lint files and apply safe fixes to specific files    |
+| bunx biome check --write          | Format, lint, and organize imports of all files      |
+| bunx biome check --write <files>  | Format, lint, and organize imports of specific files |
+
+**Formatting with yarn:**
+
+| Command                                | Description                                          |
+| -------------------------------------- | ---------------------------------------------------- |
+| yarn exec biome format --write         | Format all files                                     |
+| yarn exec biome format --write <files> | Format specific files                                |
+| yarn exec biome lint --write           | Lint files and apply safe fixes to all files         |
+| yarn exec biome lint --write <files>   | Lint files and apply safe fixes to specific files    |
+| yarn exec biome check --write          | Format, lint, and organize imports of all files      |
+| yarn exec biome check --write <files>  | Format, lint, and organize imports of specific files |
+
+**Zed LSP:**
+
+```json
+// settings.json
+
+{
+  // ...
+  "lsp": {
+  "biome": {
+   "command": "bunx", // Using bun
+   "args": ["biome", "lsp-proxy"],
+   "language_ids": [
+    "javascript",
+    "typescript",
+    "jsx",
+    "tsx",
+    "json",
+    "jsonc",
+    "css",
+    "graphql"
+   ],
+   "settings": {
+    "require_config_file": true
+   }
+  }
+ },
+ "language_servers": ["biome"],
+ "formatter": {
+  "language_server": {
+   "name": "biome"
+  }
+ },
+ "languages": {
+  "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+  "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+  "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+  "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+  "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+  "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+  "GraphQL": { "formatter": { "language_server": { "name": "biome" } } }
+ }
+}
+
+```
+
+---
+
 ## Concepts
 
 ### Daemon processes
@@ -2367,6 +2635,7 @@ In the example directory structure below, assume you used Windows Explorer to na
 - [Why the PM and the PO should be the same person](https://www.delibr.com/post/product-manager-vs-product-owner)
 - [Keep a changelog](http://keepachangelog.com/en/1.0.0/)
 - [Bun](https://bun.sh/docs/installation)
+- [Biome](https://biomejs.dev/pt-br/)
 
 ## Gists
 
