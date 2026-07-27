@@ -29,47 +29,6 @@ This project hold all the information and knowledge I gathered through my experi
     - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
   - [Tableplus](#tableplus)
-  - [Git and Github](#git-and-github)
-    - [Branches](#branches)
-    - [Configurations](#configurations)
-      - [.gitignore globally](#gitignore-globally)
-    - [cherry-pick](#cherry-pick)
-      - [cherry-pick single commit](#cherry-pick-single-commit)
-      - [cherry-pick multiple commits](#cherry-pick-multiple-commits)
-    - [Squashing / Rebasing](#squashing--rebasing)
-    - [Commit message](#commit-message)
-    - [Worktrees](#worktrees)
-    - [Worktree ideal flow](#worktree-ideal-flow)
-    - [Submodules](#submodules)
-      - [Adding submodule](#adding-submodule)
-      - [Pull for all submodules for the first time](#pull-for-all-submodules-for-the-first-time)
-      - [Pull each submodule](#pull-each-submodule)
-      - [Submodule issues](#submodule-issues)
-    - [Subtrees](#subtrees)
-      - [Adding subtree](#adding-subtree)
-      - [Updating subtree](#updating-subtree)
-        - [Pulling changes](#pulling-changes)
-        - [Pushing changes](#pushing-changes)
-    - [Tags](#tags)
-      - [Listing tags](#listing-tags)
-      - [Creating tags](#creating-tags)
-      - [Search tags](#search-tags)
-    - [Git Alias](#git-alias)
-    - [Git Hooks](#git-hooks)
-      - [pre-push](#pre-push)
-    - [Git lfs / Large files on Github](#git-lfs--large-files-on-github)
-      - [Extension installation](#extension-installation)
-        - [First download the git-lfs file](#first-download-the-git-lfs-file)
-        - [Download additional script](#download-additional-script)
-        - [First install](#first-install)
-      - [Git lfs usage](#git-lfs-usage)
-        - [Tracking files](#tracking-files)
-    - [Github actions](#github-actions)
-      - [Events](#events)
-      - [Workflows](#workflows)
-    - [Git commands table](#git-commands-table)
-    - [Advanced `diff`](#advanced-diff)
-    - [Advanced `log`](#advanced-log)
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
@@ -94,6 +53,8 @@ This project hold all the information and knowledge I gathered through my experi
     - [Pushing branches](#pushing-branches)
     - [Adding bash alias](#adding-bash-alias)
     - [Running on Dynos](#running-on-dynos)
+  - [Render](#render)
+    - [Render CLI](#render-cli)
   - [Cloud Storage](#cloud-storage)
     - [B2 Cloud Storage](#b2-cloud-storage)
       - [Setup B2 Cloud Storage](#setup-b2-cloud-storage)
@@ -165,6 +126,22 @@ This project hold all the information and knowledge I gathered through my experi
     - [What is a Slug?](#what-is-a-slug)
     - [Absolute and Relative paths](#absolute-and-relative-paths)
     - [Public Page No Index](#public-page-no-index)
+  - [Gherkin](#gherkin)
+    - [Document Structure](#document-structure)
+    - [Step Keywords](#step-keywords)
+      - [Given — precondition](#given--precondition)
+      - [When — action](#when--action)
+      - [Then — outcome](#then--outcome)
+      - [And / But](#and--but)
+    - [Scenario](#scenario)
+    - [Rule](#rule)
+    - [Background](#background)
+    - [Scenario Outline](#scenario-outline)
+    - [Step Arguments](#step-arguments)
+      - [Data Table — outside an Outline](#data-table--outside-an-outline)
+      - [Data Table — inside an Outline](#data-table--inside-an-outline)
+    - [Structural reference](#structural-reference)
+    - [Quick reference](#quick-reference)
   - [References](#references)
   - [Gists](#gists)
 
@@ -365,697 +342,6 @@ sudo apt autoremove
 sudo apt autoclean
 ```
 
-## Git and Github
-
-### Branches
-
-**List all remote branches:**
-
-```sh
-git branch -r
-```
-
-**List only existing in remote branches:**
-
-```sh
-git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||'
-```
-
-### Configurations
-
-#### .gitignore globally
-
-**Setup .gitignore_global:**
-
-In some instances we want have files that needs to be excluded globally avoid committing it by accident there's when `.gitignore_global` como into play
-
-**Create global ignore:**
-
-```sh
-touch ~/.gitignore_global
-```
-
-**Set global ignore config:**
-
-```sh
-git config --global core.excludesfile ~/.gitignore_global
-```
-
-**Add ignores:**
-
-```sh
-nano ~/.gitignore_global
-```
-
-**Basic ignore template:**
-
-```mono
-# macOS files
-.DS_Store
-
-# Editor files
-*.swp
-*~ 
-.vscode/
-.idea/
-
-# Logs
-log/
-*.log
-
-# Node.js
-node_modules/
-
-# Ruby & Rails
-*.gem
-.bundle/
-log/
-tmp/
-
-# Hidden files
-*.hid
-*.hide
-*.hidden
- ```
-
-**Check configuration:**
-
-```sh
-git config --global core.excludesfile
-```
-
-**Unset local config:**
-
-```sh
-git config --unset --local user.name
-git config --unset --local user.email
-```
-
-> always make sure to use ~/.config/git/
-
----
-
-### cherry-pick
-
-Cherry pick commits allow you to copy commit from one branch to another
-
-#### cherry-pick single commit
-
-```shell
-git cherry-pick COMMIT_HASH
-```
-
-#### cherry-pick multiple commits
-
-To get multiple commit we use the two commits hash representing "from", "to" and add operator `^..` between them
-
-```shell
-git cherry-pick COMMIT_A^..COMMIT_B
-```
-
-- A must be older than B
-- If you want get all commits but ignore A, you only `A..B`
-- in `ZSH` needs to use `'A^..B` or `'A..B`
-
-### Squashing / Rebasing
-
-**Specific commit:**
-
-```sh
-git rebase -i <commit hash>
-```
-
-> `HEAD~` works just as git reset
-
-**Output:**
-
-```mono
-pick 01d5859 feat: Implement Rspec and other test gems (#2)
-pick c200190 feat: Setup docker for development (#1)
-
-# Rebase 8ad5442..c200190 onto 8ad5442 (2 commands)
-#
-# Commands:
-# p, pick <commit> = use commit
-# r, reword <commit> = use commit, but edit the commit message
-# e, edit <commit> = use commit, but stop for amending
-# s, squash <commit> = use commit, but meld into previous commit
-# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
-#                    commit's log message, unless -C is used, in which case
-#                    keep only this commit's message; -c is same as -C but
-#                    opens the editor
-# x, exec <command> = run command (the rest of the line) using shell
-# b, break = stop here (continue rebase later with 'git rebase --continue')
-# d, drop <commit> = remove commit
-# l, label <label> = label current HEAD with a name
-# t, reset <label> = reset HEAD to a label
-# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
-# .       create a merge commit using the original merge commit's
-# .       message (or the oneline, if no original merge commit was
-# .       specified); use -c <commit> to reword the commit message
-#
-# These lines can be re-ordered; they are executed from top to bottom.
-#
-# If you remove a line here THAT COMMIT WILL BE LOST.
-#
-# However, if you remove everything, the rebase will be aborted.
-#
-
-```
-
-> to change the commit we just modify the place where it states `pick` for one of the listed options like, "squash", "reword"
-
-**Since first commit:**
-
-Squashing all commits since the first
-
-```sh
-git rebase -i --root
-```
-
-**Prior to merge:**
-
-If you haven't merged yet and want to squash everything into a single commit, use:
-
-```sh
-git merge --squash <branch-name>
-```
-
-**Rebase merge commits:**
-
-```sh
-git rebase -i --rebase-merges <commit hash>
-```
-
-### Commit message
-
-**Amending:**
-
-If you want to change the commit message from the latest commit:
-
-```sh
-git commit --amend
-```
-
-> To change message from older commits you will need to do a rebase with options `reword`
-
-### Worktrees
-
-When we are working in a feature and we have changes uncommitted and needs to go to another branch, for instance the main to make a hotfix, normally we use stash and depends on stash stack to resume the work after get back to the early work branch, worktree could help in those cases because a worktree is a place where you can keep uncommitted changes without having to stash, working with working trees you have a linked copy to the repository therefore working as a virtualization to the main repository, every worktree is linked to a checked out branch, so when you access the worktree dir you will automatically be working in the branch linked instead of the main branch, that makes a clear separation.
-
-**Worktrees placement conventions:**
-
-Regarding working trees developers diverge what is the best way to handle the worktree placement, while some prefer make a worktree sibling to the main project folder `../%branch-name%` others prefer using a nested folder like `.worktrees/%branch-name%`, but both can be messy depending on your environment, for instance if you use IDE it can mess the local changes you see since normally we open the project  in the root folder of the project it, for these cases there's a third alternative which is a global placement for worktrees, so you would use `~/.worktrees/%branch-name%` or you can configure your own IDE to handle
-
-I chose to use the nested for the sake of clarity so the examples will reflect that, and it will require adding the `.worktrees` in the `.gitignore` file or else `git status` will show unstaged changes also from the worktree files
-
-**Adding new worktree:**
-
-```sh
-git worktree add -b %branch-name% .worktrees/%branch-name% 
-```
-
-**Listing worktree:**
-
-```sh
-git worktree list
-```
-
-**Removing worktree:**
-
-```sh
-git worktree remove .worktrees/%branch-name% 
-```
-
-### Worktree ideal flow
-
-Having a clean project using worktree requires a very different way to work with git, ideally is recommended to setup project like
-
-```tree
-my-app-worktrees/
-├── my-app-main/           # Directory = main branch
-├── my-app-feature-xyz/    # Directory = feature-xyz branch  
-└── my-app-hotfix/         # Directory = hotfix branch
-
-```
-
-> my-app-main will always be checkout to main, blocking any other worktree to checkout main, because it raises an error
-
-To access which worktree (checked out branch) we use native `cd`, like:
-
-```sh
-cd my-app-feature-xyz
-```
-
-> This worktree will be always checked out as the `feature-xyz`
-> pull, push and any other command works normally, except `git checkout main` if you already have another worktree for the main
-
-To merge worktree changes to a main you will do
-
-```sh
-cd ../my-app-main
-
-git merge ../my-app-hotfix
-
-# OR
-git merge hotfix
-```
-
-> But you will always have to move to the main worktree
-
-### Submodules
-
-Git also allow you to link dependencies as submodules does you can manage your repos with a project structure
-
-To add a submodule first you need to have a remote repo to be attached as submodule
-
-#### Adding submodule
-
-**Through https - OLD:**
-
-```shell
-git submodule add https://github.com/LucasBarretto86/MyApp.git
-```
-
-**Through SSH:**
-
-```shell
-git submodule add git@github.com:LucasBarretto86/MyApp.git
-```
-
-**Submodule renaming root folder:**
-
-```shell
-git submodule add git@github.com:LucasBarretto86/MyApp.git frontend
-```
-
-> In that example above we will create the submodule with the repo content directly inside a frontend folder
-
-```tree
-/frontend
-  ├── package.json
-  ├── src/
-  ├── public/
-  └── (other files from MyApp)
-```
-
-#### Pull for all submodules for the first time
-
-```shell
-git submodule update --init --recursive
-git pull --recurse-submodule
-```
-
-#### Pull each submodule
-
-```shell
-git submodule foreach git pull origin main
-```
-
-#### Submodule issues
-
-Sometimes a repo that has submodules does not fully updates so here there's few lines you may use
-
-- Remove `.git` caches Re-adding modules and Re-downloading
-
-Within the modules root folder
-
-```shell
-# Cleaning submodules and repo indexes
-rm -Rf .git/modules/*
-rm .git/index
-
-# Adding modules again, before doing this you can check submodules path within the file .gitmodules
-cd *SUBMODULES_FOLDER*
-git submodule add git@github.com:*USER_NAME*/*REPO_NAME*.git
-
-# Pull from each submodule
-cd ..
-git submodule foreach git pull origin main
-```
-
-### Subtrees
-
-Subtree is very similar to submodules, however subtree allow you to bring in external repos by merging it and squashing
-
-#### Adding subtree
-
-```shell
-git subtree add --prefix {local directory being pulled into} {remote repo URL} {remote branch} --squash
-```
-
-#### Updating subtree
-
-To update subtrees you have to use pull and push referring the prefix and the remote repos path
-
-##### Pulling changes
-
-```shell
-git subtree pull --prefix {local directory being pulled into} {remote repo URL} {remote branch} --squash
-```
-
-##### Pushing changes
-
-```shell
-git subtree push --prefix {local directory being pulled into} {remote repo URL} {remote branch}
-```
-
-### Tags
-
-#### Listing tags
-
-```shell
-git tag
-```
-
-#### Creating tags
-
-```shell
-git tag -a v2.3.4 -m "[2.3.4] - 2022-04-25"
-```
-
-#### Search tags
-
-### Git Alias
-
-Syntax to add alias to git commands
-
-```sh
-git config --global alias.wta '!f() { git worktree add -b "$1" "../$1"; }; f'
-git config --global alias.wtr '!f() { git worktree remove "../$1"; }; f'
-git config --global alias.wtl '!f() { git worktree list; }; f'
-```
-
-**Usage:**
-
-```sh
-# List worktrees
-git wtl
-
-# Add a worktree
-git wta name-of-my-worktree
-
-# Remove a worktree
-git wtr name-of-my-worktree
-```
-
-### Git Hooks
-
-#### pre-push
-
-Within every `.git` folder there's a folder called hooks, these hooks are triggered by git to chain other commands, for instance a `pre-push` is trigger before the `push` occur, so that allow you to create rules or restriction to the `push`
-
-**Pre Push example:**
-
-```sh
-# .git/hooks/pre-push
-
-#!/bin/sh
-
-# Rule to guard that only 'main' can be pushed to production
-
-remote="$1"
-url="$2"
-
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-
-if test "$remote" = "production"; then
-  if test "$current_branch" != "main"; then
-    echo "Current branch: '$current_branch'."
-    echo "Only 'main' can be pushed to 'production'."
-    exit 1
-  fi
-fi
-
-exit 0
-```
-
-> After implemented be sure to give it the necessary permissions `chmod +x .git/hooks/pre-push`
-
-| Hook Name                 | Triggered When / Description                                                                                                                 |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| **applypatch-msg**        | After `git am` applies a patch, used to validate or edit the commit message of the patch.                                                    |
-| **pre-applypatch**        | Before applying a patch with `git am`, can be used to inspect the patch and abort if needed.                                                 |
-| **post-applypatch**       | After a patch is applied via `git am`, usually for cleanup or notifications.                                                                 |
-| **pre-commit**            | Before a commit is created (`git commit`). Commonly used to run linters, tests, or validate staged files.                                    |
-| **prepare-commit-msg**    | Before the commit message editor is fired, allows modification of the default commit message.                                                |
-| **commit-msg**            | After writing the commit message, before the commit is finalized. Can be used to enforce commit message format.                              |
-| **post-commit**           | After a commit has been created. Usually for notifications, logging, or triggering CI hooks.                                                 |
-| **pre-rebase**            | Before `git rebase` begins. Can be used to abort or warn about unsafe rebases.                                                               |
-| **post-checkout**         | After `git checkout` or `git switch`. Parameters indicate branch or commit change; often used to update environment or dependencies.         |
-| **post-merge**            | After a successful merge. Often used to run build or update scripts.                                                                         |
-| **pre-push**              | Before `git push`. Can inspect what’s being pushed and abort if necessary (e.g., prevent non-main branches from being pushed to production). |
-| **pre-receive**           | On the remote repository, before any refs are updated. Can reject pushes based on branch, commit message, or other policies.                 |
-| **update**                | On the remote, called once per ref being updated (branch/tag). Similar to `pre-receive` but per-ref.                                         |
-| **post-receive**          | On the remote, after all refs have been updated. Often used to trigger CI/CD pipelines or deployment scripts.                                |
-| **post-update**           | On the remote, after `git push`. Similar to `post-receive` but simpler; often used to update server info.                                    |
-| **pre-auto-gc**           | Before Git’s automatic garbage collection (`git gc --auto`). Can be used to postpone GC under certain conditions.                            |
-| **post-rewrite**          | After commands like `git commit --amend` or `git rebase` that rewrite history. Useful for cleanup or notifications.                          |
-| **fsmonitor-watchman**    | Used by Git’s filesystem monitoring (Watchman) to speed up `git status` and other commands. Triggered when file changes are detected.        |
-| **p4-pre-submit**         | Used in Perforce integration; called before submitting changes from Perforce.                                                                |
-| **applypatch-msg.sample** | Example scripts (not active by default) that demonstrate how to use the hooks.                                                               |
-| **pre-commit.sample**     | Example script provided by Git for pre-commit hooks.                                                                                         |
-| **post-commit.sample**    | Example script provided by Git for post-commit hooks.                                                                                        |
-| **pre-push.sample**       | Example script provided by Git for pre-push hooks.                                                                                           |
-
-### Git lfs / Large files on Github
-
-Git has an extension to control larger files
-
-#### Extension installation
-
-First is required to download files
-
-##### First download the git-lfs file
-
-<https://github.com/git-lfs/git-lfs/releases>
-
-##### Download additional script
-
-```shell
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh?os=Ubuntu&dist=kinnect&source=script | sudo bash
-```
-
-##### First install
-
-Within the `git-lfs-3.2.0` folder
-
-```shell
-sudo ./install.sh
-```
-
-#### Git lfs usage
-
-```shell
-git lfs install
-```
-
-##### Tracking files
-
-Within the repo with large files start tracking files
-
-```shell
-git lfs track "*.capx"
-```
-
-### Github actions
-
-Actions allows us to set automatization that run over a repository triggered by events, mostly the actions are used to run linters, CI, deploy, builds, and etc...
-
-```mermaid
-graph LR
-Events-->| Trigger | Workflows-->| Use | Actions
-```
-
-All configuration is setup using YAML
-
-**Example:**
-
-```yml
-on:
-  issues:
-    types:
-      - opened
-
-jobs:
-  label_issue:
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
-        run: |
-          gh issue edit $ISSUE_URL --add-label "triage"
-```
-
-#### Events
-
-Events establishes when a workflow should be triggered
-
-Some of the most common triggers are:
-
-- push
-- pull_request
-- public
-- fork
-- label
-- workflow_dispatch
-- schedule
-
-To automatically trigger a workflow, use on to define which events can cause the workflow to run.
-
-**`schedule` trigger examples:**
-
-```yml
-on:
-  schedule:
-    - cron: 0 12 * * 1
-```
-
-**`label` trigger example:**
-
-```yml
-on:
-  label:
-    types:
-      - created
-```
-
-It's also possible to define multiple triggers
-
-```yml
-on:
-  [push, fork]
-  # - do something
-```
-
-OR
-
-```yml
-on:
-  label:
-    types:
-      - created
-  push:
-    branches:
-      - main
-```
-
-It's also possible to have multiple types
-
-```yml
-on:
-  label:
-    types: [created, edited]
-```
-
-To see more available workflow triggers go to <https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows>
-
-#### Workflows
-
-A workflow is a configurable automated process that will run one or more jobs, it is also defined by YAML file, which has to saved under `workflows` directory
-
-```tree
-.github
-└── workflows
-    └── markdown-linter.yml
-```
-
-Workflow basically runs sequenced pre-existing actions or shell scripts
-
-**Workflow YAML file example using pre existing:**
-
-```yml
-name: Code Linting
-
-on: push
-
-jobs:
-  MarkdownLinter:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-
-      - name: Markdown Lint
-        uses: avto-dev/markdown-lint@v1
-        with:
-          config: "./.markdownlintrc"
-          args: "./README.md ./specifics/*.md"
-          ignore: "./CHANGELOG.md ./unorganized_documents/* ./files/*"
-```
-
-> In some cases we might to add specific args it depend on the action itself, so we might check the action repo
-
-### Git commands table
-
-| Command                                                                    | Description                                                                                             |
-| :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| `git rm -r --cached .`                                                     | Clear git cache for all files                                                                           |
-| `git branch \| grep -v "main" \| xargs git branch-D`                       | Clean git branches                                                                                      |
-| `git branch -M NEW_NAME`                                                   | Rename branch and set new name for origin                                                               |
-| `git branch -m NEW_NAME`                                                   | Rename branch locally                                                                                   |
-| `git reset --soft HEAD~1`                                                  | Retrieve one commit (`~1`) and return it to the staging area                                            |
-| `git reset --hard`                                                         | Undo every uncommitted change; can also undo commits using `HEAD~1` flag                                |
-| `git push --force`                                                         | Force push in case of divergence from origin (careful, no rollback)                                     |
-| `git push --set-upstream origin BRANCH_NAME`                               | Push and set upstream branch                                                                            |
-| `git fetch --prune`                                                        | Remove stale remote-tracking branches                                                                   |
-| `git branch -vv`                                                           | Show branch status with upstream tracking                                                               |
-| `git config --global user.name USER_NAME`                                  | Set global user name                                                                                    |
-| `git config --global user.email USER_EMAIL`                                | Set global user email                                                                                   |
-| `git config --global user.password PASSWORD`                               | Set global user password                                                                                |
-| `git config --global init.defaultBranch BRANCH_NAME`                       | Redefine the default initial branch name globally                                                       |
-| `git revert -m 1 COMMIT_SHA`                                               | Revert changes from a specific commit                                                                   |
-| `git rebase BRANCH`                                                        | Sync local branch with another branch (conflicts may occur; use `git push --force` carefully if needed) |
-| `git remote add origin git@github.com:USER_NAME/REPO_NAME.git`             | Add remote repository                                                                                   |
-| `git submodule add origin git@github.com:USER_NAME/REPO_NAME.git`          | Add a repository as a submodule                                                                         |
-| `git submodule update`                                                     | Pull updates for all submodules                                                                         |
-| `git submodule update MODULE_PATH`                                         | Pull updates for a specific submodule                                                                   |
-| `git subtree add --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash`  | Add a subtree to the project                                                                            |
-| `git subtree pull --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | Pull changes from the original repository for a subtree                                                 |
-| `git subtree push --prefix PATH_NAME REMOTE_REPO_URL BRANCH_NAME --squash` | Push changes from the subtree to the original repository                                                |
-
-### Advanced `diff`
-
-**Diff to external file:**
-
-```sh
-git diff --staged > diff.txt
-```
-
-> `>` to create a file `>>` to add to an existing file
-
-**Diff between branches:**
-
-```sh
-git diff branch_name..another_branch
-```
-
-**Diff truncate:**
-
-```sh
-git diff -U5 -w branch_name..another_branch
-```
-
-> In this example, `-U5` specifies that only 5 lines of unified context should be included for each change, and `-w` ignores whitespace changes.
-
-**Diff unified:**
-
-```sh
-git diff --unified=0
-```
-
-**Listing changed against main:**
-
-```sh
-git diff --diff-filter=MA --name-status main...
-```
-
-### Advanced `log`
-
-```sh
-git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short main..HEAD
-```
-
 ## Awesome Fonts
 
 - Create profile to generate the snippet we gonna use to trigger the lib
@@ -1093,13 +379,8 @@ Depending on where you want to use FontAwesome, you will need to add the script 
   <head>
     <title>Patients Intermediary App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= stylesheet_link_tag
-    "application", "data-turbo-track": "reload" %> <%= javascript_importmap_tags
-    %>
-    <script
-      src="https://kit.fontawesome.com/323h4jk32h4l2j123.js"
-      crossorigin="anonymous"
-    ></script>
+    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/323h4jk32h4l2j123.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -1364,8 +645,8 @@ Add to the .bashrc:
 ```sh
 # .bashrc
 # HEROKU
-staging() { 
-  heroku "${@:---help}" -r staging 
+staging() {
+  heroku "${@:---help}" -r staging
 }
 ```
 
@@ -1388,6 +669,53 @@ after adding the alias:
 ```sh
 staging run bash
 ```
+
+---
+
+## Render
+
+### Render CLI
+
+**Installation:**
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/render-oss/cli/refs/heads/main/bin/install.sh | sh
+```
+
+**Render login:**
+
+In many ways render works very much like other CLI's like Heroku for instance.
+
+```sh
+render login
+```
+
+**Workspaces:**
+
+Listing workspaces:
+
+```sh
+render workspaces --output json
+[
+  {
+    "email": "registered-email",
+    "id": "project-id",
+    "name": "workspace-name",
+    "type": "team"
+  }
+```
+
+To be able to scope render CLI usage to a workspace we need to set a workspace
+
+```sh
+render workspaces set %workspace-name%
+```
+
+This in fact will prompt workspaces selection, so you can navigate and choose one
+
+**Listing services:**
+
+After set a workspace you can also use CLI prompt to list services, which will also allow you navigate through services
 
 ---
 
@@ -1424,10 +752,11 @@ Then on my css to use the fonts are on the cloud storage I will have to do somet
 ```css
 @font-face {
   font-family: "Manjari";
-  src: url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.woff2") format("woff2"),
+  src:
+    url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.woff2") format("woff2"),
     url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.woff") format("woff"),
     url("https://f000.backblazeb2.com/file/your-bucket/folder-name/Manjari-Thin.ttf") format("truetype");
-    
+
   font-weight: 300;
 }
 ```
@@ -1527,18 +856,18 @@ secret_key     ****************0LDi shared-credentials-file
 
 Certainly! Here's the list of commands converted into a Markdown table:
 
- | Command                                                                   | Description                    |
- | :------------------------------------------------------------------------ | :----------------------------- |
- | `aws configure`                                                           | Configuring AWS CLI            |
- | `aws s3 ls`                                                               | Listing S3 Buckets             |
- | `aws s3 cp my-local-file.txt s3://my-bucket/`                             | Copying a Local File to S3     |
- | `aws s3 cp s3://my-bucket/my-s3-file.txt my-local-directory/`             | Copying from S3 to Local       |
- | `aws s3 cp . s3://my-bucket/ --recursive --exclude "*" --include "*.jpg"` | Uploading Multiple Files to S3 |
- | `aws s3 ls s3://my-bucket/`                                               | Listing S3 Objects in a Bucket |
- | `aws s3 mb s3://my-new-bucket-name`                                       | Creating an S3 Bucket          |
- | `aws s3 rb s3://my-bucket-to-delete`                                      | Deleting an S3 Bucket          |
- | `aws s3 sync my-local-directory s3://my-bucket/`                          | Syncing Local Files with S3    |
- | `aws ec2 describe-instances`                                              | Describing EC2 Instances       |
+| Command                                                                   | Description                    |
+| :------------------------------------------------------------------------ | :----------------------------- |
+| `aws configure`                                                           | Configuring AWS CLI            |
+| `aws s3 ls`                                                               | Listing S3 Buckets             |
+| `aws s3 cp my-local-file.txt s3://my-bucket/`                             | Copying a Local File to S3     |
+| `aws s3 cp s3://my-bucket/my-s3-file.txt my-local-directory/`             | Copying from S3 to Local       |
+| `aws s3 cp . s3://my-bucket/ --recursive --exclude "*" --include "*.jpg"` | Uploading Multiple Files to S3 |
+| `aws s3 ls s3://my-bucket/`                                               | Listing S3 Objects in a Bucket |
+| `aws s3 mb s3://my-new-bucket-name`                                       | Creating an S3 Bucket          |
+| `aws s3 rb s3://my-bucket-to-delete`                                      | Deleting an S3 Bucket          |
+| `aws s3 sync my-local-directory s3://my-bucket/`                          | Syncing Local Files with S3    |
+| `aws ec2 describe-instances`                                              | Describing EC2 Instances       |
 
 You can copy and paste this table into your Markdown file.
 
@@ -1625,14 +954,13 @@ As we add credentials we will use it like this:
 ```js
 // Setup S3 credential example
 
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
+  region: process.env.AWS_REGION,
 });
-
 ```
 
 ## MinIO
@@ -1664,7 +992,7 @@ environment working at `http://localhost:9001/`
 
 1. Login
    - Use `admin123` or any `username/password` defined on the compose file as `MINIO_ROOT_USER`,
-       `MINIO_ROOT_PASSWORD`
+     `MINIO_ROOT_PASSWORD`
 
 2. Create bucket
    - Soon as you get in you can create a bucket, normally called `development`
@@ -1681,8 +1009,8 @@ environment working at `http://localhost:9001/`
        export AWS_S3_REGION=us-east-1
        export AWS_S3_BUCKET=<MINIO_BUCKET_NAME>
        export AWS_S3_ENDPOINT=<MINIO_LOCALHOST_URL>
-       
-        ```
+
+       ```
 
 ## Zed
 
@@ -1696,7 +1024,7 @@ curl -f https://zed.dev/install.sh | sh
 
 Save it on the: 'Open key Bindings', the `keymaps.json`
 
-```json
+````json
 [
   {
     "context": "Workspace",
@@ -1793,7 +1121,7 @@ Save it on the: 'Open key Bindings', the `keymaps.json`
 
 ```shell
 sudo nano /etc/gdm3/custom.conf
-```
+````
 
 basically just uncomment line bellow
 
@@ -2044,41 +1372,41 @@ echo "       "
 
 ### Neovim quick reference
 
-| Action                          | Command                                      | Explanation                                                           |
-| :------------------------------ | :------------------------------------------- | :-------------------------------------------------------------------- |
-| Normal Mode (default mode)      | `Esc`                                        | Exit Insert/Visual/Command mode, go to Normal mode.                   |
-| Insert Mode                     | `i`                                          | Enter Insert mode (start typing text).                                |
-| Visual Mode                     | `v`                                          | Enter Visual mode to select text.                                     |
-| Command Mode                    | `:`                                          | Enter Command mode to type commands (e.g., `:w`, `:q`).               |
-| Search                          | `/search_term`                               | Search for `search_term` forward in the text.                         |
-| Find Next                       | `n`                                          | Move to the next search result.                                       |
-| Find Previous                   | `N`                                          | Move to the previous search result.                                   |
-| Go to Line                      | `G`                                          | Jump to the last line of the file.                                    |
-| Go to Specific Line             | `:line_number`                               | Jump to the line number (e.g., `:10` to go to line 10).               |
-| Jump to Beginning of File       | `gg`                                         | Go to the start of the file.                                          |
-| Jump to End of File             | `G`                                          | Go to the end of the file.                                            |
-| Move by Word                    | `w`                                          | Move the cursor to the next word.                                     |
-| Move by Word Backward           | `b`                                          | Move the cursor to the previous word.                                 |
-| Move by Line Start              | `0`                                          | Move the cursor to the start of the current line.                     |
-| Move by Line End                | `$`                                          | Move the cursor to the end of the current line.                       |
-| Scroll Down                     | `Ctrl + f`                                   | Scroll down one page (forward).                                       |
-| Scroll Up                       | `Ctrl + b`                                   | Scroll up one page (backward).                                        |
-| Split Screen Horizontally       | `:split` or `Ctrl + w` then `s`              | Split window horizontally.                                            |
-| Split Screen Vertically         | `:vsplit` or `Ctrl + w` then `v`             | Split window vertically.                                              |
-| Switch Between Splits           | `Ctrl + w` then `w`                          | Switch between open splits.                                           |
-| Close Current Split             | `Ctrl + w` then `q`                          | Close the current split window.                                       |
-| Close All Splits                | `:qa`                                        | Quit all splits and close Neovim.                                     |
-| Save File                       | `:w`                                         | Save the file.                                                        |
-| Quit Neovim                     | `:q`                                         | Quit Neovim.                                                          |
-| Save and Quit                   | `:wq` or `ZZ`                                | Save and quit Neovim.                                                 |
-| Undo                            | `u`                                          | Undo the last change.                                                 |
-| Redo                            | `Ctrl + r`                                   | Redo the last undone change.                                          |
-| Delete Character                | `x`                                          | Delete the character under the cursor.                                |
-| Delete Word                     | `dw`                                         | Delete the word under the cursor.                                     |
-| Delete Line                     | `dd`                                         | Delete the current line.                                              |
-| Copy (Yank) Line                | `yy`                                         | Yank (copy) the current line.                                         |
-| Paste                           | `p`                                          | Paste after the cursor position.                                      |
-| Move to Matching Parenthesis    | `%`                                          | Jump to the matching parenthesis, brace, or bracket.                  |
+| Action                       | Command                          | Explanation                                             |
+| :--------------------------- | :------------------------------- | :------------------------------------------------------ |
+| Normal Mode (default mode)   | `Esc`                            | Exit Insert/Visual/Command mode, go to Normal mode.     |
+| Insert Mode                  | `i`                              | Enter Insert mode (start typing text).                  |
+| Visual Mode                  | `v`                              | Enter Visual mode to select text.                       |
+| Command Mode                 | `:`                              | Enter Command mode to type commands (e.g., `:w`, `:q`). |
+| Search                       | `/search_term`                   | Search for `search_term` forward in the text.           |
+| Find Next                    | `n`                              | Move to the next search result.                         |
+| Find Previous                | `N`                              | Move to the previous search result.                     |
+| Go to Line                   | `G`                              | Jump to the last line of the file.                      |
+| Go to Specific Line          | `:line_number`                   | Jump to the line number (e.g., `:10` to go to line 10). |
+| Jump to Beginning of File    | `gg`                             | Go to the start of the file.                            |
+| Jump to End of File          | `G`                              | Go to the end of the file.                              |
+| Move by Word                 | `w`                              | Move the cursor to the next word.                       |
+| Move by Word Backward        | `b`                              | Move the cursor to the previous word.                   |
+| Move by Line Start           | `0`                              | Move the cursor to the start of the current line.       |
+| Move by Line End             | `$`                              | Move the cursor to the end of the current line.         |
+| Scroll Down                  | `Ctrl + f`                       | Scroll down one page (forward).                         |
+| Scroll Up                    | `Ctrl + b`                       | Scroll up one page (backward).                          |
+| Split Screen Horizontally    | `:split` or `Ctrl + w` then `s`  | Split window horizontally.                              |
+| Split Screen Vertically      | `:vsplit` or `Ctrl + w` then `v` | Split window vertically.                                |
+| Switch Between Splits        | `Ctrl + w` then `w`              | Switch between open splits.                             |
+| Close Current Split          | `Ctrl + w` then `q`              | Close the current split window.                         |
+| Close All Splits             | `:qa`                            | Quit all splits and close Neovim.                       |
+| Save File                    | `:w`                             | Save the file.                                          |
+| Quit Neovim                  | `:q`                             | Quit Neovim.                                            |
+| Save and Quit                | `:wq` or `ZZ`                    | Save and quit Neovim.                                   |
+| Undo                         | `u`                              | Undo the last change.                                   |
+| Redo                         | `Ctrl + r`                       | Redo the last undone change.                            |
+| Delete Character             | `x`                              | Delete the character under the cursor.                  |
+| Delete Word                  | `dw`                             | Delete the word under the cursor.                       |
+| Delete Line                  | `dd`                             | Delete the current line.                                |
+| Copy (Yank) Line             | `yy`                             | Yank (copy) the current line.                           |
+| Paste                        | `p`                              | Paste after the cursor position.                        |
+| Move to Matching Parenthesis | `%`                              | Jump to the matching parenthesis, brace, or bracket.    |
 
 #### Basic Plugin Commands
 
@@ -2383,41 +1711,31 @@ yarn exec biome init
 {
   // ...
   "lsp": {
-  "biome": {
-   "command": "bunx", // Using bun
-   "args": ["biome", "lsp-proxy"],
-   "language_ids": [
-    "javascript",
-    "typescript",
-    "jsx",
-    "tsx",
-    "json",
-    "jsonc",
-    "css",
-    "graphql"
-   ],
-   "settings": {
-    "require_config_file": true
-   }
+    "biome": {
+      "command": "bunx", // Using bun
+      "args": ["biome", "lsp-proxy"],
+      "language_ids": ["javascript", "typescript", "jsx", "tsx", "json", "jsonc", "css", "graphql"],
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  },
+  "language_servers": ["biome"],
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  },
+  "languages": {
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } }
   }
- },
- "language_servers": ["biome"],
- "formatter": {
-  "language_server": {
-   "name": "biome"
-  }
- },
- "languages": {
-  "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
-  "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
-  "TSX": { "formatter": { "language_server": { "name": "biome" } } },
-  "JSON": { "formatter": { "language_server": { "name": "biome" } } },
-  "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
-  "CSS": { "formatter": { "language_server": { "name": "biome" } } },
-  "GraphQL": { "formatter": { "language_server": { "name": "biome" } } }
- }
 }
-
 ```
 
 ---
@@ -2623,6 +1941,320 @@ In the example directory structure below, assume you used Windows Explorer to na
 ### Public Page No Index
 
 <https://www.siteguru.co/seo-academy/when-to-use-meta-robots-noindex-tags>
+
+---
+
+## Gherkin
+
+Gherkin is a plain-text, line-oriented language used to write executable specifications for software behavior — most commonly associated with the Cucumber testing framework (though other tools like Behave, SpecFlow, and Behat also use it).
+
+Core idea: it lets you describe how a system should behave using structured natural language, written in a Given/When/Then format, so that:
+
+Business people (product owners, stakeholders) can read and verify it
+Developers can implement it without ambiguity
+The same document doubles as an automated test — each step is matched to code (a "step definition") that actually exercises the system
+
+A minimal example:
+
+```gherkin
+Feature: Guess the word
+
+  Scenario: Maker starts a game
+    Given the Maker has started a game with the word "silky"
+    When the Breaker joins the Maker's game
+    Then the Breaker must guess a word with 5 characters
+```
+
+Key building blocks:
+
+- **Feature** — groups related scenarios, describing a capability
+- **Scenario (or Example)** — one concrete illustration of behavior
+- **Given / When / Then / And / But** — steps describing precondition, action, and outcome
+- **Rule, Background, Scenario Outline** — optional structures for grouping business rules, shared setup, or data-driven variations
+
+Because Gherkin is just structured text, it acts as living documentation: it stays in sync with the system's actual behavior, since the same file that describes the behavior is also what runs as the test suite (via the step definitions behind it).
+
+
+### Document Structure
+
+```gherkin
+Feature
+  Rule (optional)
+    Background (optional)
+    Scenario / Example
+      Given / When / Then / And / But
+  Scenario Outline
+    Examples
+```
+
+- **Feature** — one per file. High-level description grouping related scenarios. First keyword in the file.
+- **Rule** — optional, groups scenarios that illustrate one business rule. Use when a feature contains more than one distinct policy.
+- **Background** — steps that run before every scenario in a Feature (or Rule). Use only for context every scenario shares.
+- **Scenario** (a.k.a. **Example**) — one concrete example of a behavior, 3–7 steps.
+- **Scenario Outline** (a.k.a. **Scenario Template**) — a scenario template run once per row in an **Examples** table, when only input data varies.
+
+---
+
+### Step Keywords
+
+#### Given — precondition
+
+Establishes the state of the system *before* the scenario begins. Written as a fact, not a sequence of actions.
+
+```gherkin
+Correct: Given the cart contains "Wireless Mouse" with quantity 1
+Avoid: Given the user navigates to the products page
+   And clicks "Wireless Mouse"
+   And clicks "Add to Cart"
+```
+
+Rules:
+- State, not setup steps.
+- No implementation detail (no method names, no database calls).
+- Independent of other scenarios — no scenario should rely on another scenario having run first.
+
+#### When — action
+
+The single event or action being specified. One business action per scenario.
+
+```gherkin
+Correct: When the staff submits the registration
+Avoid: When the user clicks the "Submit" button
+Avoid: When the staff types their email, types their password, and presses Enter
+```
+
+Rules:
+- Describe intent, not UI mechanics ("submits the form", not "clicks the button").
+- One action per scenario. If two actions are both under test, split into two scenarios.
+
+#### Then — outcome
+
+The expected, observable result. The step definition should assert on what the user or another system can actually see — not on internal state.
+
+```gherkin
+Correct: The user sees the confirmation page
+Correct: The user sees the error "Name cannot be blank"
+Avoid: The password is encrypted
+Avoid: The database stores the record
+```
+
+Rules:
+- **Observable only.** If it can't be seen or received by the actor, it doesn't belong in a Then (avoid asserting on database rows, internal object state, etc.).
+- **Specific, not vague.** "the results look correct" is not a valid assertion; state the exact expected result.
+- **Active voice, actor present.** Prefer "the user sees X" over "X is shown." Passive constructions hide who is observing what.
+- One outcome per Then; use And/But for additional outcomes.
+
+#### And / But
+
+Continue the preceding keyword's meaning without repeating it. Use `But` for a negative assertion — it reads more naturally than `And ... not`.
+
+```gherkin
+Then the order total is $29.99
+  And the shipping is free
+  But the gift wrap option is not available
+```
+
+An asterisk (`*`) may be used in place of any step keyword, useful for list-like steps where "And" reads awkwardly.
+
+### Scenario
+
+```gherkin
+Scenario: [behavior, described as a business outcome]
+  Given [precondition]
+    And [additional precondition]
+  When [one action]
+  Then [observable outcome]
+    And [additional outcome]
+    But [notably absent outcome]
+```
+
+**Length:** 3–7 steps. Beyond ~10, the scenario is likely covering more than one behavior.
+
+**Duplicate-step check:** Cucumber matches steps by text only, ignoring the keyword. `Given there is money in my account` and `Then there is money in my account` are duplicates and will collide. Use unambiguous domain language instead (`Given my account has a balance of £430` / `Then my account should have a balance of £430`).
+
+
+### Rule
+
+Use `Rule` to state a business policy — something the system *must* or *must not* do — and group the scenarios that illustrate it.
+
+**Test:** can you prefix it with "The system shall..."?
+
+```gherkin
+Correct: Rule: Prescriber status changes must be recorded in the audit log
+Avoid: Rule: Toggling status logs status change event   ← description, not a rule
+```
+
+Split a Feature into multiple Rules when it governs more than one distinct policy (e.g., "data validity" vs. "auditability"). Don't create a Rule for a single scenario — a Rule should group at least 2–3 scenarios, or it's unnecessary structure.
+
+
+### Background
+
+Use `Background` only for `Given` steps repeated identically across *every* scenario in the Feature (or Rule).
+
+Guidelines:
+- Keep it short — under ~4 lines. If it grows, move detail into a higher-level step (e.g., `Given I am logged in as a site owner` instead of listing user/site setup line by line).
+- Don't use it to hide complicated state the reader doesn't need to know about.
+- If different scenarios need different backgrounds, split into separate Rules or Features rather than forcing one Background to cover all cases.
+
+### Scenario Outline
+
+Use an Outline only when the behavior is identical across cases and only the data changes.
+
+**Test:** cover the steps of two candidate scenarios with your hand — can the difference between them be described in one word or one data value?
+
+**Correct usage** — only the status value changes, behavior is otherwise identical:
+
+```gherkin
+Scenario Outline: Toggle prescriber status
+  Given the prescriber is "<initial_status>"
+  When staff marks the prescriber as "<new_status>"
+  Then the prescriber status is "<new_status>"
+  And the change is logged
+
+  Examples:
+    | initial_status  | new_status |
+    | active          | inactive   |
+    | inactive        | active     |
+```
+
+A second example, parameterizing more than one value per row:
+
+```gherkin
+Scenario Outline: Reject an invalid registration field
+  Given staff is registering a new prescriber
+  When staff submits "<field>" as "<value>"
+  Then the user sees the error "<error_message>"
+
+  Examples:
+    | field        | value | error_message                 |
+    | name         |       | Name cannot be blank          |
+    | registration | 12    | Registration must be 6 digits |
+    | email        | abc   | Email must be a valid address |
+```
+
+**Avoid** — the cases below differ in more than data (different Given, different Then), so they must stay as two separate scenarios rather than being collapsed into one Outline:
+
+```gherkin
+Scenario: Staff tags a file successfully
+  Given a file exists
+  When staff tags the file
+  Then the tag label appears on the file
+
+Scenario: Staff tags a file that is already tagged
+  Given the file already has a tag
+  When staff tags the file again
+  Then the user sees the error "File is already tagged"
+```
+
+Do **not** use an Outline when scenarios differ in more than input data — different Then assertions, different preconditions, or different outcomes each mean the cases are distinct scenarios, not variations of one.
+
+### Step Arguments
+
+- **Doc Strings** (`"""`): pass a block of text to a step as its last argument. Useful for larger bodies of text (e.g. a blog post body).
+- **Data Tables** (`|`): pass a table of values to a step as its last argument. Useful for structured multi-row/column input (e.g., a list of users).
+
+Note the distinction: a **Data Table** attached to a single step passes a list of rows to *that step's* definition. An **Examples** table attached to a Scenario Outline runs the *entire scenario* once per row. They are separate mechanisms and can be combined in the same scenario.
+
+#### Data Table — outside an Outline
+
+Used on its own step, independent of any Outline, to pass a fixed list of values:
+
+```gherkin
+Scenario: Staff imports a batch of prescribers
+  Given the following prescribers exist:
+    | name         | registration | type      |
+    | Dr. A. Silva | 123456       | physician |
+    | Dr. B. Souza | 654321       | dentist   |
+  When staff runs the import
+  Then the user sees "2 prescribers imported"
+```
+
+The table here is fixed data for one scenario — it does not vary across runs.
+
+#### Data Table — inside an Outline
+
+A Data Table can appear on a step within a Scenario Outline. Outline parameters (`<...>`) can be used inside the table cells, and the table is re-evaluated for every row in `Examples`:
+
+```gherkin
+Scenario Outline: Staff searches for a prescriber by field
+  Given the following prescriber exists:
+    | name          | registration    |
+    | Dr. <name>    | <registration>  |
+  When staff searches for "<search_term>"
+  Then the user sees <result_count> result(s)
+
+  Examples:
+    | name    | registration | search_term | result_count |
+    | Alvarez | 111111       | Alvarez     | 1            |
+    | Alvarez | 111111       | 999999      | 0            |
+```
+
+Use this combination only when the table itself needs to vary per example row. If the table is constant across all rows, keep it as fixed Data Table content and only parameterize the differing step(s) — don't parameterize a table that never actually changes.
+
+### Structural reference
+
+**Question to ask:** 
+
+- what verb would the actor use to describe what they just did? Different verb → likely a different Feature.
+- Is this one action a user would describe with a single verb?
+  - Yes → likely one Feature
+  - No  → does it have its own precondition → outcome cycle?
+    - Yes → separate Feature
+    - No  → a step within the larger Feature
+- One feature or two? Split if any are true:
+  1. Can a user perform one without the other being available?
+  2. Do they require different preconditions?
+  3. Would a product owner name them as separate capabilities in conversation?
+
+**Directory structure:** 
+
+Should mirror the domain grouping (chapters = directories, features = files):
+
+```
+features/
+├── prescribers/
+│   ├── add_prescriber.feature
+│   ├── edit_prescriber.feature
+│   ├── search_prescribers.feature
+│   ├── view_prescribers_list.feature
+│   └── tag_prescriber_files.feature
+```
+
+**Scenario checklist:**
+
+| Count | Assessment                                             |
+| ----- | ------------------------------------------------------ |
+| 1     | Likely under-specified, or the feature is trivial      |
+| 2–3   | Thin — check for missing edge cases                    |
+| 4–8   | Well-specified                                         |
+| 9–15  | Consider whether a `Rule` split clarifies the grouping |
+| 16+   | Likely multiple capabilities in one Feature — split it |
+
+
+**Review Checklist:**
+
+Before finalizing a scenario, confirm:
+
+1. Can a product owner read it and confirm "yes, that's the expected behavior"?
+2. Can a developer implement it without needing clarification (i.e., are the Then steps specific)?
+3. Does it run independently of every other scenario (no shared/leaked state via Given)?
+4. Is every Then observable and in active voice?
+5. Is there exactly one When (one business action)?
+
+### Quick reference
+
+| Keyword          | Common pitfall                           | Fix                                     |
+| ---------------- | ---------------------------------------- | --------------------------------------- |
+| Given            | Multi-step setup sequence                | Compress into one stated fact           |
+| When             | UI mechanics instead of business action  | State the actor's intent                |
+| Then             | Passive voice ("is shown", "is updated") | Name the actor: "sees", "receives"      |
+| Then             | Vague assertion ("looks correct")        | State the exact expected value          |
+| And/But          | Grouping unrelated outcomes              | Split into separate scenarios           |
+| Rule             | Describes an event instead of a policy   | Rephrase as "the system shall..."       |
+| Scenario Outline | Cases differ by more than data           | Use separate scenarios                  |
+| All              | Mixed tense or person                    | Present tense, third person, throughout |
+
+---
 
 ## References
 
