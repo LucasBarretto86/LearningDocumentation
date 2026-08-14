@@ -19,7 +19,7 @@ This project hold all the information and knowledge I gathered through my experi
     - [Validate SSH](#validate-ssh)
     - [Check SSH public key](#check-ssh-public-key)
     - [Using existing SHH key](#using-existing-shh-key)
-  - [ASDF](#asdf)
+  - [ASDF \[DEPRECATED\]](#asdf-deprecated)
     - [ASDF Install](#asdf-install)
     - [ASDF Plugins](#asdf-plugins)
       - [Adding plugin dependencies](#adding-plugin-dependencies)
@@ -28,7 +28,10 @@ This project hold all the information and knowledge I gathered through my experi
     - [Installing through ASDF Plugins](#installing-through-asdf-plugins)
     - [Updating through ASDF Plugins](#updating-through-asdf-plugins)
     - [Set version with ASDF Plugins](#set-version-with-asdf-plugins)
-  - [Tableplus](#tableplus)
+    - [Remove ASDF](#remove-asdf)
+  - [Mise \[INSTEAD OF ASDF\]](#mise-instead-of-asdf)
+    - [Using .env in Mise](#using-env-in-mise)
+  - [Tableplus \[DEPRECATED\]](#tableplus-deprecated)
   - [Awesome Fonts](#awesome-fonts)
     - [Ruby on Rails install](#ruby-on-rails-install)
       - [Usage on Rails](#usage-on-rails)
@@ -56,6 +59,7 @@ This project hold all the information and knowledge I gathered through my experi
   - [Render](#render)
     - [Render CLI](#render-cli)
   - [Cloud Storage](#cloud-storage)
+    - [R3 Cloudflare Storage](#r3-cloudflare-storage)
     - [B2 Cloud Storage](#b2-cloud-storage)
       - [Setup B2 Cloud Storage](#setup-b2-cloud-storage)
         - [Create a B2 Bucket](#create-a-b2-bucket)
@@ -244,7 +248,7 @@ If it persists use:
 chmod 700 ~/.ssh
 ```
 
-## ASDF
+## ASDF [DEPRECATED]
 
 ### ASDF Install
 
@@ -317,7 +321,60 @@ Local
 asdf local nodejs X.X.X
 ```
 
-## Tableplus
+### Remove ASDF
+
+```sh
+rm -rf ~/.asdf
+```
+
+them remove from `.bashrc`
+
+```sh
+". $HOME/.asdf/asdf.sh" # IF EXISTS
+". $HOME/.asdf/completions/asdf.bash" # IF EXISTS
+```
+
+after save changes and run `source ~/.bashrc`
+
+
+```sh
+which asdf
+```
+
+If returns empty means it was removed
+
+---
+
+## Mise [INSTEAD OF ASDF]
+
+**Migrate from ASDF:**
+
+<https://mise.jdx.dev/faq.html#how-do-i-migrate-from-asdf>
+
+**Installation:**
+
+```sh
+# for bash
+
+curl https://mise.run | sh
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+source ~/.bashrc
+mise doctor
+```
+**Settings:**
+
+<https://mise.jdx.dev/configuration/settings.html>
+
+**Usage:**
+
+
+### Using .env in Mise
+
+<https://mise.jdx.dev/configuration/environments.html>
+
+---
+
+## Tableplus [DEPRECATED]
 
 **Installation:**
 
@@ -721,6 +778,10 @@ After set a workspace you can also use CLI prompt to list services, which will a
 
 ## Cloud Storage
 
+### R3 Cloudflare Storage
+
+---
+
 ### B2 Cloud Storage
 
 #### Setup B2 Cloud Storage
@@ -760,6 +821,7 @@ Then on my css to use the fonts are on the cloud storage I will have to do somet
   font-weight: 300;
 }
 ```
+---
 
 ## AWS
 
